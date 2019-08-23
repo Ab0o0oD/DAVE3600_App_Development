@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CircleCalculator</string>
+    <string name="enter_radius">Enter Radius</string>
+    <string name="show_volum">Volume</string>
+    <string name="show_circumference">Circumference</string>
+    <string name="calculate">Calculate</string>
+</resources>
