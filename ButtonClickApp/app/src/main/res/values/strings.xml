@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ButtonClickApp</string>
+    <string name="headline">Hello There</string>
+    <string name="buttonText">Click me!</string>
 </resources>

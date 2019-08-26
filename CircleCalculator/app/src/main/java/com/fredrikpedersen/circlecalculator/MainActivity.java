@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         final Button calculate = findViewById(R.id.calculate);
 
-        calculate.setOnClickListener((v) -> {
+        calculate.setOnClickListener(view -> {
             float inValue = Float.parseFloat(inputRadius.getText().toString());
             outputVolume.setText(String.valueOf(calculateVolume(inValue)));
             outputCircumference.setText(String.valueOf(calculateCircumference(inValue)));
