@@ -1,7 +1,0 @@
-<resources>
-    <string name="hello">HELLO WORLD!</string>
-    <string name="app_name">GradEksempel</string>
-    <string name="overskrift">Skriv inn temperatur:</string>
-    <string name="grad">Til Grader:</string>
-    <string name="fahrenheit">Til Fahrenheit</string>
-</resources>
