@@ -16,4 +16,5 @@
     <string name="subtract">-</string>
     <string name="add">+</string>
     <string name="dot">.</string>
+    <string name="placeholder">Hello there</string>
 </resources>
