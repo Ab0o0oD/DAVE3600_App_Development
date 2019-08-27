@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/backgroundPref"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0C770F">
+
+    <TextView
+        android:id="@+id/numTasksText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/numTasksText"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/tasksBtn0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/num5"
+        app:layout_constraintEnd_toEndOf="@+id/numTasksText"
+        app:layout_constraintStart_toStartOf="@+id/numTasksText"
+        app:layout_constraintTop_toBottomOf="@+id/numTasksText" />
+
+    <Button
+        android:id="@+id/tasksBtn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/num10"
+        app:layout_constraintEnd_toEndOf="@+id/tasksBtn0"
+        app:layout_constraintStart_toStartOf="@+id/tasksBtn0"
+        app:layout_constraintTop_toBottomOf="@+id/tasksBtn0" />
+
+    <Button
+        android:id="@+id/tasksBtn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/num25"
+        app:layout_constraintEnd_toEndOf="@+id/tasksBtn1"
+        app:layout_constraintStart_toStartOf="@+id/tasksBtn1"
+        app:layout_constraintTop_toBottomOf="@+id/tasksBtn1" />
+
+    <ImageView
+        android:id="@+id/germanFlag"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toEndOf="@+id/norwegianFlag"
+        app:layout_constraintTop_toTopOf="@+id/norwegianFlag"
+        app:srcCompat="@drawable/gerflag_300x500"
+        android:contentDescription="@string/gerFlag"/>
+
+    <ImageView
+        android:id="@+id/norwegianFlag"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.26"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tasksBtn2"
+        app:srcCompat="@drawable/norflag_300x500"
+        android:contentDescription="@string/norFlag" />
+</androidx.constraintlayout.widget.ConstraintLayout>
