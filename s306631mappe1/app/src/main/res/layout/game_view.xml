@@ -71,10 +71,10 @@
         android:id="@+id/btn0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/button0"
-        app:layout_constraintStart_toStartOf="@+id/btn8"
-        app:layout_constraintTop_toBottomOf="@+id/btn8" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/clearBtn"
+        app:layout_constraintStart_toEndOf="@+id/clearBtn" />
 
     <Button
         android:id="@+id/btn1"
@@ -159,5 +159,14 @@
         android:text="@string/button9"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn8"
         app:layout_constraintStart_toEndOf="@+id/btn8" />
+
+    <Button
+        android:id="@+id/clearBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/clear"
+        app:layout_constraintStart_toStartOf="@+id/btn7"
+        app:layout_constraintTop_toBottomOf="@+id/btn7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

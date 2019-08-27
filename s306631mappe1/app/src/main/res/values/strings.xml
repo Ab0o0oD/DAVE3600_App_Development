@@ -6,6 +6,10 @@
     <string name="preferences">Preferanser</string>
     <string name="pointsText">Poeng</string>
     <string name="answer">Svar</string>
+    <string name="clear">C</string>
+    <string name="correct">Riktig</string>
+    <string name="wrong">Feil</string>
+    <string name="delete">Slett Statistikk</string>
     <string name="button0">0</string>
     <string name="button1">1</string>
     <string name="button2">2</string>
