@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/backgroundGame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0C770F">
+
+    <TextView
+        android:id="@+id/taskBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/placeholder"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/answerBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/taskBox"
+        app:layout_constraintStart_toStartOf="@+id/taskBox"
+        app:layout_constraintTop_toBottomOf="@+id/taskBox" />
+
+    <TextView
+        android:id="@+id/pointTextBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/pointsText"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/answerBox"
+        app:layout_constraintEnd_toStartOf="@+id/answerBox" />
+
+    <TextView
+        android:id="@+id/pointCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3/25"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="@+id/pointTextBox"
+        app:layout_constraintStart_toStartOf="@+id/pointTextBox"
+        app:layout_constraintTop_toBottomOf="@+id/pointTextBox" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

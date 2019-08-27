@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">s306631mappe1</string>
+    <string name="app_name">Matematika</string>
+    <string name="placeholder">Hello There</string>
+    <string name="start">Start Spill</string>
+    <string name="stats">Statistikk</string>
+    <string name="preferences">Preferanser</string>
+    <string name="pointsText">Poeng</string>
 </resources>
