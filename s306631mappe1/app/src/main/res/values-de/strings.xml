@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Matematika</string>
+    <string name="answer">Antworten</string>
+    <string name="correct">Richtig</string>
+    <string name="delete">Statistiken Löschen</string>
+    <string name="gerFlag">Die Deutsche Flagge</string>
+    <string name="norFlag">Die Norwegische Flagge</string>
+    <string name="numTasksText">Anzahl der Aufgaben</string>
+    <string name="placeholder">Hallo</string>
+    <string name="preferences">Einstellungen</string>
+    <string name="start">Spiel Beginnen</string>
+    <string name="stats">Statistiken</string>
+    <string name="wrong">Falsch</string>
+    <string name="giveAnswer">Geben Sie Eine Antwort</string>
+    <string name="tasksText">Aufgabe</string>
+    <string name="done">Keine weiteren Aufgaben</string>
+</resources>
