@@ -2,6 +2,8 @@ package com.fredrikpedersen.s306631mappe1;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,12 +11,21 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Preferences extends AppCompatActivity {
 
     public static final String TAG = "Preferences";
-    protected static int numberOfTasks = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preferences_activity);
+    }
+
+    public void chooseNumberOfTasks(View view) {
+        Button btn = (Button)view;
+        Data.setNumberOfTasks(Integer.valueOf(btn.getText().toString()));
+        System.out.println(Data.getNumberOfTasks());
+    }
+
+    public void flagTest(View view) {
+        System.out.println("NEIN");
     }
 
     /* ---------- Life-Cycle Methods ------------- */
