@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Matematika</string>
+    <string name="answer">Svar</string>
+    <string name="backPressed">Sikker på at du vil avslutte?</string>
+    <string name="correct">Riktig</string>
+    <string name="delete">Slett Statistikk</string>
+    <string name="done">Ingen flere oppgaver!</string>
+    <string name="gerFlag">Det Tyske Flagget</string>
+    <string name="giveAnswer">Oppgi svar</string>
+    <string name="no">Nei</string>
+    <string name="norFlag">Det Norske Flagget</string>
+    <string name="numTasksText">Antall Oppgaver</string>
+    <string name="placeholder">Heisann</string>
+    <string name="preferences">Preferanser</string>
+    <string name="start">Start Spill</string>
+    <string name="stats">Statistikk</string>
+    <string name="tasksText">Oppgave</string>
+    <string name="wrong">Feil</string>
+    <string name="yes">Ja</string>
+</resources>

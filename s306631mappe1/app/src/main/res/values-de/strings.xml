@@ -15,4 +15,7 @@
     <string name="giveAnswer">Geben Sie Eine Antwort</string>
     <string name="tasksText">Aufgabe</string>
     <string name="done">Keine weiteren Aufgaben</string>
+    <string name="backPressed">Sicher, dass Sie aufhören wollen?</string>
+    <string name="no">Nein</string>
+    <string name="yes">Ja</string>
 </resources>
