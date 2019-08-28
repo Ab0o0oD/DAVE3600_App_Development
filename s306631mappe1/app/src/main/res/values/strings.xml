@@ -1,29 +1,104 @@
 <resources>
+    <!-- General -->
     <string name="app_name">Matematika</string>
     <string name="placeholder">Hello There</string>
+    <string name="backPressed">Sikker på at du vil avslutte?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nei</string>
+    <string name="num0" translatable="false">0</string>
+    <string name="num1" translatable="false">1</string>
+    <string name="num2" translatable="false">2</string>
+    <string name="num3" translatable="false">3</string>
+    <string name="num4" translatable="false">4</string>
+    <string name="num5" translatable="false">5</string>
+    <string name="num6" translatable="false">6</string>
+    <string name="num7" translatable="false">7</string>
+    <string name="num8" translatable="false">8</string>
+    <string name="num9" translatable="false">9</string>
+    <string name="num10" translatable="false">10</string>
+    <string name="num25" translatable="false">25</string>
 
+    <!-- Main Menu -->
     <string name="start">Start Spill</string>
     <string name="stats">Statistikk</string>
     <string name="preferences">Preferanser</string>
-    <string name="pointsText">Poeng</string>
+
+    <!-- Game -->
+    <string name="tasksText">Oppgave</string>
     <string name="answer">Svar</string>
-    <string name="clear">C</string>
+    <string name="clear" translatable="false">C</string>
     <string name="correct">Riktig</string>
     <string name="wrong">Feil</string>
     <string name="delete">Slett Statistikk</string>
+    <string name="giveAnswer">Oppgi svar</string>
+    <string name="done">Ingen flere oppgaver!</string>
+
+    <string-array name="tasks">
+        <item>2 + 2</item>
+        <item>2 + 3</item>
+        <item>4 + 9</item>
+        <item>7 + 8</item>
+        <item>0 + 12</item>
+
+        <item>9 + 10</item>
+        <item>11 + 12</item>
+        <item>22 + 33</item>
+        <item>23 + 7</item>
+        <item>19 + 9</item>
+
+        <item>47 + 53</item>
+        <item>93 + 113</item>
+        <item>56 + 47</item>
+        <item>98 + 99</item>
+        <item>117 + 1337</item>
+
+        <item>42 + 0</item>
+        <item>38 + 97</item>
+        <item>35 + 90</item>
+        <item>67 + 69</item>
+        <item>101 + 404</item>
+
+        <item>78 + 31</item>
+        <item>79 + 45</item>
+        <item>77 + 88</item>
+        <item>99 + 7</item>
+        <item>123 + 321</item>
+    </string-array>
+
+    <string-array name="answers">
+        <item>4</item>
+        <item>5</item>
+        <item>13</item>
+        <item>15</item>
+        <item>12</item>
+
+        <item>19</item>
+        <item>23</item>
+        <item>55</item>
+        <item>30</item>
+        <item>28</item>
+
+        <item>100</item>
+        <item>206</item>
+        <item>103</item>
+        <item>197</item>
+        <item>1454</item>
+
+        <item>42</item>
+        <item>135</item>
+        <item>145</item>
+        <item>136</item>
+        <item>505</item>
+
+        <item>109</item>
+        <item>124</item>
+        <item>165</item>
+        <item>106</item>
+        <item>444</item>
+    </string-array>
+
+    <!-- Preferences -->
     <string name="numTasksText">Antall Oppgaver</string>
-    <string name="num0">0</string>
-    <string name="num1">1</string>
-    <string name="num2">2</string>
-    <string name="num3">3</string>
-    <string name="num4">4</string>
-    <string name="num5">5</string>
-    <string name="num6">6</string>
-    <string name="num7">7</string>
-    <string name="num8">8</string>
-    <string name="num9">9</string>
-    <string name="num10">10</string>
-    <string name="num25">25</string>
 
     <!-- Content Descriptions  -->
     <string name="gerFlag">Det Tyske Flagget</string>

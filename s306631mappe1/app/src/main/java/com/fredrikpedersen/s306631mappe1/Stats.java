@@ -13,8 +13,10 @@ public class Stats extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.stats_view);
+        setContentView(R.layout.stats_activity);
     }
+
+    /* ---------- Life-Cycle Methods ------------- */
 
     @Override
     protected void onStart() {

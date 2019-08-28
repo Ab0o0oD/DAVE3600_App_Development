@@ -9,12 +9,15 @@ import androidx.appcompat.app.AppCompatActivity;
 public class Preferences extends AppCompatActivity {
 
     public static final String TAG = "Preferences";
+    protected static int numberOfTasks = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.preferences_view);
+        setContentView(R.layout.preferences_activity);
     }
+
+    /* ---------- Life-Cycle Methods ------------- */
 
     @Override
     protected void onStart() {
