@@ -14,7 +14,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:text="2 + 2 = "
+        android:text="@string/placeholder"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -38,20 +38,19 @@
         android:id="@+id/pointTextBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/pointsText"
+        android:text="@string/tasksText"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/pointCounter"
-        app:layout_constraintEnd_toEndOf="@+id/pointCounter"
-        app:layout_constraintStart_toStartOf="@+id/pointCounter" />
+        app:layout_constraintBottom_toTopOf="@+id/taskCounter"
+        app:layout_constraintEnd_toEndOf="@+id/taskCounter"
+        app:layout_constraintStart_toStartOf="@+id/taskCounter" />
 
     <TextView
-        android:id="@+id/pointCounter"
+        android:id="@+id/taskCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="3/25"
         android:textColor="#FFFFFF"
         app:layout_constraintBaseline_toBaselineOf="@+id/answerBox"
         app:layout_constraintEnd_toStartOf="@+id/answerBox"
@@ -62,6 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:onClick="onClickAnswer"
         android:text="@string/answer"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn0"
@@ -72,6 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:onClick="onClickAppend"
         android:text="@string/num0"
         app:layout_constraintBaseline_toBaselineOf="@+id/clearBtn"
         app:layout_constraintStart_toEndOf="@+id/clearBtn" />
@@ -81,6 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:onClick="onClickAppend"
         android:text="@string/num1"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn2"
         app:layout_constraintEnd_toStartOf="@+id/btn2" />
@@ -90,18 +92,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
+        android:onClick="onClickAppend"
         android:text="@string/num2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/answerBox" />
+        app:layout_constraintTop_toBottomOf="@+id/feedbackText" />
 
     <Button
         android:id="@+id/btn3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:onClick="onClickAppend"
         android:text="@string/num3"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn2"
         app:layout_constraintStart_toEndOf="@+id/btn2" />
@@ -111,6 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:onClick="onClickAppend"
         android:text="@string/num4"
         app:layout_constraintStart_toStartOf="@+id/btn1"
         app:layout_constraintTop_toBottomOf="@+id/btn1" />
@@ -120,6 +125,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:onClick="onClickAppend"
         android:text="@string/num5"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn4"
         app:layout_constraintStart_toEndOf="@+id/btn4" />
@@ -129,6 +135,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:onClick="onClickAppend"
         android:text="@string/num6"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn5"
         app:layout_constraintStart_toEndOf="@+id/btn5" />
@@ -138,6 +145,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:onClick="onClickAppend"
         android:text="@string/num7"
         app:layout_constraintStart_toStartOf="@+id/btn4"
         app:layout_constraintTop_toBottomOf="@+id/btn4" />
@@ -147,6 +155,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:onClick="onClickAppend"
         android:text="@string/num8"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn7"
         app:layout_constraintStart_toEndOf="@+id/btn7" />
@@ -156,6 +165,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:onClick="onClickAppend"
         android:text="@string/num9"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn8"
         app:layout_constraintStart_toEndOf="@+id/btn8" />
@@ -165,8 +175,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:onClick="onClickRemove"
         android:text="@string/clear"
         app:layout_constraintStart_toStartOf="@+id/btn7"
         app:layout_constraintTop_toBottomOf="@+id/btn7" />
+
+    <TextView
+        android:id="@+id/feedbackText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:text="@string/placeholder"
+        app:layout_constraintEnd_toEndOf="@+id/answerBox"
+        app:layout_constraintStart_toStartOf="@+id/answerBox"
+        app:layout_constraintTop_toBottomOf="@+id/answerBox" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
