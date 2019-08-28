@@ -45,7 +45,7 @@ public class Game extends AppCompatActivity {
 
     /* ---------- OnClick Methods ------------- */
 
-    //Assigned to btn0-9 in game_acitivy.xml
+    //Assigned to btn0-9 in game_activity.xml
     public void onClickAppend(View view) {
         Button btn = (Button)view;
         answerBox.append(btn.getText().toString());
@@ -71,7 +71,7 @@ public class Game extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (taskNumber < Preferences.numberOfTasks) {
+        if (taskNumber < Data.getNumberOfTasks()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(getResources().getString(R.string.backPressed))
                     .setCancelable(false)
@@ -84,6 +84,8 @@ public class Game extends AppCompatActivity {
                     .setNegativeButton(getResources().getString(R.string.no), null)
                     .show();
         } else {
+            Data.incrementCorrect(correctAnswers);
+            Data.incrementWrong(wrongAnswers);
             finish();
         }
     }
@@ -120,14 +122,14 @@ public class Game extends AppCompatActivity {
     }
 
     private void updateTaskCounter() {
-        int maks = Preferences.numberOfTasks;
+        int maks = Data.getNumberOfTasks();
         String counter = taskNumber + "/" + maks;
         taskCounter.setText(counter);
     }
 
     //Checks if all the tasks have been done
     private boolean gameFinished() {
-        return taskNumber == Preferences.numberOfTasks;
+        return taskNumber == Data.getNumberOfTasks();
     }
 
     //Checks if the player's answer is correct

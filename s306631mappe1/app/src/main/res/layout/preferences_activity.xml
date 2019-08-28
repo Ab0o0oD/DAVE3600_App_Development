@@ -26,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:onClick="chooseNumberOfTasks"
         android:text="@string/num5"
         app:layout_constraintEnd_toEndOf="@+id/numTasksText"
         app:layout_constraintStart_toStartOf="@+id/numTasksText"
@@ -36,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:onClick="chooseNumberOfTasks"
         android:text="@string/num10"
         app:layout_constraintEnd_toEndOf="@+id/tasksBtn0"
         app:layout_constraintStart_toStartOf="@+id/tasksBtn0"
@@ -46,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:onClick="chooseNumberOfTasks"
         android:text="@string/num25"
         app:layout_constraintEnd_toEndOf="@+id/tasksBtn1"
         app:layout_constraintStart_toStartOf="@+id/tasksBtn1"
@@ -56,10 +59,11 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="24dp"
+        android:contentDescription="@string/gerFlag"
+        android:onClick="flagTest"
         app:layout_constraintStart_toEndOf="@+id/norwegianFlag"
         app:layout_constraintTop_toTopOf="@+id/norwegianFlag"
-        app:srcCompat="@drawable/gerflag_300x500"
-        android:contentDescription="@string/gerFlag"/>
+        app:srcCompat="@drawable/gerflag_300x500" />
 
     <ImageView
         android:id="@+id/norwegianFlag"
@@ -69,6 +73,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/norFlag"
+        android:onClick="flagTest"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
