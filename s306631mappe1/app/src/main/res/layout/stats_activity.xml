@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/backgroundStats"
+    android:id="@+id/layoutStats"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0C770F">
+    android:background="@drawable/greenboard">
 
     <TextView
         android:id="@+id/correctText"
@@ -37,7 +37,7 @@
         android:id="@+id/deleteStatsBtn"
         android:layout_width="326dp"
         android:layout_height="69dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="90dp"
         android:onClick="deleteStats"
         android:text="@string/delete"
         android:textSize="32sp"
@@ -69,4 +69,5 @@
         app:layout_constraintEnd_toEndOf="@+id/correctText"
         app:layout_constraintStart_toStartOf="@+id/correctText"
         app:layout_constraintTop_toBottomOf="@+id/correctText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

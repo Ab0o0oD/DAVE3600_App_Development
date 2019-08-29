@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Matematika</string>
-    <string name="answer">Antworten</string>
     <string name="correct">Richtig</string>
     <string name="delete">Statistiken Löschen</string>
     <string name="gerFlag">Die Deutsche Flagge</string>

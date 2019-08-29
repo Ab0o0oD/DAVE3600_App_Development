@@ -25,7 +25,7 @@
 
     <!-- Game -->
     <string name="tasksText">Oppgave</string>
-    <string name="answer">Svar</string>
+    <string name="answer" translatable="false">Ok</string>
     <string name="clear" translatable="false">C</string>
     <string name="correct">Riktig</string>
     <string name="wrong">Feil</string>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Matematika</string>
-    <string name="answer">Svar</string>
     <string name="backPressed">Sikker på at du vil avslutte?</string>
     <string name="correct">Riktig</string>
     <string name="delete">Slett Statistikk</string>
