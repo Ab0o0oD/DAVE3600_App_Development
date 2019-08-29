@@ -99,6 +99,7 @@
 
     <!-- Preferences -->
     <string name="numTasksText">Antall Oppgaver</string>
+    <string name="chooseLanguage">Velg Språk</string>
 
     <!-- Content Descriptions  -->
     <string name="gerFlag">Det Tyske Flagget</string>

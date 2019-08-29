@@ -5,7 +5,7 @@
     android:id="@+id/layoutGame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/greenboard">
+    android:background="@drawable/greenboard_vertical">
 
     <TextView
         android:id="@+id/taskBox"

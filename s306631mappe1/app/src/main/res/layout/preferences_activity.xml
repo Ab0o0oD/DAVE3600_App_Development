@@ -5,7 +5,7 @@
     android:id="@+id/layoutMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/greenboard">
+    android:background="@drawable/greenboard_vertical">
 
     <TextView
         android:id="@+id/numTasksText"
@@ -70,13 +70,27 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/norFlag"
         android:onClick="flagTest"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tasksBtn2"
+        app:layout_constraintTop_toBottomOf="@+id/chooseLanguage"
+        app:layout_constraintVertical_bias="0.25"
         app:srcCompat="@drawable/norflag_300x500" />
+
+    <TextView
+        android:id="@+id/chooseLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/chooseLanguage"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="@+id/tasksBtn2"
+        app:layout_constraintStart_toStartOf="@+id/tasksBtn2"
+        app:layout_constraintTop_toBottomOf="@+id/tasksBtn2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
