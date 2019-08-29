@@ -42,12 +42,7 @@ public class MainMenu extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getResources().getString(R.string.backPressed))
                 .setCancelable(false)
-                .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
-                    }
-                })
+                .setPositiveButton(getResources().getString(R.string.yes), (dialogInterface, i) -> finish())
                 .setNegativeButton(getResources().getString(R.string.no), null)
                 .show();
     }
