@@ -3,6 +3,9 @@
 *.ap_
 *.aab
 
+# Microsoft Word files
+*.docx
+
 # Files for the ART/Dalvik VM
 *.dex
 
