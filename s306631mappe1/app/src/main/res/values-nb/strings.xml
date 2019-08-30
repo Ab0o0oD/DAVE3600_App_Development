@@ -21,4 +21,7 @@
     <string name="thumbsDown">Tommel Ned</string>
     <string name="thumbsUp">Tommel Opp</string>
     <string name="trashCan">Søppelkasse</string>
+    <string name="playButton">Startpil</string>
+    <string name="prefCog">Tannhjul</string>
+    <string name="statGraph">Søylediagram</string>
 </resources>

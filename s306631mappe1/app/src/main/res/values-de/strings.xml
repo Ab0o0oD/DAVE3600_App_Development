@@ -21,4 +21,7 @@
     <string name="thumbsDown">Daumen runter</string>
     <string name="thumbsUp">Daumen hoch</string>
     <string name="trashCan">Kasten</string>
+    <string name="playButton">Play-Taste</string>
+    <string name="prefCog">Zahn</string>
+    <string name="statGraph">BarChart</string>
 </resources>
