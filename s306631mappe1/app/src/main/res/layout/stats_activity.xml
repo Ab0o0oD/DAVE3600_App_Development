@@ -7,67 +7,64 @@
     android:layout_height="match_parent"
     android:background="@drawable/greenboard_vertical">
 
-    <TextView
-        android:id="@+id/correctText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/correct"
-        android:textColor="#FFFFFF"
-        android:textSize="32sp"
+    <ImageView
+        android:id="@+id/thumbsUp"
+        android:layout_width="95dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/thumbsUp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/wrongText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
-        android:text="@string/wrong"
-        android:textColor="#FFFFFFFF"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="@+id/correctAnswers"
-        app:layout_constraintStart_toStartOf="@+id/correctAnswers"
-        app:layout_constraintTop_toBottomOf="@+id/correctAnswers" />
-
-    <Button
-        android:id="@+id/deleteStatsBtn"
-        android:layout_width="326dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="90dp"
-        android:onClick="deleteStats"
-        android:text="@string/delete"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/wrongAnswers"
-        app:layout_constraintStart_toStartOf="@+id/wrongAnswers"
-        app:layout_constraintTop_toBottomOf="@+id/wrongAnswers" />
-
-    <TextView
-        android:id="@+id/wrongAnswers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/placeholder"
-        android:textColor="#FFFFFF"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="@+id/wrongText"
-        app:layout_constraintStart_toStartOf="@+id/wrongText"
-        app:layout_constraintTop_toBottomOf="@+id/wrongText" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/thumbs_up_white" />
 
     <TextView
         android:id="@+id/correctAnswers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:text="@string/placeholder"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="@+id/correctText"
-        app:layout_constraintStart_toStartOf="@+id/correctText"
-        app:layout_constraintTop_toBottomOf="@+id/correctText" />
+        app:layout_constraintEnd_toEndOf="@+id/thumbsUp"
+        app:layout_constraintStart_toStartOf="@+id/thumbsUp"
+        app:layout_constraintTop_toBottomOf="@+id/thumbsUp" />
+
+    <ImageView
+        android:id="@+id/thumbsDown"
+        android:layout_width="95dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="42dp"
+        android:contentDescription="@string/thumbsDown"
+        app:layout_constraintEnd_toEndOf="@+id/correctAnswers"
+        app:layout_constraintStart_toStartOf="@+id/correctAnswers"
+        app:layout_constraintTop_toBottomOf="@+id/correctAnswers"
+        app:srcCompat="@drawable/thumbs_down_white" />
+
+    <TextView
+        android:id="@+id/wrongAnswers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/placeholder"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="@+id/thumbsDown"
+        app:layout_constraintStart_toStartOf="@+id/thumbsDown"
+        app:layout_constraintTop_toBottomOf="@+id/thumbsDown" />
+
+    <ImageView
+        android:id="@+id/trashCan"
+        android:layout_width="95dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/trashCan"
+        app:layout_constraintEnd_toEndOf="@+id/wrongAnswers"
+        app:layout_constraintStart_toStartOf="@+id/wrongAnswers"
+        app:layout_constraintTop_toBottomOf="@+id/wrongAnswers"
+        app:srcCompat="@drawable/trash" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

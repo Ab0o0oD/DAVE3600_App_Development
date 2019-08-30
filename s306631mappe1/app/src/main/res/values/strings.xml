@@ -104,5 +104,8 @@
     <!-- Content Descriptions  -->
     <string name="gerFlag">Det Tyske Flagget</string>
     <string name="norFlag">Det Norske Flagget</string>
+    <string name="thumbsUp">Tommel Opp</string>
+    <string name="thumbsDown">Tommel Ned</string>
+    <string name="trashCan">Søppelkasse</string>
 
 </resources>
