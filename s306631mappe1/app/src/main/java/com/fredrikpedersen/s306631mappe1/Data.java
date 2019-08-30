@@ -1,6 +1,10 @@
 package com.fredrikpedersen.s306631mappe1;
 
-class Data {
+/**
+ * Class for storing shared data between classes
+ */
+
+public class Data {
 
     private static int correct = 0;
     private static int wrong = 0;

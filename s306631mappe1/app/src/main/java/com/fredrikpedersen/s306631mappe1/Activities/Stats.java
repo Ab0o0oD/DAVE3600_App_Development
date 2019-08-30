@@ -1,31 +1,48 @@
-package com.fredrikpedersen.s306631mappe1;
+package com.fredrikpedersen.s306631mappe1.Activities;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class Preferences extends AppCompatActivity {
+import com.fredrikpedersen.s306631mappe1.Data;
+import com.fredrikpedersen.s306631mappe1.R;
 
-    public static final String TAG = "Preferences";
+public class Stats extends BaseActivity {
+
+    public static final String TAG = "Stats";
+
+    private TextView correctAnswers;
+    private TextView wrongAnswers;
+    private int correct = Data.getCorrect();
+    private int wrong = Data.getWrong();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.preferences_activity);
+        setContentView(R.layout.stats_activity);
+
+        initializeViews();
+        showStats();
     }
 
-    public void chooseNumberOfTasks(View view) {
-        Button btn = (Button)view;
-        Data.setNumberOfTasks(Integer.valueOf(btn.getText().toString()));
-        System.out.println(Data.getNumberOfTasks());
+    public void deleteStats(View view) {
+        Data.setCorrect(0);
+        Data.setWrong(0);
+        correctAnswers.setText("0");
+        wrongAnswers.setText("0");
     }
 
-    public void flagTest(View view) {
-        System.out.println("NEIN");
+    private void initializeViews() {
+        correctAnswers = findViewById(R.id.correctAnswers);
+        wrongAnswers = findViewById(R.id.wrongAnswers);
+    }
+
+    private void showStats() {
+        correctAnswers.setText(String.valueOf(correct));
+        wrongAnswers.setText(String.valueOf(wrong));
     }
 
     /* ---------- Life-Cycle Methods ------------- */

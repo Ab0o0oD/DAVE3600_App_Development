@@ -1,46 +1,51 @@
-package com.fredrikpedersen.s306631mappe1;
+package com.fredrikpedersen.s306631mappe1.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Stats extends AppCompatActivity {
+import com.fredrikpedersen.s306631mappe1.Data;
+import com.fredrikpedersen.s306631mappe1.LocaleManager;
+import com.fredrikpedersen.s306631mappe1.R;
 
-    public static final String TAG = "Stats";
+public class Preferences extends BaseActivity {
 
-    private TextView correctAnswers;
-    private TextView wrongAnswers;
-    private int correct = Data.getCorrect();
-    private int wrong = Data.getWrong();
+    public static final String TAG = "Preferences";
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.stats_activity);
+        setContentView(R.layout.preferences_activity);
 
-        initializeViews();
-        showStats();
+        toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.germanChosen), Toast.LENGTH_SHORT);
+        toast.show();
     }
 
-    public void deleteStats(View view) {
-        Data.setCorrect(0);
-        Data.setWrong(0);
-        correctAnswers.setText("0");
-        wrongAnswers.setText("0");
+    public void chooseNumberOfTasks(View view) {
+        Button btn = (Button)view;
+        Data.setNumberOfTasks(Integer.valueOf(btn.getText().toString()));
+        System.out.println(Data.getNumberOfTasks());
     }
 
-    private void initializeViews() {
-        correctAnswers = findViewById(R.id.correctAnswers);
-        wrongAnswers = findViewById(R.id.wrongAnswers);
+    public void selectLanguage(View view) {
+        if (view == findViewById(R.id.germanFlag)) {
+            setLocale(this, LocaleManager.GERMAN);
+        } else if (view == findViewById(R.id.norwegianFlag)) { //TODO make this if-else into a switch/case if more languages are added
+            setLocale(this, LocaleManager.NORWEGIAN);
+        }
     }
 
-    private void showStats() {
-        correctAnswers.setText(String.valueOf(correct));
-        wrongAnswers.setText(String.valueOf(wrong));
+    private void setLocale(AppCompatActivity context, @LocaleManager.LocaleDef String language) {
+        LocaleManager.setNewLocale(this, language);
+        Intent intent = context.getIntent();
+        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     /* ---------- Life-Cycle Methods ------------- */

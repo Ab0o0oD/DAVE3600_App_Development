@@ -23,8 +23,8 @@ public class LocaleManager {
         String[] SUPPORTED_LOCALES = { NORWEGIAN, GERMAN };
     }
 
-    static final String NORWEGIAN = "nb";
-    static final String GERMAN = "de";
+    public static final String NORWEGIAN = "nb";
+    public static final String GERMAN = "de";
     private static final String LANGUAGE_KEY = "language_key";
 
     //set current pref locale
@@ -42,7 +42,7 @@ public class LocaleManager {
      * Get saved Locale from SharedPreferences
      *
      * @param context current context
-     * @return current locale key by default return english locale
+     * @return current locale key by default return norwegian locale
      */
     public static String getLanguagePref(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);

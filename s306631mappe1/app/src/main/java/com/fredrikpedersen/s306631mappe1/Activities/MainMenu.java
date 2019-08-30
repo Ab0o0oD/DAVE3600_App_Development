@@ -1,16 +1,17 @@
-package com.fredrikpedersen.s306631mappe1;
+package com.fredrikpedersen.s306631mappe1.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-public class MainMenu extends AppCompatActivity {
+import com.fredrikpedersen.s306631mappe1.R;
+
+public class MainMenu extends BaseActivity {
 
     public static final String TAG = "MainMenu";
 

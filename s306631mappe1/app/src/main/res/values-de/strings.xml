@@ -24,4 +24,6 @@
     <string name="playButton">Play-Taste</string>
     <string name="prefCog">Zahn</string>
     <string name="statGraph">BarChart</string>
+    <string name="norwegianChosen">Norwegische Sprache ausgewählt</string>
+    <string name="germanChosen">Deutsche Sprache ausgewählt</string>
 </resources>
