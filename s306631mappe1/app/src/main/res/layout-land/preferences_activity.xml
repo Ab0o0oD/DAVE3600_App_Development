@@ -58,7 +58,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="24dp"
         android:contentDescription="@string/gerFlag"
-        android:onClick="flagTest"
+        android:onClick="selectLanguage"
         app:layout_constraintStart_toEndOf="@+id/norwegianFlag"
         app:layout_constraintTop_toTopOf="@+id/norwegianFlag"
         app:srcCompat="@drawable/gerflag_300x500" />
@@ -71,7 +71,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/norFlag"
-        android:onClick="flagTest"
+        android:onClick="selectLanguage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.38"

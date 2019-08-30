@@ -195,4 +195,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/answerBox" />
 
+    <ImageView
+        android:id="@+id/feedbackIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/thumbsUp"
+        app:layout_constraintBottom_toTopOf="@+id/feedbackText"
+        app:layout_constraintEnd_toEndOf="@+id/feedbackText"
+        app:layout_constraintStart_toStartOf="@+id/feedbackText"
+        app:srcCompat="@drawable/check_mark" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

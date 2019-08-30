@@ -24,4 +24,6 @@
     <string name="playButton">Startpil</string>
     <string name="prefCog">Tannhjul</string>
     <string name="statGraph">Søylediagram</string>
+    <string name="norwegianChosen">Norsk Språk Valgt</string>
+    <string name="germanChosen">Tysk Språk Valgt</string>
 </resources>
