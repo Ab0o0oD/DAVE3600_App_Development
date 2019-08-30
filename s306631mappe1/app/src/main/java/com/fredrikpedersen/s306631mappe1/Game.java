@@ -64,7 +64,6 @@ public class Game extends AppCompatActivity {
                 toast.show();
                 return;
         }
-
         Button btn = (Button)view;
         handleAnswer();
     }
