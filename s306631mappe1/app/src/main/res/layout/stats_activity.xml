@@ -8,7 +8,7 @@
     android:background="@drawable/greenboard_vertical">
 
     <ImageView
-        android:id="@+id/thumbsUp"
+        android:id="@+id/feedbackIcon"
         android:layout_width="95dp"
         android:layout_height="80dp"
         android:layout_marginTop="32dp"
@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/thumbs_up_white" />
+        app:srcCompat="@drawable/check_mark" />
 
     <TextView
         android:id="@+id/correctAnswers"
@@ -27,12 +27,12 @@
         android:text="@string/placeholder"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="@+id/thumbsUp"
-        app:layout_constraintStart_toStartOf="@+id/thumbsUp"
-        app:layout_constraintTop_toBottomOf="@+id/thumbsUp" />
+        app:layout_constraintEnd_toEndOf="@+id/feedbackIcon"
+        app:layout_constraintStart_toStartOf="@+id/feedbackIcon"
+        app:layout_constraintTop_toBottomOf="@+id/feedbackIcon" />
 
     <ImageView
-        android:id="@+id/thumbsDown"
+        android:id="@+id/crossMark"
         android:layout_width="95dp"
         android:layout_height="80dp"
         android:layout_marginTop="42dp"
@@ -40,7 +40,7 @@
         app:layout_constraintEnd_toEndOf="@+id/correctAnswers"
         app:layout_constraintStart_toStartOf="@+id/correctAnswers"
         app:layout_constraintTop_toBottomOf="@+id/correctAnswers"
-        app:srcCompat="@drawable/thumbs_down_white" />
+        app:srcCompat="@drawable/cross_mark" />
 
     <TextView
         android:id="@+id/wrongAnswers"
@@ -50,16 +50,16 @@
         android:text="@string/placeholder"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="@+id/thumbsDown"
-        app:layout_constraintStart_toStartOf="@+id/thumbsDown"
-        app:layout_constraintTop_toBottomOf="@+id/thumbsDown" />
+        app:layout_constraintEnd_toEndOf="@+id/crossMark"
+        app:layout_constraintStart_toStartOf="@+id/crossMark"
+        app:layout_constraintTop_toBottomOf="@+id/crossMark" />
 
     <ImageView
         android:id="@+id/trashCan"
         android:layout_width="95dp"
         android:layout_height="80dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/trashCan"
         android:onClick="deleteStats"
