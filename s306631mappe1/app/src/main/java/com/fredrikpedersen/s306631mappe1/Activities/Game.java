@@ -180,6 +180,7 @@ public class Game extends BaseActivity {
         }
     }
 
+    //Sets the feedbackIcon alpha-value to 0 or 255 based on boolean value
     private void feedbackIconVisible(boolean visible) {
 
         if (visible && feedbackIcon.getImageAlpha() != 255) {
@@ -189,6 +190,7 @@ public class Game extends BaseActivity {
         }
     }
 
+    //Sets the feedBackIcon to a cross or a check mark based on a boolean value
     private void setFeedbackIconImage(boolean correct) {
         if (correct) {
             feedbackIcon.setImageResource(R.drawable.check_mark);
@@ -197,6 +199,7 @@ public class Game extends BaseActivity {
         }
     }
 
+    //Initializes all the views
     private void initializeViews() {
         answerBox = findViewById(R.id.answerBox);
         feedbackText = findViewById(R.id.feedbackText);

@@ -26,12 +26,14 @@ public class Preferences extends BaseActivity {
         initializeViews();
     }
 
+    //Assigned to tasksBtn0-2 in preferences_activity.xml
     public void chooseNumberOfTasks(View view) {
         Button btn = (Button)view;
         Data.setNumberOfTasks(Integer.valueOf(btn.getText().toString()));
         updateButtonPressedStates();
     }
 
+    //Assigned to norwegianFlag and germanFlag in preferences_activity.xml
     public void selectLanguage(View view) {
         if (view == findViewById(R.id.germanFlag)) { //Make this if-else into a switch/case if more languages are added
             setLocale(this, LocaleManager.GERMAN);
@@ -40,12 +42,14 @@ public class Preferences extends BaseActivity {
         }
     }
 
+    //Sets the locale and restarts the activity
     private void setLocale(AppCompatActivity context, @LocaleManager.LocaleDef String language) {
         LocaleManager.setNewLocale(this, language);
         Intent intent = context.getIntent();
         startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
+    //Initializes all the views
     private void initializeViews() {
         btn5 = findViewById(R.id.tasksBtn0);
         btn10 = findViewById(R.id.tasksBtn1);
