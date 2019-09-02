@@ -10,8 +10,6 @@ import com.fredrikpedersen.s306631mappe1.R;
 
 public class MainMenu extends BaseActivity {
 
-    public static final String TAG = "MainMenu";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

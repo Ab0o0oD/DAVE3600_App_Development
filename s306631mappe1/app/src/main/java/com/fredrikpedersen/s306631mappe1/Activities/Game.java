@@ -27,9 +27,6 @@ public class Game extends BaseActivity {
     private final String WRONG_VALUE = "Wrong Answers";
     private final String TASKS_ARRAY = "Tasks";
 
-    //Debugging
-    private static final String TAG = "GAME";
-
     //Views
     private EditText answerBox;
     private TextView taskBox;
