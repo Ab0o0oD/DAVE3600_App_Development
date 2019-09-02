@@ -179,7 +179,7 @@ public class Game extends BaseActivity {
     }
 
     private void setFeedbackIconImage(boolean correct) {
-        if (correct) { //TODO find out how get current image resource
+        if (correct) {
             feedbackIcon.setImageResource(R.drawable.check_mark);
         } else {
             feedbackIcon.setImageResource(R.drawable.cross_mark);
