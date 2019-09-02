@@ -17,15 +17,21 @@ public class Preferences extends BaseActivity {
 
     public static final String TAG = "Preferences";
 
+    private Button btn5;
+    private Button btn10;
+    private Button btn25;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preferences_activity);
+        initializeViews();
     }
 
     public void chooseNumberOfTasks(View view) {
         Button btn = (Button)view;
         Data.setNumberOfTasks(Integer.valueOf(btn.getText().toString()));
+        updateButtonPressedStates();
     }
 
     public void selectLanguage(View view) {
@@ -40,6 +46,48 @@ public class Preferences extends BaseActivity {
         LocaleManager.setNewLocale(this, language);
         Intent intent = context.getIntent();
         startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+
+    private void initializeViews() {
+        btn5 = findViewById(R.id.tasksBtn0);
+        btn10 = findViewById(R.id.tasksBtn1);
+        btn25 = findViewById(R.id.tasksBtn2);
+
+        switch (Data.getNumberOfTasks()) {
+            case 5:
+                btn5.setPressed(true);
+                break;
+            case 10:
+                btn10.setPressed(true);
+                break;
+            case 25:
+                btn25.setPressed(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void updateButtonPressedStates() { //TODO Fungerer ikke. Prat med Anders!
+        switch (Data.getNumberOfTasks()) {
+            case 5:
+                btn5.setPressed(true);
+                btn10.setPressed(false);
+                btn25.setPressed(false);
+                break;
+            case 10:
+                btn5.setPressed(false);
+                btn10.setPressed(true);
+                btn25.setPressed(false);
+                break;
+            case 25:
+                btn5.setPressed(false);
+                btn10.setPressed(false);
+                btn25.setPressed(true);
+                break;
+            default:
+                break;
+        }
     }
 
     /* ---------- Life-Cycle Methods ------------- */
