@@ -26,4 +26,5 @@
     <string name="statGraph">Søylediagram</string>
     <string name="norwegianChosen">Norsk Språk Valgt</string>
     <string name="germanChosen">Tysk Språk Valgt</string>
+    <string name="newGame">Spillet er slutt. Starte nytt spill?</string>
 </resources>

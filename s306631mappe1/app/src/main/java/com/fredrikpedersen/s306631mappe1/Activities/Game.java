@@ -1,5 +1,6 @@
 package com.fredrikpedersen.s306631mappe1.Activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,10 +36,11 @@ public class Game extends BaseActivity {
     private TextView taskBox;
     private TextView feedbackText;
     private ImageView feedbackIcon;
-    private TextView taskCounter;
+    private TextView correctCounter;
 
     //Values
     private String[] tasks;
+    private int maks = Data.getNumberOfTasks();
     private int taskNumber = 0;
     private int correctAnswers = 0;
     private int wrongAnswers = 0;
@@ -54,7 +56,7 @@ public class Game extends BaseActivity {
 
         if (savedInstanceState == null) {
             shuffleArray();
-            updateTaskCounter();
+            updateCorrectCounter();
             setTask(taskNumber);
         }
     }
@@ -69,31 +71,40 @@ public class Game extends BaseActivity {
 
     //Assigned to the clearBtn in game_activity.xml
     public void onClickRemove(View view) {
-        Button btn = (Button)view;
         answerBox.setText("");
     }
 
     //Assigned to the confirmBtn in game_activity.xml
     public void onClickAnswer(View view) {
-        if (gameFinished()) {
+        if (gameFinished()) { //Checks if the game is finished. Asks the player if they want to start a new game if it is.
                 Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.done), Toast.LENGTH_SHORT);
                 toast.show();
-                return;
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(getResources().getString(R.string.newGame))
+                    .setCancelable(false)
+                    .setPositiveButton(getResources().getString(R.string.yes), (dialogInterface, i) -> {
+                        Data.incrementCorrect(correctAnswers);
+                        Data.incrementWrong(wrongAnswers);
+                        finish();
+                        Intent intent = new Intent(this, this.getClass());
+                        startActivity(intent);
+                    })
+                    .setNegativeButton(getResources().getString(R.string.no), null)
+                    .show();
         }
-        Button btn = (Button)view;
         handleAnswer();
     }
 
     @Override
     public void onBackPressed() {
-        if (taskNumber < Data.getNumberOfTasks()) {
+        if (!gameFinished()) { //If the player haven't finished all tasks, ask if they really want to leave the activity
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(getResources().getString(R.string.backPressed))
                     .setCancelable(false)
                     .setPositiveButton(getResources().getString(R.string.yes), (dialogInterface, i) -> finish())
                     .setNegativeButton(getResources().getString(R.string.no), null)
                     .show();
-        } else {
+        } else { //Update number of wrong and right answers in the Data-class when the player has finished the game and leaves the activity
             Data.incrementCorrect(correctAnswers);
             Data.incrementWrong(wrongAnswers);
             finish();
@@ -102,7 +113,7 @@ public class Game extends BaseActivity {
 
     /* ---------- Game Methods ------------- */
 
-    private void handleAnswer() {
+    private void handleAnswer() { //Handles no, wrong or correct answer input from the user
         if (answerBox.getText().toString().equals("")) { //If the user haven't given any input
             feedbackText.setText(getResources().getString(R.string.giveAnswer));
             feedbackText.setTextColor(Color.RED);
@@ -124,26 +135,29 @@ public class Game extends BaseActivity {
             wrongAnswers++;
         }
 
-        taskNumber++;
+        if (taskNumber < Data.getNumberOfTasks()) { //Preventing taskNumber to go beyond numberOfTasks
+            taskNumber++;
+        }
+
         setTask(taskNumber);
-        updateTaskCounter();
+        updateCorrectCounter();
         answerBox.setText("");
     }
 
-    //Gives the player the next task from the list
+    //Gives sets the task shown in taskBox based on the current taskNumber
     private void setTask(int taskNumber) {
         taskBox.setText(tasks[taskNumber]);
     }
 
-    private void updateTaskCounter() {
-        int maks = Data.getNumberOfTasks();
-        String counter = taskNumber + "/" + maks;
-        taskCounter.setText(counter);
+    //Updates the text in the taskCounter
+    private void updateCorrectCounter() {
+        String counter = correctAnswers + "/" + taskNumber;
+        correctCounter.setText(counter);
     }
 
     //Checks if all the tasks have been done
     private boolean gameFinished() {
-        return taskNumber == Data.getNumberOfTasks();
+        return taskNumber >= Data.getNumberOfTasks();
     }
 
     //Checks if the player's answer is correct
@@ -151,6 +165,7 @@ public class Game extends BaseActivity {
         return Integer.parseInt(answerBox.getText().toString()) == calculateAnswer();
     }
 
+    //Calculates the answer of the current task
     private int calculateAnswer() {
         String[] currentTask = tasks[taskNumber].split(" ");
         return Integer.parseInt(currentTask[0]) + Integer.parseInt(currentTask[2]);
@@ -186,8 +201,6 @@ public class Game extends BaseActivity {
         }
     }
 
-    /* ---------- Initialization Methods ------------- */
-
     private void initializeViews() {
         answerBox = findViewById(R.id.answerBox);
         feedbackText = findViewById(R.id.feedbackText);
@@ -195,7 +208,7 @@ public class Game extends BaseActivity {
         feedbackIcon = findViewById(R.id.feedbackIcon);
         feedbackIcon.setImageAlpha(0);
         taskBox = findViewById(R.id.taskBox);
-        taskCounter = findViewById(R.id.taskCounter);
+        correctCounter = findViewById(R.id.correctCounter);
     }
 
     /* ---------- Life-Cycle Methods ------------- */
@@ -251,7 +264,7 @@ public class Game extends BaseActivity {
     }
 
     private void restoreValuesFromBundle(Bundle savedInstanceState) {
-        taskCounter.setText(savedInstanceState.getString(TASKCOUNTER_CONTENTS));
+        correctCounter.setText(savedInstanceState.getString(TASKCOUNTER_CONTENTS));
         taskNumber = savedInstanceState.getInt(TASKNUMBER_VALUE);
         correctAnswers = savedInstanceState.getInt(CORRECT_VALUE);
         wrongAnswers = savedInstanceState.getInt(WRONG_VALUE);
@@ -269,7 +282,7 @@ public class Game extends BaseActivity {
     }
 
     private void putValuesInBundle(Bundle outState) {
-        outState.putString(TASKCOUNTER_CONTENTS, taskCounter.getText().toString());
+        outState.putString(TASKCOUNTER_CONTENTS, correctCounter.getText().toString());
         outState.putInt(TASKNUMBER_VALUE, taskNumber);
         outState.putInt(CORRECT_VALUE, correctAnswers);
         outState.putInt(WRONG_VALUE, wrongAnswers);

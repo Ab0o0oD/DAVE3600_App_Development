@@ -41,12 +41,12 @@
         android:text="@string/tasksText"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/taskCounter"
-        app:layout_constraintEnd_toEndOf="@+id/taskCounter"
-        app:layout_constraintStart_toStartOf="@+id/taskCounter" />
+        app:layout_constraintBottom_toTopOf="@+id/correctCounter"
+        app:layout_constraintEnd_toEndOf="@+id/correctCounter"
+        app:layout_constraintStart_toStartOf="@+id/correctCounter" />
 
     <TextView
-        android:id="@+id/taskCounter"
+        android:id="@+id/correctCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
