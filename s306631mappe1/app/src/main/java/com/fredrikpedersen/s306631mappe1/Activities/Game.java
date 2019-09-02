@@ -246,26 +246,33 @@ public class Game extends BaseActivity {
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         Log.d(TAG, "onRestoreInstanceState: called");
         super.onRestoreInstanceState(savedInstanceState);
+        restoreValuesFromBundle(savedInstanceState);
+        Log.d(TAG, "onRestoreInstanceState: done");
+    }
+
+    private void restoreValuesFromBundle(Bundle savedInstanceState) {
         taskCounter.setText(savedInstanceState.getString(TASKCOUNTER_CONTENTS));
         taskNumber = savedInstanceState.getInt(TASKNUMBER_VALUE);
         correctAnswers = savedInstanceState.getInt(CORRECT_VALUE);
         wrongAnswers = savedInstanceState.getInt(WRONG_VALUE);
         tasks = savedInstanceState.getStringArray(TASKS_ARRAY);
         setTask(taskNumber);
-
-        Log.d(TAG, "onRestoreInstanceState: done");
+        feedbackText.setText("");
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         Log.d(TAG, "onSaveInstanceState: called");
-        //String content = taskCounter.getText().toString() + correctAnswers + wrongAnswers; //Puts all relevant data into a String
+        putValuesInBundle(outState);
+        super.onSaveInstanceState(outState);
+        Log.d(TAG, "onSaveInstanceState: done");
+    }
+
+    private void putValuesInBundle(Bundle outState) {
         outState.putString(TASKCOUNTER_CONTENTS, taskCounter.getText().toString());
         outState.putInt(TASKNUMBER_VALUE, taskNumber);
         outState.putInt(CORRECT_VALUE, correctAnswers);
         outState.putInt(WRONG_VALUE, wrongAnswers);
         outState.putStringArray(TASKS_ARRAY, tasks);
-        super.onSaveInstanceState(outState);
-        Log.d(TAG, "onSaveInstanceState: done");
     }
 }
