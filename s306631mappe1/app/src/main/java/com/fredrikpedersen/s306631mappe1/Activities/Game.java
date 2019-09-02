@@ -16,22 +16,29 @@ import androidx.appcompat.app.AlertDialog;
 import com.fredrikpedersen.s306631mappe1.Data;
 import com.fredrikpedersen.s306631mappe1.R;
 
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Random;
 
 public class Game extends BaseActivity {
 
+    //Save content Strings
+    private final String TASKCOUNTER_CONTENTS = "Task Counter";
+    private final String TASKNUMBER_VALUE = "Tasknumber";
+    private final String CORRECT_VALUE = "Correct Answers";
+    private final String WRONG_VALUE = "Wrong Answers";
+    private final String TASKS_ARRAY = "Tasks";
+
+    //Debugging
     private static final String TAG = "GAME";
-    private final String TEXT_CONTENTS = "Game content";
+
+    //Views
     private EditText answerBox;
     private TextView taskBox;
     private TextView feedbackText;
     private ImageView feedbackIcon;
     private TextView taskCounter;
+
+    //Values
     private String[] tasks;
-    private String[] answers;
-    private String answer;
     private int taskNumber = 0;
     private int correctAnswers = 0;
     private int wrongAnswers = 0;
@@ -41,11 +48,15 @@ public class Game extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
 
+        //Initialize views and values
         initializeViews();
-        initializeArrays();
-        shuffleArrays();
-        updateTaskCounter();
-        setTask(taskNumber);
+        tasks = getResources().getStringArray(R.array.tasks);
+
+        if (savedInstanceState == null) {
+            shuffleArray();
+            updateTaskCounter();
+            setTask(taskNumber);
+        }
     }
 
     /* ---------- OnClick Methods ------------- */
@@ -122,7 +133,6 @@ public class Game extends BaseActivity {
     //Gives the player the next task from the list
     private void setTask(int taskNumber) {
         taskBox.setText(tasks[taskNumber]);
-        answer = answers[taskNumber];
     }
 
     private void updateTaskCounter() {
@@ -138,23 +148,24 @@ public class Game extends BaseActivity {
 
     //Checks if the player's answer is correct
     private boolean checkAnswer() {
-        return answerBox.getText().toString().equals(answer);
+        return Integer.parseInt(answerBox.getText().toString()) == calculateAnswer();
+    }
+
+    private int calculateAnswer() {
+        String[] currentTask = tasks[taskNumber].split(" ");
+        return Integer.parseInt(currentTask[0]) + Integer.parseInt(currentTask[2]);
     }
 
     //Shuffles both arrays by the same random number
-    private void shuffleArrays() {
+    private void shuffleArray() {
         Random rndm = new Random();
 
         for (int i = 0; i < tasks.length; i++) {
             int randomPosition = rndm.nextInt(tasks.length);
             String taskTemp = tasks[i];
-            String answerTemp = answers[i];
 
             tasks[i] = tasks[randomPosition];
             tasks[randomPosition] = taskTemp;
-
-            answers[i] = answers[randomPosition];
-            answers[randomPosition] = answerTemp;
         }
     }
 
@@ -185,11 +196,6 @@ public class Game extends BaseActivity {
         feedbackIcon.setImageAlpha(0);
         taskBox = findViewById(R.id.taskBox);
         taskCounter = findViewById(R.id.taskCounter);
-    }
-
-    private void initializeArrays() {
-        tasks = getResources().getStringArray(R.array.tasks);
-        answers = getResources().getStringArray(R.array.answers);
     }
 
     /* ---------- Life-Cycle Methods ------------- */
@@ -240,28 +246,25 @@ public class Game extends BaseActivity {
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         Log.d(TAG, "onRestoreInstanceState: called");
         super.onRestoreInstanceState(savedInstanceState);
-        char[] savedData = Objects.requireNonNull(savedInstanceState.getString(TEXT_CONTENTS)).toCharArray();
+        taskCounter.setText(savedInstanceState.getString(TASKCOUNTER_CONTENTS));
+        taskNumber = savedInstanceState.getInt(TASKNUMBER_VALUE);
+        correctAnswers = savedInstanceState.getInt(CORRECT_VALUE);
+        wrongAnswers = savedInstanceState.getInt(WRONG_VALUE);
+        tasks = savedInstanceState.getStringArray(TASKS_ARRAY);
+        setTask(taskNumber);
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 3; i++) {
-            sb.append(savedData[i]);
-        }
-
-        taskCounter.setText(sb.toString());
-        taskNumber = Character.getNumericValue(savedData[0]); //Sets taskNumber equal to the first number in the taskcounter String
-        System.out.println("Tasknumber: " + taskNumber);
-        correctAnswers = Character.getNumericValue(savedData[3]);
-        System.out.println("CorrectAnswers: " + correctAnswers);
-        wrongAnswers = Character.getNumericValue(savedData[4]);
-        System.out.println("WrongAnswers: " + wrongAnswers);
         Log.d(TAG, "onRestoreInstanceState: done");
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         Log.d(TAG, "onSaveInstanceState: called");
-        String content = taskCounter.getText().toString() + correctAnswers + wrongAnswers;
-        outState.putString(TEXT_CONTENTS, content); //Saves the content in taskcounter
+        //String content = taskCounter.getText().toString() + correctAnswers + wrongAnswers; //Puts all relevant data into a String
+        outState.putString(TASKCOUNTER_CONTENTS, taskCounter.getText().toString());
+        outState.putInt(TASKNUMBER_VALUE, taskNumber);
+        outState.putInt(CORRECT_VALUE, correctAnswers);
+        outState.putInt(WRONG_VALUE, wrongAnswers);
+        outState.putStringArray(TASKS_ARRAY, tasks);
         super.onSaveInstanceState(outState);
         Log.d(TAG, "onSaveInstanceState: done");
     }
