@@ -36,7 +36,6 @@ public class Game extends BaseActivity {
 
     //Values
     private String[] tasks;
-    private int maks = Data.getNumberOfTasks();
     private int taskNumber = 0;
     private int correctAnswers = 0;
     private int wrongAnswers = 0;
@@ -79,13 +78,17 @@ public class Game extends BaseActivity {
                 builder.setMessage(getResources().getString(R.string.newGame))
                     .setCancelable(false)
                     .setPositiveButton(getResources().getString(R.string.yes), (dialogInterface, i) -> {
-                        Data.incrementCorrect(correctAnswers);
-                        Data.incrementWrong(wrongAnswers);
+                        Stats.incrementCorrect(correctAnswers);
+                        Stats.incrementWrong(wrongAnswers);
                         finish();
                         Intent intent = new Intent(this, this.getClass());
                         startActivity(intent);
                     })
-                    .setNegativeButton(getResources().getString(R.string.no), null)
+                    .setNegativeButton(getResources().getString(R.string.no), (dialogInterface, i) -> {
+                        Stats.incrementCorrect(correctAnswers);
+                        Stats.incrementWrong(wrongAnswers);
+                        finish();
+                    })
                     .show();
         }
         handleAnswer();
@@ -101,8 +104,8 @@ public class Game extends BaseActivity {
                     .setNegativeButton(getResources().getString(R.string.no), null)
                     .show();
         } else { //Update number of wrong and right answers in the Data-class when the player has finished the game and leaves the activity
-            Data.incrementCorrect(correctAnswers);
-            Data.incrementWrong(wrongAnswers);
+            Stats.incrementCorrect(correctAnswers);
+            Stats.incrementWrong(wrongAnswers);
             finish();
         }
     }

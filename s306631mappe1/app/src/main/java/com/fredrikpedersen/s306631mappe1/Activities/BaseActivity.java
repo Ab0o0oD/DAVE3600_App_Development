@@ -2,7 +2,6 @@ package com.fredrikpedersen.s306631mappe1.Activities;
 
 import com.fredrikpedersen.s306631mappe1.LocaleManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,8 +24,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() { //Returns to the main menu when back is pressed.
-        Intent intent = new Intent(this, MainMenu.class);
-        startActivity(intent);
         finish();
     }
 }

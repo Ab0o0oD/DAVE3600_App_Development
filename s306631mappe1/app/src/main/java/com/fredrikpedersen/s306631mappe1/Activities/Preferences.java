@@ -13,8 +13,6 @@ import com.fredrikpedersen.s306631mappe1.R;
 
 public class Preferences extends BaseActivity {
 
-    public static final String TAG = "Preferences";
-
     private Button btn5;
     private Button btn10;
     private Button btn25;
