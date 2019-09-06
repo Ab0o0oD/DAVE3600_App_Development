@@ -82,4 +82,15 @@
     <string name="statGraph">Søylediagram</string>
     <string name="playButton">Startpil</string>
 
+    <!-- Preference Strings -->
+    <string name="TASKCOUNTER_CONTENTS" translatable="false">Task Counter</string>
+    <string name="TASKNUMBER_VALUE" translatable="false">Tasknumber</string>
+    <string name="CORRECT_VALUE" translatable="false">Correct Answers</string>
+    <string name="WRONG_VALUE" translatable="false">Wrong Answers</string>
+    <string name="TASKS_ARRAY" translatable="false">Tasks</string>
+    <string name="PREFERENCE" translatable="false">Preferences</string>
+    <string name="CORRECTPREF" translatable="false">Number of Correct Answers</string>
+    <string name="WRONGPREF" translatable="false">Number of Wrong Answers</string>
+    <string name="NUMBER_OF_TASKS_PREF" translatable="false">Number of Tasks</string>
+
 </resources>

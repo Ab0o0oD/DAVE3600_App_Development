@@ -7,27 +7,35 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.fredrikpedersen.s306631mappe1.Data;
 import com.fredrikpedersen.s306631mappe1.LocaleManager;
 import com.fredrikpedersen.s306631mappe1.R;
 
 public class Preferences extends BaseActivity {
 
+    //Save content Strings
+    private final String PREFERENCE = getResources().getString(R.string.PREFERENCE);
+    private final String NUMBER_OF_TASKS_PREF = getResources().getString(R.string.NUMBER_OF_TASKS_PREF);
+
+    //Views
     private Button btn5;
     private Button btn10;
     private Button btn25;
+
+    //Variables
+    private int numberOfTasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preferences_activity);
+        numberOfTasks = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(NUMBER_OF_TASKS_PREF,5);
         initializeViews();
     }
 
     //Assigned to tasksBtn0-2 in preferences_activity.xml
     public void chooseNumberOfTasks(View view) {
         Button btn = (Button)view;
-        Data.setNumberOfTasks(Integer.valueOf(btn.getText().toString()));
+        numberOfTasks = (Integer.valueOf(btn.getText().toString()));
         updateButtonPressedStates();
     }
 

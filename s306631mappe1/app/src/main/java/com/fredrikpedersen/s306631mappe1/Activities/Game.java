@@ -21,14 +21,15 @@ import java.util.Random;
 public class Game extends BaseActivity {
 
     //Save content Strings
-    private final String TASKCOUNTER_CONTENTS = "Task Counter";
-    private final String TASKNUMBER_VALUE = "Tasknumber";
-    private final String CORRECT_VALUE = "Correct Answers";
-    private final String WRONG_VALUE = "Wrong Answers";
-    private final String TASKS_ARRAY = "Tasks";
-    private final String PREFERENCE = "Preferences";
-    private final String CORRECTPREF = "Number of Correct Answers";
-    private final String WRONGPREF = "Number of Wrong Answers";
+    private final String TASKCOUNTER_CONTENTS = getResources().getString(R.string.TASKCOUNTER_CONTENTS);
+    private final String TASKNUMBER_VALUE = getResources().getString(R.string.TASKNUMBER_VALUE);
+    private final String CORRECT_VALUE = getResources().getString(R.string.CORRECT_VALUE);
+    private final String WRONG_VALUE = getResources().getString(R.string.WRONG_VALUE);
+    private final String TASKS_ARRAY = getResources().getString(R.string.TASKS_ARRAY);
+    private final String PREFERENCE = getResources().getString(R.string.PREFERENCE);
+    private final String CORRECTPREF = getResources().getString(R.string.CORRECTPREF);
+    private final String WRONGPREF = getResources().getString(R.string.WRONGPREF);
+    private final String NUMBER_OF_TASKS_PREF = getResources().getString(R.string.NUMBER_OF_TASKS_PREF);
 
     //Views
     private EditText answerBox;
@@ -87,9 +88,7 @@ public class Game extends BaseActivity {
                         Intent intent = new Intent(this, this.getClass());
                         startActivity(intent);
                     })
-                    .setNegativeButton(getResources().getString(R.string.no), (dialogInterface, i) -> {
-                        finish();
-                    })
+                    .setNegativeButton(getResources().getString(R.string.no), (dialogInterface, i) -> finish())
                     .show();
         }
         handleAnswer();
@@ -119,12 +118,13 @@ public class Game extends BaseActivity {
             return;
         }
 
-        if (checkAnswer()) {
+        if (correctAnswer()) {
             feedbackText.setText(getResources().getString(R.string.correct));
             feedbackText.setTextColor(Color.WHITE);
             setFeedbackIconImage(true);
             feedbackIconVisible(true);
             correctAnswers++;
+
         } else {
             feedbackText.setText(getResources().getString(R.string.wrong));
             feedbackText.setTextColor(Color.RED);
@@ -133,7 +133,7 @@ public class Game extends BaseActivity {
             wrongAnswers++;
         }
 
-        if (taskNumber < Data.getNumberOfTasks()) { //Preventing taskNumber to go beyond numberOfTasks
+        if (taskNumber < numberOfTasks) { //Preventing taskNumber to go beyond numberOfTasks
             taskNumber++;
         }
 

@@ -9,9 +9,10 @@ import com.fredrikpedersen.s306631mappe1.R;
 
 public class Stats extends BaseActivity {
 
-    private final String PREFERENCE = "Preferences";
-    private final String CORRECTPREF = "Number of Correct Answers";
-    private final String WRONGPREF = "Number of Wrong Answers";
+    //Save content Strings
+    private final String PREFERENCE = getResources().getString(R.string.PREFERENCE);
+    private final String CORRECTPREF = getResources().getString(R.string.CORRECTPREF);
+    private final String WRONGPREF = getResources().getString(R.string.WRONGPREF);
 
     //Views
     private TextView correctAnswers;
