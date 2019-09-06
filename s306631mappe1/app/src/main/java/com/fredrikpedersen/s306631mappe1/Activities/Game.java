@@ -111,6 +111,10 @@ public class Game extends BaseActivity {
     /* ---------- Game Methods ------------- */
 
     private void handleAnswer() { //Handles no, wrong or correct answer input from the user
+        if (gameFinished()) { //Got a bug where the game counts one extra wrong answer if the user tries to input an extra answer after the game is finished. This is a temporary bugfix.
+            return;
+        }
+
         if (answerBox.getText().toString().equals("")) { //If the user haven't given any input
             feedbackText.setText(getResources().getString(R.string.giveAnswer));
             feedbackText.setTextColor(Color.RED);
