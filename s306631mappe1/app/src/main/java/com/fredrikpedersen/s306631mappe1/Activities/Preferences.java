@@ -53,7 +53,7 @@ public class Preferences extends BaseActivity {
         btn10 = findViewById(R.id.tasksBtn1);
         btn25 = findViewById(R.id.tasksBtn2);
 
-        switch (Data.getNumberOfTasks()) {
+        switch (numberOfTasks) {
             case 5:
                 btn5.setPressed(true);
                 break;
@@ -69,7 +69,7 @@ public class Preferences extends BaseActivity {
     }
 
     private void updateButtonPressedStates() { //TODO Fungerer ikke. Prat med Anders!
-        switch (Data.getNumberOfTasks()) {
+        switch (numberOfTasks) {
             case 5:
                 btn5.setPressed(true);
                 btn10.setPressed(false);
@@ -88,5 +88,16 @@ public class Preferences extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    /* ---------- Life-Cycle Methods ------------- */
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getSharedPreferences(PREFERENCE, MODE_PRIVATE)
+                .edit()
+                .putInt(NUMBER_OF_TASKS_PREF, numberOfTasks)
+                .apply();
     }
 }

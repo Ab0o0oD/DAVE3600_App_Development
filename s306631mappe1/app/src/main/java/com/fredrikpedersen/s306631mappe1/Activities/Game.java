@@ -14,7 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
-import com.fredrikpedersen.s306631mappe1.Data;
 import com.fredrikpedersen.s306631mappe1.R;
 
 import java.util.Random;
@@ -43,6 +42,7 @@ public class Game extends BaseActivity {
     private int taskNumber = 0;
     private int correctAnswers = 0;
     private int wrongAnswers = 0;
+    private int numberOfTasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +52,7 @@ public class Game extends BaseActivity {
         //Initialize views and values
         initializeViews();
         tasks = getResources().getStringArray(R.array.tasks);
+        numberOfTasks = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(NUMBER_OF_TASKS_PREF,5);
 
         if (savedInstanceState == null) {
             shuffleArray();
@@ -154,11 +155,11 @@ public class Game extends BaseActivity {
 
     //Checks if all the tasks have been done
     private boolean gameFinished() {
-        return taskNumber >= Data.getNumberOfTasks();
+        return taskNumber >= numberOfTasks;
     }
 
     //Checks if the player's answer is correct
-    private boolean checkAnswer() {
+    private boolean correctAnswer() {
         return Integer.parseInt(answerBox.getText().toString()) == calculateAnswer();
     }
 
