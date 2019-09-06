@@ -10,9 +10,9 @@ import com.fredrikpedersen.s306631mappe1.R;
 public class Stats extends BaseActivity {
 
     //Save content Strings
-    private final String PREFERENCE = getResources().getString(R.string.PREFERENCE);
-    private final String CORRECTPREF = getResources().getString(R.string.CORRECTPREF);
-    private final String WRONGPREF = getResources().getString(R.string.WRONGPREF);
+    private String PREFERENCE;
+    private String CORRECTPREF;
+    private String WRONGPREF;
 
     //Views
     private TextView correctAnswers;
@@ -26,10 +26,11 @@ public class Stats extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stats_activity);
-        correct = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(CORRECTPREF,0);
-        wrong = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(WRONGPREF,0);
 
         initializeViews();
+        initializeSaveContentStrings();
+        correct = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(CORRECTPREF,0);
+        wrong = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(WRONGPREF,0);
         showStats();
     }
 
@@ -43,6 +44,12 @@ public class Stats extends BaseActivity {
     private void initializeViews() {
         correctAnswers = findViewById(R.id.correctAnswers);
         wrongAnswers = findViewById(R.id.wrongAnswers);
+    }
+
+    private void initializeSaveContentStrings() {
+        PREFERENCE = getResources().getString(R.string.PREFERENCE);
+        CORRECTPREF = getResources().getString(R.string.CORRECTPREF);
+        WRONGPREF = getResources().getString(R.string.WRONGPREF);
     }
 
     private void showStats() {

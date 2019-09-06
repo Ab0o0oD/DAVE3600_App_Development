@@ -13,8 +13,8 @@ import com.fredrikpedersen.s306631mappe1.R;
 public class Preferences extends BaseActivity {
 
     //Save content Strings
-    private final String PREFERENCE = getResources().getString(R.string.PREFERENCE);
-    private final String NUMBER_OF_TASKS_PREF = getResources().getString(R.string.NUMBER_OF_TASKS_PREF);
+    private String PREFERENCE;
+    private String NUMBER_OF_TASKS_PREF;
 
     //Views
     private Button btn5;
@@ -28,8 +28,10 @@ public class Preferences extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preferences_activity);
-        numberOfTasks = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(NUMBER_OF_TASKS_PREF,5);
+
         initializeViews();
+        initializeSaveContentStrings();
+        numberOfTasks = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(NUMBER_OF_TASKS_PREF,5);
     }
 
     //Assigned to tasksBtn0-2 in preferences_activity.xml
@@ -74,6 +76,12 @@ public class Preferences extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    //Initialize all the Save Content Strings
+    private void initializeSaveContentStrings() {
+        PREFERENCE = getResources().getString(R.string.PREFERENCE);
+        NUMBER_OF_TASKS_PREF = getResources().getString(R.string.NUMBER_OF_TASKS_PREF);
     }
 
     private void updateButtonPressedStates() { //TODO Fungerer ikke. Prat med Anders!

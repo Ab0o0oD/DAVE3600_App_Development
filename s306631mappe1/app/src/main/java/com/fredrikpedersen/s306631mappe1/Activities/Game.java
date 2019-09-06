@@ -21,15 +21,15 @@ import java.util.Random;
 public class Game extends BaseActivity {
 
     //Save content Strings
-    private final String TASKCOUNTER_CONTENTS = getResources().getString(R.string.TASKCOUNTER_CONTENTS);
-    private final String TASKNUMBER_VALUE = getResources().getString(R.string.TASKNUMBER_VALUE);
-    private final String CORRECT_VALUE = getResources().getString(R.string.CORRECT_VALUE);
-    private final String WRONG_VALUE = getResources().getString(R.string.WRONG_VALUE);
-    private final String TASKS_ARRAY = getResources().getString(R.string.TASKS_ARRAY);
-    private final String PREFERENCE = getResources().getString(R.string.PREFERENCE);
-    private final String CORRECTPREF = getResources().getString(R.string.CORRECTPREF);
-    private final String WRONGPREF = getResources().getString(R.string.WRONGPREF);
-    private final String NUMBER_OF_TASKS_PREF = getResources().getString(R.string.NUMBER_OF_TASKS_PREF);
+    private String TASKCOUNTER_CONTENTS;
+    private String TASKNUMBER_VALUE;
+    private String CORRECT_VALUE;
+    private String WRONG_VALUE;
+    private String TASKS_ARRAY;
+    private String PREFERENCE;
+    private String CORRECTPREF;
+    private String WRONGPREF;
+    private String NUMBER_OF_TASKS_PREF;
 
     //Views
     private EditText answerBox;
@@ -51,9 +51,9 @@ public class Game extends BaseActivity {
         setContentView(R.layout.game_activity);
 
         //Initialize views and values
+        initializeSaveContentStrings();
         initializeViews();
-        tasks = getResources().getStringArray(R.array.tasks);
-        numberOfTasks = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(NUMBER_OF_TASKS_PREF,5);
+        initializeValues();
 
         if (savedInstanceState == null) {
             shuffleArray();
@@ -137,11 +137,11 @@ public class Game extends BaseActivity {
             wrongAnswers++;
         }
 
-        if (taskNumber < numberOfTasks) { //Preventing taskNumber to go beyond numberOfTasks
+        if (taskNumber < numberOfTasks) { //Preventing taskNumber from going beyond numberOfTasks
             taskNumber++;
+            setTask(taskNumber);
         }
 
-        setTask(taskNumber);
         updateCorrectCounter();
         answerBox.setText("");
     }
@@ -214,6 +214,24 @@ public class Game extends BaseActivity {
         feedbackIcon.setImageAlpha(0);
         taskBox = findViewById(R.id.taskBox);
         correctCounter = findViewById(R.id.correctCounter);
+    }
+
+    //Initialize all values
+    private void initializeValues() {
+        tasks = getResources().getStringArray(R.array.tasks);
+        numberOfTasks = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(NUMBER_OF_TASKS_PREF,5);
+    }
+
+    private void initializeSaveContentStrings() {
+        TASKCOUNTER_CONTENTS = getResources().getString(R.string.TASKCOUNTER_CONTENTS);
+        TASKNUMBER_VALUE = getResources().getString(R.string.TASKNUMBER_VALUE);
+        CORRECT_VALUE = getResources().getString(R.string.CORRECT_VALUE);
+        WRONG_VALUE = getResources().getString(R.string.WRONG_VALUE);
+        TASKS_ARRAY = getResources().getString(R.string.TASKS_ARRAY);
+        PREFERENCE = getResources().getString(R.string.PREFERENCE);
+        CORRECTPREF = getResources().getString(R.string.CORRECTPREF);
+        WRONGPREF = getResources().getString(R.string.WRONGPREF);
+        NUMBER_OF_TASKS_PREF = getResources().getString(R.string.NUMBER_OF_TASKS_PREF);
     }
 
     /* ---------- Life-Cycle Methods ------------- */
