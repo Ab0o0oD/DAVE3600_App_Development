@@ -1,6 +1,7 @@
 package com.fredrikpedersen.s306631mappe1.Activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,13 +18,15 @@ public class Stats extends BaseActivity {
     private TextView wrongAnswers;
 
     //Variables
-    private static int correct = 0;
-    private static int wrong = 0;
+    private int correct;
+    private int wrong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stats_activity);
+        correct = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(CORRECTPREF,0);
+        wrong = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(WRONGPREF,0);
 
         initializeViews();
         showStats();
@@ -46,38 +49,24 @@ public class Stats extends BaseActivity {
         wrongAnswers.setText(String.valueOf(wrong));
     }
 
-    public static void incrementCorrect(int increment) {
-        correct += increment;
+    public void setCorrect(int correct) {
+       this.correct = correct;
     }
 
-    public static void incrementWrong(int increment) {
-        wrong += increment;
-    }
-
-    public static void setCorrect(int correct) {
-        Stats.correct = correct;
-    }
-
-    public static void setWrong(int wrong) {
-        Stats.wrong = wrong;
+    public void setWrong(int wrong) {
+        this.wrong = wrong;
     }
 
     /* ---------- Life-Cycle Methods ------------- */
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("Log", "onPause: Called");
         getSharedPreferences(PREFERENCE, MODE_PRIVATE)
                 .edit()
                 .putInt(CORRECTPREF, correct)
                 .putInt(WRONGPREF,wrong)
                 .apply();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setCorrect(getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(CORRECTPREF,0));
-        setWrong(getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(WRONGPREF,0));
     }
 }

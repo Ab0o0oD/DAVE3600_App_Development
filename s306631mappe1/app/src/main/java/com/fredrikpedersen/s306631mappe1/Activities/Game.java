@@ -3,6 +3,7 @@ package com.fredrikpedersen.s306631mappe1.Activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,9 @@ public class Game extends BaseActivity {
     private final String CORRECT_VALUE = "Correct Answers";
     private final String WRONG_VALUE = "Wrong Answers";
     private final String TASKS_ARRAY = "Tasks";
+    private final String PREFERENCE = "Preferences";
+    private final String CORRECTPREF = "Number of Correct Answers";
+    private final String WRONGPREF = "Number of Wrong Answers";
 
     //Views
     private EditText answerBox;
@@ -78,15 +82,11 @@ public class Game extends BaseActivity {
                 builder.setMessage(getResources().getString(R.string.newGame))
                     .setCancelable(false)
                     .setPositiveButton(getResources().getString(R.string.yes), (dialogInterface, i) -> {
-                        Stats.incrementCorrect(correctAnswers);
-                        Stats.incrementWrong(wrongAnswers);
                         finish();
                         Intent intent = new Intent(this, this.getClass());
                         startActivity(intent);
                     })
                     .setNegativeButton(getResources().getString(R.string.no), (dialogInterface, i) -> {
-                        Stats.incrementCorrect(correctAnswers);
-                        Stats.incrementWrong(wrongAnswers);
                         finish();
                     })
                     .show();
@@ -103,9 +103,7 @@ public class Game extends BaseActivity {
                     .setPositiveButton(getResources().getString(R.string.yes), (dialogInterface, i) -> finish())
                     .setNegativeButton(getResources().getString(R.string.no), null)
                     .show();
-        } else { //Update number of wrong and right answers in the Data-class when the player has finished the game and leaves the activity
-            Stats.incrementCorrect(correctAnswers);
-            Stats.incrementWrong(wrongAnswers);
+        } else { //Close the activity if the player has finished the game
             finish();
         }
     }
@@ -243,5 +241,16 @@ public class Game extends BaseActivity {
         outState.putInt(CORRECT_VALUE, correctAnswers);
         outState.putInt(WRONG_VALUE, wrongAnswers);
         outState.putStringArray(TASKS_ARRAY, tasks);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("Log", "onPause: Called");
+        getSharedPreferences(PREFERENCE, MODE_PRIVATE)
+                .edit()
+                .putInt(CORRECTPREF, correctAnswers)
+                .putInt(WRONGPREF,wrongAnswers)
+                .apply();
     }
 }
