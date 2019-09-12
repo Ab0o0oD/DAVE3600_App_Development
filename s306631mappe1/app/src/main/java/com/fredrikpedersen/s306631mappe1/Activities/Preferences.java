@@ -30,9 +30,9 @@ public class Preferences extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preferences_activity);
 
-        initializeViews();
         initializeSaveContentStrings();
         numberOfTasks = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(NUMBER_OF_TASKS_PREF,5);
+        initializeViews();
     }
 
     //Assigned to tasksBtn0-2 in preferences_activity.xml
@@ -70,13 +70,13 @@ public class Preferences extends BaseActivity {
 
         switch (numberOfTasks) {
             case 5:
-                btn5.setPressed(true);
+                btn5.setBackgroundColor(Color.WHITE);
                 break;
             case 10:
-                btn10.setPressed(true);
+                btn10.setBackgroundColor(Color.WHITE);
                 break;
             case 25:
-                btn25.setPressed(true);
+                btn25.setBackgroundColor(Color.WHITE);
                 break;
             default:
                 break;
@@ -92,19 +92,19 @@ public class Preferences extends BaseActivity {
     private void updateButtonPressedStates() { //TODO Fungerer ikke. Prat med Anders!
         switch (numberOfTasks) {
             case 5:
-                btn5.setPressed(true);
-                btn10.setPressed(false);
-                btn25.setPressed(false);
+                btn5.setBackgroundColor(Color.WHITE);
+                btn10.setBackgroundResource(android.R.drawable.btn_default);
+                btn25.setBackgroundResource(android.R.drawable.btn_default);
                 break;
             case 10:
-                btn5.setPressed(false);
-                btn10.setPressed(true);
-                btn25.setPressed(false);
+                btn5.setBackgroundResource(android.R.drawable.btn_default);
+                btn10.setBackgroundColor(Color.WHITE);
+                btn25.setBackgroundResource(android.R.drawable.btn_default);
                 break;
             case 25:
-                btn5.setPressed(false);
-                btn10.setPressed(false);
-                btn25.setPressed(true);
+                btn5.setBackgroundResource(android.R.drawable.btn_default);
+                btn10.setBackgroundResource(android.R.drawable.btn_default);
+                btn25.setBackgroundColor(Color.WHITE);
                 break;
             default:
                 break;
