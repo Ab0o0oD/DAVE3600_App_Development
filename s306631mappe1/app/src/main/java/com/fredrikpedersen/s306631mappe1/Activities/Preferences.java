@@ -1,14 +1,15 @@
 package com.fredrikpedersen.s306631mappe1.Activities;
 
-import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.fredrikpedersen.s306631mappe1.LocaleManager;
 import com.fredrikpedersen.s306631mappe1.R;
+
+import java.util.Locale;
 
 public class Preferences extends BaseActivity {
 
@@ -44,17 +45,21 @@ public class Preferences extends BaseActivity {
     //Assigned to norwegianFlag and germanFlag in preferences_activity.xml
     public void selectLanguage(View view) {
         if (view == findViewById(R.id.germanFlag)) { //Make this if-else into a switch/case if more languages are added
-            setLocale(this, LocaleManager.GERMAN);
+            setLocale("de");
+            recreate();
         } else if (view == findViewById(R.id.norwegianFlag)) {
-            setLocale(this, LocaleManager.NORWEGIAN);
+            setLocale("nb");
+            recreate();
         }
     }
 
     //Sets the locale and restarts the activity
-    private void setLocale(AppCompatActivity context, @LocaleManager.LocaleDef String language) {
-        LocaleManager.setNewLocale(this, language);
-        Intent intent = context.getIntent();
-        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+    private void setLocale(String localeCode) {
+        Resources res = getResources();
+        Configuration cf = res.getConfiguration();
+
+        cf.setLocale(new Locale(localeCode));
+        res.updateConfiguration(cf, res.getDisplayMetrics());
     }
 
     //Initializes all the views
