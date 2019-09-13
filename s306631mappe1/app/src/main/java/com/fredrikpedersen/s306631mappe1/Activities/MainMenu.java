@@ -36,8 +36,9 @@ public class MainMenu extends BaseActivity {
         startActivity(intent);
     }
 
+    //Asks the user if they really want to quit the application
     @Override
-    public void onBackPressed() {  //Asks the user if they really want to quit the application
+    public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getResources().getString(R.string.backPressed))
                 .setCancelable(false)

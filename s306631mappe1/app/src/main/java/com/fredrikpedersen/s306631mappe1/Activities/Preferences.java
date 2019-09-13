@@ -15,12 +15,12 @@ public class Preferences extends BaseActivity {
     private String NUMBER_OF_TASKS_PREF;
 
     //Views
-    private Button btn5;
-    private Button btn10;
-    private Button btn25;
+    private Button btn5; //Button for setting numberOfTasks to 5
+    private Button btn10; //Button for setting numberOfTasks to 10
+    private Button btn25; //Button for setting numberOfTasks to 25
 
     //Variables
-    private int numberOfTasks;
+    private int numberOfTasks; //How many tasks there are to be in total.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +32,17 @@ public class Preferences extends BaseActivity {
         initializeSaveContentStrings();
     }
 
-    //Assigned to tasksBtn0-2 in preferences_activity.xml
+    //Assigned to tasksBtn0-2 in preferences_activity.xml. numberOfTasks is set equal to the text value on the button.
     public void chooseNumberOfTasks(View view) {
         Button btn = (Button)view;
         numberOfTasks = (Integer.valueOf(btn.getText().toString()));
         updateButtonPressedStates();
     }
 
-    //Assigned to norwegianFlag and germanFlag in preferences_activity.xml
+    //Assigned to norwegianFlag and germanFlag in preferences_activity.xml. Calls setLocale() with a parameter based on which button is pressed
     public void selectLanguage(View view) {
-        if (view == findViewById(R.id.germanFlag)) { //Make this if-else into a switch/case if more languages are added
+        //Make this if-else into a switch/case if more languages are added
+        if (view == findViewById(R.id.germanFlag)) {
             setLocale(LocaleManager.GERMAN);
         } else if (view == findViewById(R.id.norwegianFlag)) {
             setLocale(LocaleManager.NORWEGIAN);
@@ -54,12 +55,37 @@ public class Preferences extends BaseActivity {
         recreate();
     }
 
+    private void updateButtonPressedStates()  {
+
+        //Makes a button appear to be pressed in, in accordance with the value of numberOfTasks. Resets the two other buttons to default appearance values.
+        switch (numberOfTasks) {
+            case 5:
+                btn5.setBackgroundColor(Color.WHITE);
+                btn10.setBackgroundResource(android.R.drawable.btn_default);
+                btn25.setBackgroundResource(android.R.drawable.btn_default);
+                break;
+            case 10:
+                btn5.setBackgroundResource(android.R.drawable.btn_default);
+                btn10.setBackgroundColor(Color.WHITE);
+                btn25.setBackgroundResource(android.R.drawable.btn_default);
+                break;
+            case 25:
+                btn5.setBackgroundResource(android.R.drawable.btn_default);
+                btn10.setBackgroundResource(android.R.drawable.btn_default);
+                btn25.setBackgroundColor(Color.WHITE);
+                break;
+            default:
+                break;
+        }
+    }
+
     //Initializes all the views
     private void initializeViews() {
         btn5 = findViewById(R.id.tasksBtn0);
         btn10 = findViewById(R.id.tasksBtn1);
         btn25 = findViewById(R.id.tasksBtn2);
 
+        //Makes a button appear to be pressed in, in accordance with the value of numberOfTasks
         switch (numberOfTasks) {
             case 5:
                 btn5.setBackgroundColor(Color.WHITE);
@@ -79,28 +105,6 @@ public class Preferences extends BaseActivity {
     private void initializeSaveContentStrings() {
         PREFERENCE = getResources().getString(R.string.PREFERENCE);
         NUMBER_OF_TASKS_PREF = getResources().getString(R.string.NUMBER_OF_TASKS_PREF);
-    }
-
-    private void updateButtonPressedStates()  {
-        switch (numberOfTasks) {
-            case 5:
-                btn5.setBackgroundColor(Color.WHITE);
-                btn10.setBackgroundResource(android.R.drawable.btn_default);
-                btn25.setBackgroundResource(android.R.drawable.btn_default);
-                break;
-            case 10:
-                btn5.setBackgroundResource(android.R.drawable.btn_default);
-                btn10.setBackgroundColor(Color.WHITE);
-                btn25.setBackgroundResource(android.R.drawable.btn_default);
-                break;
-            case 25:
-                btn5.setBackgroundResource(android.R.drawable.btn_default);
-                btn10.setBackgroundResource(android.R.drawable.btn_default);
-                btn25.setBackgroundColor(Color.WHITE);
-                break;
-            default:
-                break;
-        }
     }
 
     /* ---------- Life-Cycle Methods ------------- */

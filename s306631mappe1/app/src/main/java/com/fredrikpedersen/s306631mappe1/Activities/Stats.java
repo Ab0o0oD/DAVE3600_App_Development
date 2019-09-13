@@ -1,7 +1,6 @@
 package com.fredrikpedersen.s306631mappe1.Activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,12 +14,12 @@ public class Stats extends BaseActivity {
     private String WRONGPREF;
 
     //Views
-    private TextView correctAnswers;
-    private TextView wrongAnswers;
+    private TextView correctAnswers; //Textview for showcasing how many correct answers the player have had in total
+    private TextView wrongAnswers;  //Textview for showcasing how many wrong answers the player have had in total
 
     //Variables
-    private int correct;
-    private int wrong;
+    private int correct; //How many correct answers the player have had in total
+    private int wrong; //How many wrong answers the player have had in total
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,35 +33,31 @@ public class Stats extends BaseActivity {
         showStats();
     }
 
-    public void deleteStats(View view) {
-        setCorrect(0);
-        setWrong(0);
+    //Sets correct and wrong to zero, then updates the textViews accordingly
+    public void deleteStats(View view) { //TODO add a MessageDialog asking the user if they really want to delete their stats
+        this.correct = 0;
+        this.wrong = 0;
         correctAnswers.setText("0");
         wrongAnswers.setText("0");
     }
 
+    //Initializes all the views
     private void initializeViews() {
         correctAnswers = findViewById(R.id.correctAnswers);
         wrongAnswers = findViewById(R.id.wrongAnswers);
     }
 
+    //Initializes all the save content Strings
     private void initializeSaveContentStrings() {
         PREFERENCE = getResources().getString(R.string.PREFERENCE);
         CORRECTPREF = getResources().getString(R.string.CORRECTPREF);
         WRONGPREF = getResources().getString(R.string.WRONGPREF);
     }
 
+    //Sets the text in the TextViews
     private void showStats() {
         correctAnswers.setText(String.valueOf(correct));
         wrongAnswers.setText(String.valueOf(wrong));
-    }
-
-    public void setCorrect(int correct) {
-       this.correct = correct;
-    }
-
-    public void setWrong(int wrong) {
-        this.wrong = wrong;
     }
 
     /* ---------- Life-Cycle Methods ------------- */
@@ -70,7 +65,6 @@ public class Stats extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("Log", "onPause: Called");
         getSharedPreferences(PREFERENCE, MODE_PRIVATE)
                 .edit()
                 .putInt(CORRECTPREF, correct)

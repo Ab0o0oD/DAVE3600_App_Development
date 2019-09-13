@@ -22,8 +22,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.attachBaseContext(LocaleManager.setLocale(base));
     }
 
+    //Default behaviour for activites should be to finish when back is pressed.
     @Override
-    public void onBackPressed() { //Returns to the main menu when back is pressed.
+    public void onBackPressed() {
         finish();
     }
 }

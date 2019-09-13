@@ -32,18 +32,18 @@ public class Game extends BaseActivity {
     private String NUMBER_OF_TASKS_PREF;
 
     //Views
-    private EditText answerBox;
-    private TextView taskBox;
-    private TextView feedbackText;
-    private ImageView feedbackIcon;
-    private TextView correctCounter;
+    private EditText answerBox; //The textbox where the users input is shown
+    private TextView taskBox; //Textbox where the current task is shown
+    private TextView feedbackText; //Textbox giving feedback to the player in case of correct, wrong or no answer
+    private ImageView feedbackIcon; //An icon complementing the feedbackText
+    private TextView correctCounter; //Showcases how many correct answers the user have in the current game
 
     //Values
-    private String[] tasks;
-    private int taskNumber = 0;
-    private int correctAnswers = 0;
-    private int wrongAnswers = 0;
-    private int numberOfTasks;
+    private String[] tasks; //Array with all the tasks for the current game
+    private int taskNumber = 0; //What task number the player is currently at. Used as the index in the tasks-array
+    private int correctAnswers = 0; //How many correct answers the user have in the current session
+    private int wrongAnswers = 0; //How many wrong answers the player have in the current session
+    private int numberOfTasks; //How many tasks there are to be in total. This is set in the Preferences-activity.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class Game extends BaseActivity {
         initializeViews();
         initializeValues();
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null) { //If there is a save state, we do not reshuffle the array and set a new task.
             shuffleArray();
             updateCorrectCounter();
             setTask(taskNumber);
@@ -64,31 +64,32 @@ public class Game extends BaseActivity {
 
     /* ---------- OnClick Methods ------------- */
 
-    //Assigned to btn0-9 in game_activity.xml
+    //Assigned to btn0-9 in game_activity.xml. Appends the value of a button to the answerBox
     public void onClickAppend(View view) {
         Button btn = (Button)view;
         answerBox.append(btn.getText().toString());
     }
 
-    //Assigned to the clearBtn in game_activity.xml
+    //Assigned to the clearBtn in game_activity.xml. Removes all text in the answerBox
     public void onClickRemove(View view) {
         answerBox.setText("");
     }
 
-    //Assigned to the confirmBtn in game_activity.xml
+    //Assigned to the confirmBtn in game_activity.xml.
     public void onClickAnswer(View view) {
         if (gameFinished()) { //Checks if the game is finished. Asks the player if they want to start a new game if it is.
                 Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.done), Toast.LENGTH_SHORT);
                 toast.show();
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this); //AlertDialog to check if the user wants to start a new game or quit
                 builder.setMessage(getResources().getString(R.string.newGame))
-                    .setCancelable(false)
-                    .setPositiveButton(getResources().getString(R.string.yes), (dialogInterface, i) -> {
+                    .setCancelable(false) //This dialog should not be cancelable
+                    .setPositiveButton(getResources().getString(R.string.yes), (dialogInterface, i) -> { //Starts a new game if the user gives a positive response
                         finish();
                         Intent intent = new Intent(this, this.getClass());
                         startActivity(intent);
                     })
-                    .setNegativeButton(getResources().getString(R.string.no), (dialogInterface, i) -> finish())
+                    .setNegativeButton(getResources().getString(R.string.no), (dialogInterface, i) -> finish()) //Finishes the activity if the user gives a negative response
                     .show();
         }
         handleAnswer();
@@ -109,26 +110,27 @@ public class Game extends BaseActivity {
 
     /* ---------- Game Methods ------------- */
 
-    private void handleAnswer() { //Handles no, wrong or correct answer input from the user
-        if (gameFinished()) { //Got a bug where the game counts one extra wrong answer if the user tries to input an extra answer after the game is finished. This is a temporary bugfix.
+    //Handles no, wrong or correct answer input from the user
+    private void handleAnswer() {
+        if (gameFinished()) { //Got a bug where the game counts one extra wrong answer if the user tries to input an extra answer after the game is finished. Might want to find a better solution for this.
             return;
         }
 
-        if (answerBox.getText().toString().equals("")) { //If the user haven't given any input
+        if (answerBox.getText().toString().equals("")) { //If the user haven't given any input, a message appear prompting them to give an input
             feedbackText.setText(getResources().getString(R.string.giveAnswer));
             feedbackText.setTextColor(Color.RED);
             feedbackIconVisible(false);
             return;
         }
 
-        if (correctAnswer()) {
+        if (correctAnswer()) { //If the user's answer is correct
             feedbackText.setText(getResources().getString(R.string.correct));
             feedbackText.setTextColor(Color.WHITE);
             setFeedbackIconImage(true);
             feedbackIconVisible(true);
             correctAnswers++;
 
-        } else {
+        } else { //If the user's answer is not empty or correct, it is wrong
             feedbackText.setText(getResources().getString(R.string.wrong));
             feedbackText.setTextColor(Color.RED);
             setFeedbackIconImage(false);
@@ -142,10 +144,10 @@ public class Game extends BaseActivity {
         }
 
         updateCorrectCounter();
-        answerBox.setText("");
+        answerBox.setText(""); //Clear the answerbox after each answer from the user
     }
 
-    //Gives sets the task shown in taskBox based on the current taskNumber
+    //Sets the task shown in taskBox based on the current taskNumber
     private void setTask(int taskNumber) {
         taskBox.setText(tasks[taskNumber]);
     }
@@ -156,7 +158,7 @@ public class Game extends BaseActivity {
         correctCounter.setText(counter);
     }
 
-    //Checks if all the tasks have been done
+    //Checks if all the tasks have been completed
     private boolean gameFinished() {
         return taskNumber >= numberOfTasks;
     }
@@ -172,7 +174,7 @@ public class Game extends BaseActivity {
         return Integer.parseInt(currentTask[0]) + Integer.parseInt(currentTask[2]);
     }
 
-    //Shuffles both arrays by the same random number
+    //Randomly shuffles the task array
     private void shuffleArray() {
         Random rndm = new Random();
 
@@ -195,7 +197,7 @@ public class Game extends BaseActivity {
         }
     }
 
-    //Sets the feedBackIcon to a cross or a check mark based on a boolean value
+    //Sets the feedBackIcon image based on a boolean value
     private void setFeedbackIconImage(boolean correct) {
         if (correct) {
             feedbackIcon.setImageResource(R.drawable.check_mark);
@@ -221,6 +223,7 @@ public class Game extends BaseActivity {
         numberOfTasks = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(NUMBER_OF_TASKS_PREF,5);
     }
 
+    //Initialize all save content Strings
     private void initializeSaveContentStrings() {
         TASKCOUNTER_CONTENTS = getResources().getString(R.string.TASKCOUNTER_CONTENTS);
         TASKNUMBER_VALUE = getResources().getString(R.string.TASKNUMBER_VALUE);
