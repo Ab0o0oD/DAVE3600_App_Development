@@ -92,5 +92,4 @@
     <string name="CORRECTPREF" translatable="false">Number of Correct Answers</string>
     <string name="WRONGPREF" translatable="false">Number of Wrong Answers</string>
     <string name="NUMBER_OF_TASKS_PREF" translatable="false">Number of Tasks</string>
-
 </resources>

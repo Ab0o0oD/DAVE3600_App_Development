@@ -1,12 +1,9 @@
 package com.fredrikpedersen.s306631mappe1.Activities;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.fredrikpedersen.s306631mappe1.LocaleManager;
 import com.fredrikpedersen.s306631mappe1.R;
@@ -84,7 +81,7 @@ public class Preferences extends BaseActivity {
         NUMBER_OF_TASKS_PREF = getResources().getString(R.string.NUMBER_OF_TASKS_PREF);
     }
 
-    private void updateButtonPressedStates() {
+    private void updateButtonPressedStates()  {
         switch (numberOfTasks) {
             case 5:
                 btn5.setBackgroundColor(Color.WHITE);

@@ -99,7 +99,6 @@ public class Game extends BaseActivity {
         if (!gameFinished()) { //If the player haven't finished all tasks, ask if they really want to leave the activity
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(getResources().getString(R.string.backPressed))
-                    .setCancelable(false)
                     .setPositiveButton(getResources().getString(R.string.yes), (dialogInterface, i) -> finish())
                     .setNegativeButton(getResources().getString(R.string.no), null)
                     .show();

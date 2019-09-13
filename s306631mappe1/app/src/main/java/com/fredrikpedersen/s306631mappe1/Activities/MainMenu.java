@@ -1,10 +1,10 @@
 package com.fredrikpedersen.s306631mappe1.Activities;
 
-import androidx.appcompat.app.AlertDialog;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.fredrikpedersen.s306631mappe1.R;
 
