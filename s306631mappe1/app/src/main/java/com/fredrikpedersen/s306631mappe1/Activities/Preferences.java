@@ -45,17 +45,16 @@ public class Preferences extends BaseActivity {
     //Assigned to norwegianFlag and germanFlag in preferences_activity.xml
     public void selectLanguage(View view) {
         if (view == findViewById(R.id.germanFlag)) { //Make this if-else into a switch/case if more languages are added
-            setLocale(this, LocaleManager.GERMAN);
+            setLocale(LocaleManager.GERMAN);
         } else if (view == findViewById(R.id.norwegianFlag)) {
-            setLocale(this, LocaleManager.NORWEGIAN);
+            setLocale(LocaleManager.NORWEGIAN);
         }
     }
 
     //Sets the locale and restarts the activity
-    private void setLocale(AppCompatActivity context, @LocaleManager.LocaleDef String language) {
+    private void setLocale(@LocaleManager.LocaleDef String language) {
         LocaleManager.setNewLocale(this, language);
-        Intent intent = context.getIntent();
-        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+        recreate();
     }
 
     //Initializes all the views
