@@ -43,7 +43,7 @@ public class Stats extends BaseActivity {
     }
 
     //Sets correct and wrong to zero, then updates the textViews accordingly
-    private void deleteStats() { //TODO add a MessageDialog asking the user if they really want to delete their stats
+    private void deleteStats() {
         this.correctAnswers = 0;
         this.wrongAnswers = 0;
         correctAnswersText.setText("0");
