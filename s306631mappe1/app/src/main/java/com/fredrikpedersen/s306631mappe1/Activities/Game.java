@@ -22,7 +22,8 @@ public class Game extends BaseActivity {
     /*
     Note: A lot of code in this class should probably be moved to a separate Game Logic-class, so
     that the activity classes functions more like standard controllers in line with a MVC-pattern.
-    This has not been done due to time constraints with this project. */
+    This has not been done due to time constraints with this project.
+    */
 
     //Save content Strings
     private String TASKCOUNTER_CONTENTS;

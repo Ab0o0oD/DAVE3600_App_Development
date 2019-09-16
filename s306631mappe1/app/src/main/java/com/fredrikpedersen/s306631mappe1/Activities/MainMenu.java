@@ -16,7 +16,7 @@ public class MainMenu extends BaseActivity {
         setContentView(R.layout.main_menu);
     }
 
-    /* ----- Button Methods ------ */
+    /* ----- onClick Methods ------ */
 
     //Assigned to playButton in main_menu.xml
     public void startGame(View view) {

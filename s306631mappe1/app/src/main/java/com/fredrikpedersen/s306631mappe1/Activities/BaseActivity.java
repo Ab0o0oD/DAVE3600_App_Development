@@ -5,10 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
-
-/**
- * Class for for implementing logic that all activites are to follow
- */
+ //Class for for implementing logic that all activites are to follow
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -17,12 +14,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
+    //Is called before onCreate to set the locale to the currently preferred one
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocaleManager.setLocale(base));
     }
 
-    //Default behaviour for activites should be to finish when back is pressed.
+    //Default behaviour for activities is to finish when back is pressed.
     @Override
     public void onBackPressed() {
         finish();
