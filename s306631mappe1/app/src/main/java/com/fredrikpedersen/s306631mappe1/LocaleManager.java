@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import androidx.annotation.StringDef;
 import java.lang.annotation.Retention;
@@ -67,5 +68,13 @@ public class LocaleManager {
         config.setLocale(locale);
         context = context.createConfigurationContext(config);
         return context;
+    }
+
+    /**
+     * get current locale
+     */
+    public static Locale getLocale(Resources res) {
+        Configuration config = res.getConfiguration();
+        return Build.VERSION.SDK_INT >= 24 ? config.getLocales().get(0) : config.locale;
     }
 }
