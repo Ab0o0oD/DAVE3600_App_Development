@@ -9,6 +9,7 @@
 
     <TextView
         android:id="@+id/taskBox"
+        style="@style/TextShadow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -18,7 +19,6 @@
         android:textColor="#FFFFFF"
         android:textSize="32sp"
         android:textStyle="bold"
-        style="@style/TextShadow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,32 +31,31 @@
         android:ems="10"
         android:inputType="numberSigned"
         android:textColor="#FFFFFF"
-        style="@style/TextShadow"
         app:layout_constraintEnd_toEndOf="@+id/taskBox"
         app:layout_constraintStart_toStartOf="@+id/taskBox"
         app:layout_constraintTop_toBottomOf="@+id/taskBox" />
 
     <TextView
         android:id="@+id/pointTextBox"
+        style="@style/TextShadow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tasksText"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        style="@style/TextShadow"
         app:layout_constraintBottom_toTopOf="@+id/correctCounter"
         app:layout_constraintEnd_toEndOf="@+id/correctCounter"
         app:layout_constraintStart_toStartOf="@+id/correctCounter" />
 
     <TextView
         android:id="@+id/correctCounter"
+        style="@style/TextShadow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/placeholder"
         android:textColor="#FFFFFF"
-        style="@style/TextShadow"
         app:layout_constraintBaseline_toBaselineOf="@+id/answerBox"
         app:layout_constraintEnd_toStartOf="@+id/answerBox"
         app:layout_constraintStart_toStartOf="parent" />
@@ -69,8 +68,8 @@
         android:onClick="onClickAnswer"
         android:text="@string/answer"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btn0"
-        app:layout_constraintStart_toEndOf="@+id/btn0" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn9"
+        app:layout_constraintStart_toEndOf="@+id/btn9" />
 
     <Button
         android:id="@+id/btn0"
@@ -79,8 +78,8 @@
         android:layout_marginStart="8dp"
         android:onClick="onClickAppend"
         android:text="@string/num0"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btn9"
-        app:layout_constraintStart_toEndOf="@+id/btn9" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn6"
+        app:layout_constraintStart_toEndOf="@+id/btn6" />
 
     <Button
         android:id="@+id/btn1"
@@ -97,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:onClick="onClickAppend"
         android:text="@string/num2"
@@ -120,21 +119,21 @@
         android:id="@+id/btn4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:onClick="onClickAppend"
         android:text="@string/num4"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btn3"
-        app:layout_constraintStart_toEndOf="@+id/btn3" />
+        app:layout_constraintStart_toStartOf="@+id/btn1"
+        app:layout_constraintTop_toBottomOf="@+id/btn1" />
 
     <Button
         android:id="@+id/btn5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         android:onClick="onClickAppend"
         android:text="@string/num5"
-        app:layout_constraintStart_toStartOf="@+id/btn1"
-        app:layout_constraintTop_toBottomOf="@+id/btn1" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn4"
+        app:layout_constraintStart_toEndOf="@+id/btn4" />
 
     <Button
         android:id="@+id/btn6"
@@ -150,11 +149,11 @@
         android:id="@+id/btn7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:onClick="onClickAppend"
         android:text="@string/num7"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btn5"
-        app:layout_constraintStart_toEndOf="@+id/btn6" />
+        app:layout_constraintStart_toStartOf="@+id/btn4"
+        app:layout_constraintTop_toBottomOf="@+id/btn4" />
 
     <Button
         android:id="@+id/btn8"
@@ -173,18 +172,18 @@
         android:layout_marginStart="8dp"
         android:onClick="onClickAppend"
         android:text="@string/num9"
-        app:layout_constraintBaseline_toBaselineOf="@+id/clearBtn"
-        app:layout_constraintStart_toEndOf="@+id/clearBtn" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn8"
+        app:layout_constraintStart_toEndOf="@+id/btn8" />
 
     <Button
         android:id="@+id/clearBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
         android:onClick="onClickRemove"
         android:text="@string/clear"
-        app:layout_constraintStart_toStartOf="@+id/btn5"
-        app:layout_constraintTop_toBottomOf="@+id/btn5" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn3"
+        app:layout_constraintStart_toEndOf="@+id/btn3" />
 
     <TextView
         android:id="@+id/feedbackText"

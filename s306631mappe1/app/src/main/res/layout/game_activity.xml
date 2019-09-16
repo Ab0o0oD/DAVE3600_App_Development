@@ -31,7 +31,6 @@
         android:ems="10"
         android:inputType="numberSigned"
         android:textColor="#FFFFFF"
-        style="@style/TextShadow"
         app:layout_constraintEnd_toEndOf="@+id/taskBox"
         app:layout_constraintStart_toStartOf="@+id/taskBox"
         app:layout_constraintTop_toBottomOf="@+id/taskBox" />
