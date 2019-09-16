@@ -62,7 +62,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/trashCan"
-        android:onClick="deleteStats"
+        android:onClick="trashCanClicked"
         app:layout_constraintEnd_toEndOf="@+id/wrongAnswers"
         app:layout_constraintStart_toStartOf="@+id/wrongAnswers"
         app:layout_constraintTop_toBottomOf="@+id/wrongAnswers"

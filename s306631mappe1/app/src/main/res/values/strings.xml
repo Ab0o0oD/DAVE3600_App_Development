@@ -72,6 +72,9 @@
     <string name="germanChosen">Tysk Språk Valgt</string>
     <string name="norwegianChosen">Norsk Språk Valgt</string>
 
+    <!-- Stats -->
+    <string name="deleteStats">Vil du slette statistikken?</string>
+
     <!-- Content Descriptions  -->
     <string name="gerFlag">Det Tyske Flagget</string>
     <string name="norFlag">Det Norske Flagget</string>

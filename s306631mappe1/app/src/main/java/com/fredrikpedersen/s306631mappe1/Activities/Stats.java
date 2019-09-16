@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.fredrikpedersen.s306631mappe1.R;
 
 public class Stats extends BaseActivity {
@@ -32,8 +34,16 @@ public class Stats extends BaseActivity {
         showStats();
     }
 
+    public void trashCanClicked(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getResources().getString(R.string.deleteStats))
+                .setPositiveButton(getResources().getString(R.string.yes), (dialogInterface, i) -> deleteStats())
+                .setNegativeButton(getResources().getString(R.string.no), null)
+                .show();
+    }
+
     //Sets correct and wrong to zero, then updates the textViews accordingly
-    public void deleteStats(View view) { //TODO add a MessageDialog asking the user if they really want to delete their stats
+    private void deleteStats() { //TODO add a MessageDialog asking the user if they really want to delete their stats
         this.correctAnswers = 0;
         this.wrongAnswers = 0;
         correctAnswersText.setText("0");

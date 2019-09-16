@@ -27,4 +27,5 @@
     <string name="norwegianChosen">Norwegische Sprache ausgewählt</string>
     <string name="germanChosen">Deutsche Sprache ausgewählt</string>
     <string name="newGame">Das Spiel ist vorbei. Ein neues Spiel starten?</string>
+    <string name="deleteStats">Möchten Sie die Statistiken löschen?</string>
 </resources>
