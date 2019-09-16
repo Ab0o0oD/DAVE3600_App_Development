@@ -27,6 +27,7 @@
         android:text="@string/placeholder"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
+        style="@style/TextShadow"
         app:layout_constraintEnd_toEndOf="@+id/feedbackIcon"
         app:layout_constraintStart_toStartOf="@+id/feedbackIcon"
         app:layout_constraintTop_toBottomOf="@+id/feedbackIcon" />
@@ -50,6 +51,7 @@
         android:text="@string/placeholder"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
+        style="@style/TextShadow"
         app:layout_constraintEnd_toEndOf="@+id/crossMark"
         app:layout_constraintStart_toStartOf="@+id/crossMark"
         app:layout_constraintTop_toBottomOf="@+id/crossMark" />
