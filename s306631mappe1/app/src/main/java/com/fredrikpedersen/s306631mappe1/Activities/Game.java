@@ -3,7 +3,6 @@ package com.fredrikpedersen.s306631mappe1.Activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -105,7 +104,11 @@ public class Game extends BaseActivity {
         if (!gameFinished()) { //If the player haven't finished all tasks, ask if they really want to leave the activity
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(getResources().getString(R.string.backPressed))
-                    .setPositiveButton(getResources().getString(R.string.yes), (dialogInterface, i) -> finish())
+                    .setPositiveButton(getResources().getString(R.string.yes), (dialogInterface, i) ->  {
+                        finish();
+                        correctAnswers = 0;
+                        wrongAnswers = 0;
+                    })
                     .setNegativeButton(getResources().getString(R.string.no), null)
                     .show();
         } else { //Close the activity if the player has finished the game
@@ -276,11 +279,12 @@ public class Game extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("Log", "onPause: Called");
+        int savedCorrect = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(CORRECTPREF,0) + correctAnswers;
+        int savedWrong = getSharedPreferences(PREFERENCE, MODE_PRIVATE).getInt(WRONGPREF,0) + wrongAnswers;
         getSharedPreferences(PREFERENCE, MODE_PRIVATE)
                 .edit()
-                .putInt(CORRECTPREF, correctAnswers)
-                .putInt(WRONGPREF,wrongAnswers)
+                .putInt(CORRECTPREF, savedCorrect)
+                .putInt(WRONGPREF,savedWrong)
                 .apply();
     }
 }
