@@ -17,6 +17,7 @@
         android:text="@string/numTasksText"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
+        style="@style/TextShadow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -87,6 +88,7 @@
         android:text="@string/chooseLanguage"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
+        style="@style/TextShadow"
         app:layout_constraintEnd_toEndOf="@+id/tasksBtn1"
         app:layout_constraintStart_toStartOf="@+id/tasksBtn1"
         app:layout_constraintTop_toBottomOf="@+id/tasksBtn1" />

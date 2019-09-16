@@ -18,6 +18,7 @@
         android:textColor="#FFFFFF"
         android:textSize="32sp"
         android:textStyle="bold"
+        style="@style/TextShadow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,6 +31,7 @@
         android:ems="10"
         android:inputType="numberSigned"
         android:textColor="#FFFFFF"
+        style="@style/TextShadow"
         app:layout_constraintEnd_toEndOf="@+id/taskBox"
         app:layout_constraintStart_toStartOf="@+id/taskBox"
         app:layout_constraintTop_toBottomOf="@+id/taskBox" />
@@ -41,6 +43,7 @@
         android:text="@string/tasksText"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
+        style="@style/TextShadow"
         app:layout_constraintBottom_toTopOf="@+id/correctCounter"
         app:layout_constraintEnd_toEndOf="@+id/correctCounter"
         app:layout_constraintStart_toStartOf="@+id/correctCounter" />
@@ -53,6 +56,7 @@
         android:layout_marginEnd="16dp"
         android:text="@string/placeholder"
         android:textColor="#FFFFFF"
+        style="@style/TextShadow"
         app:layout_constraintBaseline_toBaselineOf="@+id/answerBox"
         app:layout_constraintEnd_toStartOf="@+id/answerBox"
         app:layout_constraintStart_toStartOf="parent" />
