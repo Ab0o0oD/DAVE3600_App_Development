@@ -1,2 +1,0 @@
-Using resources in non-activity classes. See answer from Mahendran Sakkarai.
-https://stackoverflow.com/questions/7666589/using-getresources-in-non-activity-class
