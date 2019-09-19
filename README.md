@@ -3,6 +3,7 @@ Repo for various projects created in the course [DAVE3600 - App Development](htt
 
 ### The following projects are from assignments in DAVE3600
  - Matematika - Graded Assignment
+ - Lecture Assignments - Collection of leaning assignments given during lectures
  
 ### The following projects are from the [Android Java Masterclass - Become an App Developer](https://www.udemy.com/master-android-7-nougat-java-app-development-step-by-step/) course, by *Tim Buchalka* on Udemy
  - Playing
