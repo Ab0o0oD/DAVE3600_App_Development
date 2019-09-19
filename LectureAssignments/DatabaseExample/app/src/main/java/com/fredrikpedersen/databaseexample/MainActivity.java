@@ -50,7 +50,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void update(View view) {
-
+        Contact contact = new Contact();
+        contact.setName(nameIn.getText().toString());
+        contact.setPhoneNumber(phoneIn.getText().toString());
+        contact.set_ID(Long.parseLong(idIn.getText().toString()));
+        db.updateContact(contact);
     }
 
     public void initializeVariables() {
