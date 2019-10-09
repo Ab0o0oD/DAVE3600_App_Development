@@ -8,7 +8,6 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: starting AsyncTask");
         DownloadData downloadData = new DownloadData();
-        downloadData.execute("URL goes here!"); //Calls doInBackground
+        downloadData.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=10/xml"); //Calls doInBackground
         Log.d(TAG, "onCreate: done");
     }
 
