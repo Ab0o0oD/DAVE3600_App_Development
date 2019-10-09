@@ -61,25 +61,23 @@ public class MainActivity extends AppCompatActivity {
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-                int charsRead;
-                char[] inputBuffer = new char[500];
-
-                while (true) {
-                    charsRead = reader.read(inputBuffer);
-                    if (charsRead < 0) { //signals end of the data
-                        break;
-                    }
-                    if (charsRead > 0) {
-                        xmlResult.append(String.copyValueOf(inputBuffer, 0, charsRead));
-                    }
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    xmlResult.append(line).append("\n");
                 }
                 reader.close();
+
+                return xmlResult.toString();
 
             } catch (MalformedURLException e) {
                 Log.e(TAG, "downloadXML: Invalid URL " + e.getMessage());
             } catch (IOException e) {
                 Log.e(TAG, "downloadXML: IO Exception reading data: " + e.getMessage());
+            } catch (SecurityException e) {
+                Log.e(TAG, "downloadXML: Security Exception. " + e.getMessage());
             }
+
+            return null;
         }
     }
 }
