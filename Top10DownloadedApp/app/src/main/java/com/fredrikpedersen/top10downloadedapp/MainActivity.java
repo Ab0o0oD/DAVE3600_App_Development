@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String s) { //Is called when the task is done
             super.onPostExecute(s);
             Log.d(TAG, "onPostExecute: parameter is " + s);
+            ParseApplications parseApplications = new ParseApplications();
+            parseApplications.parse(s);
         }
 
         /*Can take in several parameters, but it is usually more convenient to create several instances

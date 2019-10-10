@@ -47,7 +47,7 @@ public class ParseApplications {
                         break;
 
                     case XmlPullParser.END_TAG:
-                        Log.d(TAG, "parse: Ending tag for" + tagName);
+                        Log.d(TAG, "parse: Ending tag for " + tagName);
                         if (inEntry) {
                             if ("entry".equalsIgnoreCase(tagName)) {
                                 applications.add(currentRecord);
@@ -60,7 +60,8 @@ public class ParseApplications {
                                 currentRecord.setReleaseDate(textValue);
                             } else if ("summary".equalsIgnoreCase(tagName)) {
                                 currentRecord.setSummary(textValue);
-                            } else if ("image".equalsIgnoreCase(textValue)) {
+                            } else if ("image".equalsIgnoreCase(tagName)) {
+
                                 currentRecord.setImageURL(textValue);
                             }
                         }
@@ -70,6 +71,11 @@ public class ParseApplications {
                         //Nothing to do.
                 }
                 eventType = xpp.next();
+            }
+
+            for (FeedEntry app: applications) {
+                Log.d(TAG, "************");
+                Log.d(TAG, app.toString());
             }
 
         } catch (Exception e) {
