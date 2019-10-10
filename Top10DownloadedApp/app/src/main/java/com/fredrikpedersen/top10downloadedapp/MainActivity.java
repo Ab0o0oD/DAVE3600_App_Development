@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: starting AsyncTask");
         DownloadData downloadData = new DownloadData(this);
-        downloadData.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=10/xml"); //This calls the doInBackground method
+        downloadData.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=200/xml"); //This calls the doInBackground method
         Log.d(TAG, "onCreate: done");
     }
 
