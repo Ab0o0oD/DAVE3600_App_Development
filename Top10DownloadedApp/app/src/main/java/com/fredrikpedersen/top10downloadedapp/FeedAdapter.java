@@ -13,14 +13,14 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class FeedAdapter extends ArrayAdapter {
+public class FeedAdapter<T extends FeedEntry> extends ArrayAdapter {
 
     private static final String TAG = "FeedAdapter";
     private final int layoutResource;
     private final LayoutInflater layoutInflater;
-    private final List<FeedEntry> applications;
+    private final List<T> applications;
 
-    public FeedAdapter(@NonNull Context context, int resource, List<FeedEntry> applications) {
+    public FeedAdapter(@NonNull Context context, int resource, List<T> applications) {
         super(context, resource);
         this.layoutInflater = LayoutInflater.from(context);
         this.layoutResource = resource;
@@ -47,7 +47,7 @@ public class FeedAdapter extends ArrayAdapter {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        FeedEntry currentApp = applications.get(position);
+        T currentApp = applications.get(position);
 
         viewHolder.tvName.setText(currentApp.getName());
         viewHolder.tvArtist.setText(currentApp.getArtist());
