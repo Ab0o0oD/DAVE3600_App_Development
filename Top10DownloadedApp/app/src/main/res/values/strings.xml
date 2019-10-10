@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Top 10 Downloaded App</string>
+    <string name="placeholder">Hello There!</string>
 </resources>
