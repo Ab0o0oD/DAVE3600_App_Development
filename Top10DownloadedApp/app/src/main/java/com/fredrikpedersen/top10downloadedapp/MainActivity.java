@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
             ParseApplications parseApplications = new ParseApplications();
             parseApplications.parse(s);
 
-            ArrayAdapter<FeedEntry> arrayAdapter = new ArrayAdapter<>(activity, R.layout.list_item, parseApplications.getApplications());
-            activity.listApps.setAdapter(arrayAdapter);
+            FeedAdapter feedAdapter = new FeedAdapter(activity, R.layout.list_record, parseApplications.getApplications());
+            activity.listApps.setAdapter(feedAdapter);
         }
 
         /*Can take in several parameters, but it is usually more convenient to create several
