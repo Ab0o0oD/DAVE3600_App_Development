@@ -1,5 +1,7 @@
 package com.fredrikpedersen.top10downloadedapp;
 
+import androidx.annotation.NonNull;
+
 public class FeedEntry {
 
     private String name;
@@ -48,6 +50,7 @@ public class FeedEntry {
         this.imageURL = imageURL;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Name= " + name + '\n' +

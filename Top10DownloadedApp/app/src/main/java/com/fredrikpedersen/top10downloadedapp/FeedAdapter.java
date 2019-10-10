@@ -34,6 +34,7 @@ public class FeedAdapter<T extends FeedEntry> extends ArrayAdapter {
 
     @NonNull
     @Override
+    @SuppressWarnings("unchecked")
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         ViewHolder viewHolder;
 

@@ -47,11 +47,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.feeds_menu, menu);
+
         if (feedLimit == 10) {
             menu.findItem(R.id.menu10).setChecked(true);
         } else {
             menu.findItem(R.id.menu25).setChecked(true);
         }
+
         return true;
     }
 
