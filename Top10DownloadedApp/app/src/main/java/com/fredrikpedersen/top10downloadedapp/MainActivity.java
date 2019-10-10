@@ -30,11 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initializeViews();
-
-        Log.d(TAG, "onCreate: starting AsyncTask");
-        DownloadData downloadData = new DownloadData(this);
-        downloadData.execute("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=200/xml"); //This calls the doInBackground method
-        Log.d(TAG, "onCreate: done");
+        downloadUrl("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=25/xml");
     }
 
     @Override
@@ -45,7 +41,31 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        String feedUrl;
+
+        switch (id) {
+            case R.id.menuFree:
+                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=25/xml";
+                break;
+            case R.id.menuPaid:
+                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=25/xml";
+                break;
+            case R.id.menuSongs:
+                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topsongs/limit=25/xml";
+                break;
+            default:
+                return super.onOptionsItemSelected(item); //Should always be included, is important when dealing with sub-menus
+        }
+        downloadUrl(feedUrl);
+        return true;
+    }
+
+    private void downloadUrl(String feedUrl) {
+        Log.d(TAG, "onCreate: starting AsyncTask");
+        DownloadData downloadData = new DownloadData(this);
+        downloadData.execute(feedUrl); //This calls the doInBackground method
+        Log.d(TAG, "onCreate: done");
     }
 
     private void initializeViews() {
