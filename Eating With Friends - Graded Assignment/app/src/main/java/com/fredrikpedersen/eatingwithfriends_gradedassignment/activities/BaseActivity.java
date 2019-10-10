@@ -1,4 +1,4 @@
-package com.fredrikpedersen.eatingwithfriends_gradedassignment;
+package com.fredrikpedersen.eatingwithfriends_gradedassignment.activities;
 
 import android.os.Bundle;
 
@@ -11,6 +11,4 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
-    abstract void initializeToolbar();
 }
