@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Eating With Friend</string>
+    <string name="app_name">Eating With Friends - Graded Assignment</string>
+    <string name="menu_search">Search</string>
 </resources>

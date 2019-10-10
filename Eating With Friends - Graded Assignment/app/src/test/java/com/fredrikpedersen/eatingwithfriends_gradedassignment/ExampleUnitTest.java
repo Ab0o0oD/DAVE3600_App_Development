@@ -1,4 +1,4 @@
-package com.fredrikpedersen.eatingwithfriend;
+package com.fredrikpedersen.eatingwithfriends_gradedassignment;
 
 import org.junit.Test;
 
