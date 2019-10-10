@@ -29,36 +29,57 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        listApps = findViewById(R.id.xmlListView);
 
-        initializeViews();
-        downloadUrl("http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=25/xml");
+        downloadUrl(String.format(feedUrl, feedLimit));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.feeds_menu, menu);
+        if (feedLimit == 10) {
+            menu.findItem(R.id.menu10).setChecked(true);
+        } else {
+            menu.findItem(R.id.menu25).setChecked(true);
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        String feedUrl;
 
         switch (id) {
             case R.id.menuFree:
-                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=10/xml";
+                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=%d/xml";
                 break;
+
             case R.id.menuPaid:
-                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=10/xml";
+                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=%d/xml";
                 break;
+
             case R.id.menuSongs:
-                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topsongs/limit=10/xml";
+                feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topsongs/limit=%d/xml";
                 break;
+
+            case R.id.menu10:
+                if (!item.isChecked()) {
+                    item.setChecked(true);
+                    feedLimit = 10;
+                }
+                break;
+
+            case R.id.menu25:
+                if (!item.isChecked()) {
+                    item.setChecked(true);
+                    feedLimit = 25;
+                }
+                break;
+
             default:
                 return super.onOptionsItemSelected(item); //Should always be included, is important when dealing with sub-menus
         }
-        downloadUrl(feedUrl);
+        downloadUrl(String.format(feedUrl, feedLimit));
         return true;
     }
 
@@ -67,10 +88,6 @@ public class MainActivity extends AppCompatActivity {
         DownloadData downloadData = new DownloadData(this);
         downloadData.execute(feedUrl); //This calls the doInBackground method
         Log.d(TAG, "onCreate: done");
-    }
-
-    private void initializeViews() {
-        listApps = findViewById(R.id.xmlListView);
     }
 
     //Inner static class for downloading data in a separate thread
