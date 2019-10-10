@@ -1,7 +1,5 @@
 package com.fredrikpedersen.top10downloadedapp;
 
-import android.util.Log;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -10,7 +8,6 @@ import java.util.ArrayList;
 
 public class ParseApplications {
 
-    private static final String TAG = "ParseApplications";
     private ArrayList<FeedEntry> applications;
 
     public ParseApplications() {
@@ -35,7 +32,6 @@ public class ParseApplications {
                 switch (eventType) {
 
                     case XmlPullParser.START_TAG:
-                        Log.d(TAG, "parse: Starting tag for " + tagName);
                         if ("entry".equalsIgnoreCase(tagName)) {
                             inEntry = true;
                             currentRecord = new FeedEntry();
@@ -47,7 +43,6 @@ public class ParseApplications {
                         break;
 
                     case XmlPullParser.END_TAG:
-                        Log.d(TAG, "parse: Ending tag for " + tagName);
                         if (inEntry) {
                             if ("entry".equalsIgnoreCase(tagName)) {
                                 applications.add(currentRecord);
@@ -71,11 +66,6 @@ public class ParseApplications {
                         //Nothing to do.
                 }
                 eventType = xpp.next();
-            }
-
-            for (FeedEntry app: applications) {
-                Log.d(TAG, "************");
-                Log.d(TAG, app.toString());
             }
 
         } catch (Exception e) {

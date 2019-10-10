@@ -1,10 +1,13 @@
 package com.fredrikpedersen.top10downloadedapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -34,6 +37,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: done");
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.feeds_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
     private void initializeViews() {
         listApps = findViewById(R.id.xmlListView);
     }
@@ -51,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) { //Is called when the task is done
             super.onPostExecute(s);
-            Log.d(TAG, "onPostExecute: parameter is " + s);
 
             MainActivity activity = activityReference.get();
 
