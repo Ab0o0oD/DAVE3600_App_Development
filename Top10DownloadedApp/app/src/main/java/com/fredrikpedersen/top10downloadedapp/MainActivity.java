@@ -54,14 +54,16 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "onPostExecute: parameter is " + s);
 
             MainActivity activity = activityReference.get();
-            if (activity == null || activity.isFinishing())
-                return;
 
+            if (activity == null || activity.isFinishing()) {
+                return;
+            }
 
             ParseApplications parseApplications = new ParseApplications();
             parseApplications.parse(s);
 
-
+            ArrayAdapter<FeedEntry> arrayAdapter = new ArrayAdapter<>(activity, R.layout.list_item, parseApplications.getApplications());
+            activity.listApps.setAdapter(arrayAdapter);
         }
 
         /*Can take in several parameters, but it is usually more convenient to create several
