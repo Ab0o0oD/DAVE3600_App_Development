@@ -20,16 +20,26 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String STATE_URL = "feedUrl";
+    public static final String STATE_LIMIT = "feedLimit";
+
     private static final String TAG = "MainActivity";
+
     private ListView listApps;
     private String feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=%d/xml"; //Note limit=%d !
     private int feedLimit = 10;
+    private String feedCachedUrl = "INVALIDATED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listApps = findViewById(R.id.xmlListView);
+
+        if (savedInstanceState != null) {
+            feedUrl = savedInstanceState.getString(STATE_URL);
+            feedLimit = savedInstanceState.getInt(STATE_LIMIT);
+        }
 
         downloadUrl(String.format(feedUrl, feedLimit));
     }
@@ -76,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
 
+            case R.id.menuRefresh:
+                feedCachedUrl = "INALIDATED";
+                break;
+
             default:
                 return super.onOptionsItemSelected(item); //Should always be included, is important when dealing with sub-menus
         }
@@ -83,11 +97,23 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(STATE_URL, feedUrl);
+        outState.putInt(STATE_LIMIT, feedLimit);
+        super.onSaveInstanceState(outState);
+    }
+
     private void downloadUrl(String feedUrl) {
-        Log.d(TAG, "onCreate: starting AsyncTask");
-        DownloadData downloadData = new DownloadData(this);
-        downloadData.execute(feedUrl); //This calls the doInBackground method
-        Log.d(TAG, "onCreate: done");
+        if (!feedUrl.equalsIgnoreCase(feedCachedUrl)) {
+            Log.d(TAG, "onCreate: starting AsyncTask");
+            DownloadData downloadData = new DownloadData(this);
+            downloadData.execute(feedUrl); //This calls the doInBackground method
+            feedCachedUrl = feedUrl;
+            Log.d(TAG, "onCreate: done");
+        } else  {
+            Log.d(TAG, "downloadUrl: URL not changed");
+        }
     }
 
     //Inner static class for downloading data in a separate thread

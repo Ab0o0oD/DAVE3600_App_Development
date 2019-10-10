@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Top 10 Downloaded App</string>
     <string name="placeholder">Hello There!</string>
+
+    <!-- Menu -->
+    <string name="free_apps">Free Apps</string>
+    <string name="paid_apps">Paid Apps</string>
+    <string name="songs">Songs</string>
+    <string name="top_10">Top 10</string>
+    <string name="top_25">Top 25</string>
+    <string name="refresh">Refresh</string>
+
 </resources>
