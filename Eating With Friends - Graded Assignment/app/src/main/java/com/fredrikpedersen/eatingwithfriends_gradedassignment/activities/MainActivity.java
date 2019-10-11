@@ -1,52 +1,58 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.activities;
 
 import android.os.Bundle;
-import android.view.View;
+import android.view.MenuItem;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.XmlClickable;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.bookings.BookingsFragment;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.friends.FriendsFragment;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.notifications.NotificationsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG = "BookingActivity";
-    private String[] fragments = {"datePicker", "timePicker"};
-    private String activeFragment = "";
-    private String date = "";
-    private String time = "";
-    XmlClickable someFragment;
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initializeNavBar();
-        initializeViews();
+
+        BottomNavigationView navigation = findViewById(R.id.mobile_navigation);
+        navigation.setOnNavigationItemSelectedListener(this);
+        loadFragment(new BookingsFragment());
+
     }
 
-    public void myClickMethod(View v) {
-        someFragment.myClickMethod(v);
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 
-    private void initializeNavBar() {
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Fragment fragment = null;
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_friends, R.id.navigation_bookings, R.id.navigation_notifications)
-                .build();
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+        switch (menuItem.getItemId()) {
+            case R.id.navigation_bookings:
+                fragment = new BookingsFragment();
+                break;
+            case R.id.navigation_friends:
+                fragment = new FriendsFragment();
+                break;
+            case R.id.navigation_notifications:
+                fragment = new NotificationsFragment();
+                break;
+        }
+        return loadFragment(fragment);
     }
-    private void initializeViews() {
-    }
-
 }
