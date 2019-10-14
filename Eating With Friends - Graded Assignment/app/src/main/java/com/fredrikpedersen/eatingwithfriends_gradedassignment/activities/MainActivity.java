@@ -30,14 +30,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        //navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        fragmentManager.beginTransaction().add(R.id.main_container, notificationsFragment, "notifications").hide(notificationsFragment).commit();
+        /* fragmentManager.beginTransaction().add(R.id.main_container, notificationsFragment, "notifications").hide(notificationsFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, friendsFragment, "friends").hide(friendsFragment).commit();
-        fragmentManager.beginTransaction().add(R.id.main_container, bookingFragment, "booking").commit();
+        fragmentManager.beginTransaction().add(R.id.main_container, bookingFragment, "booking").commit(); */
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = item -> {
+   /* private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = item -> {
         switch (item.getItemId()) {
             case R.id.navigation_bookings:
                 fragmentManager.beginTransaction().hide(activeFragment).show(bookingFragment).commit();
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return false;
-    };
+    }; */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
