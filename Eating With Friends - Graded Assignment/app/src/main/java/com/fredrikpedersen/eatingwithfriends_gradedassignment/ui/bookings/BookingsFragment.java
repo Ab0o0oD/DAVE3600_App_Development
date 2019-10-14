@@ -1,47 +1,41 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.bookings;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.XmlClickable;
 
-public class BookingsFragment extends Fragment implements XmlClickable {
+public class BookingsFragment extends Fragment {
 
-    private BookingsViewModel bookingsViewModel;
+    public BookingsFragment() { }
+
     private TextView dateTimePrint;
+    private Button printBtn;
+    private static final String TAG = "BookingsFragment";
 
-    private String date = "";
-    private String time = "";
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: FRAGMENT IS CREATED");
+        View view = inflater.inflate(R.layout.fragment_bookings, container, false);
+        dateTimePrint = view.findViewById(R.id.dateTimePrint);
+        printBtn = view.findViewById(R.id.printBtn);
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        printBtn.setOnClickListener((v) -> appendText());
 
-        bookingsViewModel = ViewModelProviders.of(this).get(BookingsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_bookings, container, false);
-
-        dateTimePrint = root.findViewById(R.id.dateTimePrint);
-
-        return root;
+        return view;
     }
 
-    @Override
-    public void myClickMethod(View v) {
-        switch (v.getId()) {
-            case R.id.printBtn:
-                dateTimePrint.append("Hello There");
-                break;
-        default:
-            break;
-        }
+    private void appendText() {
+        dateTimePrint.append("Hello There");
     }
 }
