@@ -1,4 +1,4 @@
-package com.fredrikpedersen.mvvmarchitectureexample;
+package com.fredrikpedersen.mvvmarchitectureexample.Database.Daos;
 
 //DAO = Data Access Object
 //DAOs needs to be Abstract Classes or Interfaces
@@ -11,10 +11,12 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.fredrikpedersen.mvvmarchitectureexample.Database.Models.Note;
+
 import java.util.List;
 
 @Dao
-public interface NoteDAO {
+public interface NoteDao {
 
     @Insert
     void insert(Note note);
