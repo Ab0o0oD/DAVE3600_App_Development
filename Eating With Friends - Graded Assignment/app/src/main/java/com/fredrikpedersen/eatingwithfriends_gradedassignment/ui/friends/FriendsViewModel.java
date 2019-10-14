@@ -1,19 +1,45 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.friends;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class FriendsViewModel extends ViewModel {
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.repository.FriendRepository;
 
-    private MutableLiveData<String> mText;
+import java.util.List;
 
-    public FriendsViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is the friends fragment");
+public class FriendsViewModel extends AndroidViewModel {
+
+    private FriendRepository repository;
+    private LiveData<List<Friend>> allFriends;
+
+
+    public FriendsViewModel(@NonNull Application application) {
+        super(application);
+        repository = new FriendRepository(application);
+        allFriends = repository.getAllFriends();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void insert(Friend friend) {
+        repository.insert(friend);
+    }
+
+    public void update(Friend friend) {
+        repository.update(friend);
+    }
+
+    public void delete(Friend friend) {
+        repository.delete(friend);
+    }
+
+    public void deleteAllFriends(Friend friend) {
+        repository.deleteAllFriends();
+    }
+
+    public LiveData<List<Friend>> getAllFriends() {
+        return allFriends;
     }
 }

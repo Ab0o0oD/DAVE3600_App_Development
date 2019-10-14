@@ -1,11 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style restaurantName="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item restaurantName="colorPrimary">@color/colorPrimary</item>
+        <item restaurantName="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item restaurantName="colorAccent">@color/colorAccent</item>
     </style>
 
 </resources>

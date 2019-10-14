@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Eating With Friends - Graded Assignment</string>
-    <string name="title_friends">Friends</string>
-    <string name="title_bookings">Bookings</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="pick_time">Pick Time</string>
-    <string name="pick_date">Pick Date</string>
-    <string name="print">Print</string>
-    <string name="placeholder">Hello There!</string>
+    <string restaurantName="app_name">Eating With Friends - Graded Assignment</string>
+    <string restaurantName="title_friends">Friends</string>
+    <string restaurantName="title_bookings">Bookings</string>
+    <string restaurantName="title_notifications">Notifications</string>
+    <string restaurantName="pick_time">Pick Time</string>
+    <string restaurantName="pick_date">Pick Date</string>
+    <string restaurantName="print">Print</string>
+    <string restaurantName="placeholder">Hello There!</string>
 </resources>
