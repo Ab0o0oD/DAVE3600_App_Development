@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     private NoteViewModel noteViewModel;
 
-    //See the beginnin of part 7 on how to do this setup with fragments instead of activities!
+    //See the beginning of part 7 on how to do this setup with fragments instead of activities!
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
