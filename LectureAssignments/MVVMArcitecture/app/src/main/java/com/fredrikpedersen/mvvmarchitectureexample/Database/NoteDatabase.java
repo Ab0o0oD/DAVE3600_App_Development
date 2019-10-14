@@ -13,7 +13,7 @@ import com.fredrikpedersen.mvvmarchitectureexample.Database.Daos.NoteDao;
 import com.fredrikpedersen.mvvmarchitectureexample.Database.Models.Note;
 
 //Can pass several entities to the database by passing an array like this: @Database(entities = {Note.class, Ex.Class})
-@Database(entities = Note.class, version = 1)
+@Database(entities = Note.class, version = 1, exportSchema = false)
 public abstract class NoteDatabase extends RoomDatabase {
 
     //Use the Singleton pattern for databases
