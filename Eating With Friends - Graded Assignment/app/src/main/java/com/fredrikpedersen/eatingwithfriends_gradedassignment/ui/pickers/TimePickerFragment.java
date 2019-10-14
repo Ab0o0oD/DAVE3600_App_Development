@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -16,9 +15,9 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     private static final String TAG = "TimePickerFragment";
 
-    private OnValueSelectedListener callback;
+    private OnPickerValueSelectedListener callback;
 
-    public void setOnTimeSelectedListener(OnValueSelectedListener callback) {
+    public void setOnTimeSelectedListener(OnPickerValueSelectedListener callback) {
         this.callback = callback;
     }
 

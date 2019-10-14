@@ -1,7 +1,6 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.bookings;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,10 @@ import androidx.fragment.app.Fragment;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.pickers.DatePickerFragment;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.pickers.OnValueSelectedListener;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.pickers.OnPickerValueSelectedListener;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.pickers.TimePickerFragment;
 
-public class BookingsFragment extends Fragment implements OnValueSelectedListener {
+public class BookingsFragment extends Fragment implements OnPickerValueSelectedListener {
 
     private static final String TAG = "BookingsFragment";
     private final String[] FRAGMENTS = {"timepicker", "datepicker"};
@@ -29,7 +28,6 @@ public class BookingsFragment extends Fragment implements OnValueSelectedListene
 
     private String time = "";
     private String date = "";
-    private String test = "adf";
 
     public BookingsFragment() { }
 
@@ -47,7 +45,7 @@ public class BookingsFragment extends Fragment implements OnValueSelectedListene
 
     private void appendText() {
         if (date.equals("") || time.equals("")) {
-            dateTimePrint.setText(test);
+            dateTimePrint.setText("Date and time now set");
         } else {
             dateTimePrint.setText(date + " " + time);
         }

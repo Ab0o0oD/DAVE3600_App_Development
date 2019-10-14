@@ -14,9 +14,9 @@ import java.util.Objects;
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
     private static final String TAG = "DatePickerFragment";
-    private OnValueSelectedListener callback;
+    private OnPickerValueSelectedListener callback;
 
-    public void setOnDateSelectedListener(OnValueSelectedListener callback) {
+    public void setOnDateSelectedListener(OnPickerValueSelectedListener callback) {
         this.callback = callback;
     }
 
