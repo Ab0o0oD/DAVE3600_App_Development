@@ -16,7 +16,7 @@ public class NoteViewModel extends AndroidViewModel {
     private NoteRepository repository;
     private LiveData<List<Note>> allNotes;
 
-    //Holds a reference to the Application, not the context, because the ViewModel is supossed to outlive the activity
+    //Holds a reference to the Application, not the context, because the ViewModel is supposed to outlive the activity
     public NoteViewModel(@NonNull Application application) {
         super(application);
         repository = new NoteRepository(application);

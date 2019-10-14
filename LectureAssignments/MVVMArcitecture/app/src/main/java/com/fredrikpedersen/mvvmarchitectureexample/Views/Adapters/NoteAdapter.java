@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fredrikpedersen.mvvmarchitectureexample.Database.Models.Note;
 import com.fredrikpedersen.mvvmarchitectureexample.R;
 
-import java.util.List;
-
 public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
     private OnItemClickListener listener;
 

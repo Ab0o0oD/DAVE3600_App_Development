@@ -4,7 +4,6 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Update;
 
 import com.fredrikpedersen.mvvmarchitectureexample.Database.Daos.NoteDao;
 import com.fredrikpedersen.mvvmarchitectureexample.Database.Models.Note;
