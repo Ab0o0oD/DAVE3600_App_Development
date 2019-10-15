@@ -12,6 +12,7 @@ import java.util.List;
 public class Booking {
 
     @PrimaryKey(autoGenerate = true)
+    @NonNull
     private int id;
     private String restaurantName;
     private String address;
