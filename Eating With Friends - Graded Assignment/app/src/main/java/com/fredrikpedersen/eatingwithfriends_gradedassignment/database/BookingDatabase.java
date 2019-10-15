@@ -2,6 +2,7 @@ package com.fredrikpedersen.eatingwithfriends_gradedassignment.database;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -21,6 +22,7 @@ import java.util.List;
 @Database(entities = {Booking.class, Friend.class}, version = 1, exportSchema = false)
 @TypeConverters(Converters.class)
 public abstract class BookingDatabase extends RoomDatabase {
+    private static final String TAG = "BookingDatabase";
 
     //Use the Singleton pattern for databases to prevent instantiating it more than once
     private static BookingDatabase instance;
@@ -30,13 +32,19 @@ public abstract class BookingDatabase extends RoomDatabase {
     public abstract FriendDao friendDao();
 
     public static synchronized BookingDatabase getInstance(Context context) {
+        Log.d(TAG, "getInstance: TRYING TO CREATE DATABASE");
         if (instance == null) {
-            instance = Room.databaseBuilder(context.getApplicationContext(), BookingDatabase.class, "booking_database")
-                    .fallbackToDestructiveMigration() //Makes sure the database is recreated from scratch if it is changed
-                    .addCallback(roomCallBack)
-                    .build();
+            Log.d(TAG, "getInstance: SEEDING DATABASE");
+            instance = seedDatabase(context);
         }
         return instance;
+    }
+
+    private static BookingDatabase seedDatabase(final Context cotext) {
+        return Room.databaseBuilder(cotext, BookingDatabase.class, "booking_database")
+                .fallbackToDestructiveMigration()
+                .addCallback(roomCallBack)
+                .build();
     }
 
     private static RoomDatabase.Callback roomCallBack = new RoomDatabase.Callback() {

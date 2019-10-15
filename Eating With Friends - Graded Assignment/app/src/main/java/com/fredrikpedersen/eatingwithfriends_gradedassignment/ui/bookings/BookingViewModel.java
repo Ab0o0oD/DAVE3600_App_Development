@@ -1,6 +1,7 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.bookings;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -13,6 +14,7 @@ import java.util.List;
 
 public class BookingViewModel extends AndroidViewModel {
 
+    private static final String TAG = "BookingViewModel";
     private BookingRepository repository;
     private LiveData<List<Booking>> allBookings;
 
@@ -24,6 +26,7 @@ public class BookingViewModel extends AndroidViewModel {
     }
 
     public void insert(Booking booking) {
+        Log.d(TAG, "insert: INSERTING " + booking.toString());
         repository.insert(booking);
     }
 

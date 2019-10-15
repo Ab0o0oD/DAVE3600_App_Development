@@ -2,6 +2,7 @@ package com.fredrikpedersen.eatingwithfriends_gradedassignment.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 public class BookingRepository {
 
+    private static final String TAG = "BookingRepository";
     private BookingDao bookingDao;
     private LiveData<List<Booking>> allBookings;
 
@@ -23,6 +25,7 @@ public class BookingRepository {
     }
 
     public void insert(Booking booking) {
+        Log.d(TAG, "insert: INSERTING " + booking.toString());
         new InsertBookingAsyncTask(bookingDao).execute(booking);
     }
 
