@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.Converters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,7 @@ public class Booking {
     private String address;
     private String date;
     private String time;
+    @TypeConverters(Converters.class)
     private List<Friend> friends;
 
     public Booking(String restaurantName, String address, String date, String time, @Nullable List<Friend> friends) {
