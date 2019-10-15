@@ -73,7 +73,6 @@ public class AddEditNoteActivity extends AppCompatActivity {
 
         setResult(RESULT_OK, data);
         finish();
-
     }
 
     @Override
