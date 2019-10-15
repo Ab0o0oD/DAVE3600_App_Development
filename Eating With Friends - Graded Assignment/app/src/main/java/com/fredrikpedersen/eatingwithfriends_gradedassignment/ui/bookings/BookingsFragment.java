@@ -17,7 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookingsFragment extends Fragment {
 
@@ -33,7 +37,10 @@ public class BookingsFragment extends Fragment {
 
         FloatingActionButton addButton = view.findViewById(R.id.button_add_booking);
         addButton.setOnClickListener(v -> {
-            bookingViewModel.insert(new Booking("Mi Case", "Seven 11", "29 October 2019", "13:37", null));
+            List<Friend> friends = new ArrayList<>();
+            friends.add(new Friend("Bjarne", "123456789"));
+            friends.add(new Friend("Kåre Johhny", "98765432"));
+            bookingViewModel.insert(new Booking("Mi Case", "Seven 11", "29 October 2019", "13:37", friends));
             Toast.makeText(getActivity(), "New booking Created", Toast.LENGTH_SHORT);
         });
 

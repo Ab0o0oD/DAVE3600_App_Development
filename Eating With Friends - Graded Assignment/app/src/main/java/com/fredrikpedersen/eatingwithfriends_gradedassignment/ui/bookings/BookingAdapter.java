@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 
 import java.util.List;
 
@@ -52,9 +53,18 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingH
     @Override
     public void onBindViewHolder(@NonNull BookingHolder holder, int position) {
         Booking currentBooking = getItem(position);
+        StringBuilder sb = new StringBuilder();
+        List<Friend> friends = currentBooking.getFriends();
+        if (friends != null) {
+            for (Friend friend : friends) {
+                sb.append(friend.getName()).append("\n");
+            }
+        }
+
         holder.textViewRestaurantName.setText(currentBooking.getRestaurantName());
         holder.textViewAddress.setText(currentBooking.getAddress());
         holder.textViewDateTime.setText(currentBooking.getDate() + " " + currentBooking.getTime());
+        holder.textViewFriends.setText(sb.toString());
     }
 
     public Booking getBookingAt(int position) {
@@ -67,12 +77,14 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingH
         private TextView textViewRestaurantName;
         private TextView textViewAddress;
         private TextView textViewDateTime;
+        private TextView textViewFriends;
 
         public BookingHolder(@NonNull View itemView) {
             super(itemView);
             textViewRestaurantName = itemView.findViewById(R.id.text_view_restaurant_name);
             textViewAddress = itemView.findViewById(R.id.text_view_address);
             textViewDateTime = itemView.findViewById(R.id.text_view_date_time);
+            textViewFriends = itemView.findViewById(R.id.text_view_friends);
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
