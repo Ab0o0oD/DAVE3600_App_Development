@@ -20,7 +20,7 @@
             android:id="@+id/button_add_friend_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add a Friend"/>
+            android:text="Add Friends"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </FrameLayout>
