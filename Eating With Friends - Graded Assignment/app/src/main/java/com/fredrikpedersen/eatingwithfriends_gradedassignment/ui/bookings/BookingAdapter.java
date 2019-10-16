@@ -32,6 +32,7 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingH
 
         @Override
         public boolean areContentsTheSame(@NonNull Booking oldItem, @NonNull Booking newItem) {
+            //TODO THERE IS A BUG HERE. ALL CONTENTS ARE BEING UPDATED EVERY TIME A NEW ITEM IS ADDED!
             if (oldItem.getDate().equals(newItem.getDate()) && oldItem.getTime().equals(newItem.getTime())) {
                 return oldItem.getRestaurantName().equals(newItem.getRestaurantName()) &&
                         oldItem.getAddress().equals(newItem.getAddress()) &&
