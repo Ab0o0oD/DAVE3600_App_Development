@@ -51,6 +51,10 @@ public class FriendAdapter extends ListAdapter<Friend, FriendAdapter.FriendViewH
         holder.textViewphoneNumber.setText(currentFriend.getPhoneNumber());
     }
 
+    public Friend getFriendFromPosition(int position) {
+        return getItem(position);
+    }
+
     /* ----- ViewHolder ----- */
     class FriendViewHolder extends RecyclerView.ViewHolder {
         private TextView textViewFirstName;
