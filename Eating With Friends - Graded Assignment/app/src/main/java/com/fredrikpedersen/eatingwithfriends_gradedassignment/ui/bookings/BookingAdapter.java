@@ -1,5 +1,6 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.bookings;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Fr
 import java.util.List;
 
 public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingHolder> {
+    private static final String TAG = "BookingAdapter";
 
     private OnItemClickListener listener;
 
@@ -33,7 +35,14 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingH
         @Override
         public boolean areContentsTheSame(@NonNull Booking oldItem, @NonNull Booking newItem) {
             //TODO THERE IS A BUG HERE. ALL CONTENTS ARE BEING UPDATED EVERY TIME A NEW ITEM IS ADDED!
+            //TODO Bug comes with my way off adding temp bookings due to new Friend-objects being created each time.
+            //TODO Make sure this works properly after all other functionality is implemented
+            Log.d(TAG, "areContentsTheSame: "  + oldItem.getDate().equals(newItem.getDate()) + " " +  oldItem.getTime().equals(newItem.getTime()));
             if (oldItem.getDate().equals(newItem.getDate()) && oldItem.getTime().equals(newItem.getTime())) {
+                Log.d(TAG, "CHECKING RESTAURANT NAMES: " + oldItem.getRestaurantName().equals(newItem.getRestaurantName()));
+                Log.d(TAG, "CHECKING ADDRESSES: " + oldItem.getAddress().equals(newItem.getAddress()));
+                Log.d(TAG, "CHECKING FRIENDS: " + oldItem.getFriends().equals(newItem.getFriends()));
+
                 return oldItem.getRestaurantName().equals(newItem.getRestaurantName()) &&
                         oldItem.getAddress().equals(newItem.getAddress()) &&
                         oldItem.getFriends().equals(newItem.getFriends());
