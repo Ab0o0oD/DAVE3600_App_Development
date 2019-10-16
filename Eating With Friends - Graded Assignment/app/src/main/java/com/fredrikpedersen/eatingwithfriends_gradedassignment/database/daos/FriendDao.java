@@ -31,4 +31,7 @@ public interface FriendDao {
 
     @Query("SELECT * FROM friend_table ORDER BY id DESC")
     LiveData<List<Friend>> getAllFriends();
+
+    @Query("SELECT * FROM friend_table ORDER BY id DESC")
+    List<Friend> getAllFriendsAsList();
 }

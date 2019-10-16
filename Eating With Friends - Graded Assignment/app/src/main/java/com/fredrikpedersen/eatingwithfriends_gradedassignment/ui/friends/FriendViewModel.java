@@ -42,4 +42,8 @@ public class FriendViewModel extends AndroidViewModel {
     public LiveData<List<Friend>> getAllFriends() {
         return allFriends;
     }
+
+    public List<Friend> getAllFriendsAsList() {
+        return repository.getAllFriendsAsList();
+    }
 }

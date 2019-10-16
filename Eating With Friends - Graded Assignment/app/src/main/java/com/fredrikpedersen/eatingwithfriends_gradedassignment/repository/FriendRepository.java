@@ -2,6 +2,7 @@ package com.fredrikpedersen.eatingwithfriends_gradedassignment.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -9,9 +10,13 @@ import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.BookingDa
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.daos.FriendDao;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class FriendRepository {
+
+    private static final String TAG = "FriendRepository";
 
     private FriendDao friendDao;
     private LiveData<List<Friend>> allFriends;
@@ -40,6 +45,19 @@ public class FriendRepository {
 
     public LiveData<List<Friend>> getAllFriends() {
         return allFriends;
+    }
+
+    public List<Friend> getAllFriendsAsList() {
+        try {
+            return new getAllFriendsAsList(friendDao).execute().get();
+        } catch (InterruptedException e) {
+            Log.d(TAG, "getAllFriendsAsList: INTERRUPTED EXCEPTION");
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            Log.d(TAG, "getAllFriendsAsList: EXECUTION EXCEPTION");
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     private static class InsertFriendAsyncTask extends AsyncTask<Friend, Void, Void> {
@@ -92,6 +110,19 @@ public class FriendRepository {
         protected Void doInBackground(Friend... friends) {
             friendDao.deleteAllFriends();
             return null;
+        }
+    }
+    private static class getAllFriendsAsList extends AsyncTask<Void, Void, List<Friend>> {
+
+        private FriendDao friendDao;
+
+        private getAllFriendsAsList(FriendDao friendDao) {
+            this.friendDao = friendDao;
+        }
+
+        @Override
+        protected List<Friend> doInBackground(Void... voids) {
+            return friendDao.getAllFriendsAsList();
         }
     }
 }
