@@ -104,7 +104,8 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
             newBooking = new Booking(restaurantName, address, date, time, null);
 
         bookingViewModel.insert(newBooking);
-        Toast.makeText(this, "Booking saved!", Toast.LENGTH_SHORT).show();
+        setResult(RESULT_OK);
+        finish();
     }
 
     private void initializeViews() {
