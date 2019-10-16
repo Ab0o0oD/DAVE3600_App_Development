@@ -14,10 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.OnItemClickListener;
 
 import java.util.List;
 
-public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingHolder> {
+public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingViewHolder> {
     private static final String TAG = "BookingAdapter";
 
     private OnItemClickListener listener;
@@ -54,14 +55,14 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingH
 
     @NonNull
     @Override
-    public BookingHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BookingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.booking_item, parent, false);
-        return new BookingHolder(itemView);
+        return new BookingViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BookingHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BookingViewHolder holder, int position) {
         Booking currentBooking = getItem(position);
         StringBuilder sb = new StringBuilder();
         List<Friend> friends = currentBooking.getFriends();
@@ -81,15 +82,15 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingH
         return getItem(position);
     }
 
-    /* ----- Inner classes and Interfaces ----- */
+    /* ----- ViewHolder ----- */
 
-    class BookingHolder extends RecyclerView.ViewHolder {
+    class BookingViewHolder extends RecyclerView.ViewHolder {
         private TextView textViewRestaurantName;
         private TextView textViewAddress;
         private TextView textViewDateTime;
         private TextView textViewFriends;
 
-        public BookingHolder(@NonNull View itemView) {
+        BookingViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewRestaurantName = itemView.findViewById(R.id.text_view_restaurant_name);
             textViewAddress = itemView.findViewById(R.id.text_view_address);
@@ -105,10 +106,7 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingH
         }
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(Booking booking);
-    }
-
+    //TODO This is to be used later when you are going to be able to click an item to edit it
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
