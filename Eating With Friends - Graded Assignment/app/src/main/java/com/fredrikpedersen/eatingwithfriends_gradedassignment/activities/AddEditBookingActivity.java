@@ -72,14 +72,14 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
         allFriends = friendViewModel.getAllFriendsAsList();
         selectedFriends = new ArrayList<>();
 
-        buttonSave.setOnClickListener(v -> checkBooking());
-        buttonSelectFriend.setOnClickListener(v -> addFriend());
+        buttonSave.setOnClickListener(v -> checkBookingComplete());
+        buttonSelectFriend.setOnClickListener(v -> addFriendToBooking());
         textViewDate.setOnClickListener(v -> showDatePickerDialog());
         textViewTime.setOnClickListener(v -> showTimePickerDialog());
         loadFriendsToSpinner();
     }
 
-    private void checkBooking() {
+    private void checkBookingComplete() {
         String restaurantName = editTextRestaurantName.getText().toString();
         String address = editTextAddress.getText().toString();
 
@@ -126,15 +126,15 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
         buttonSelectFriend = findViewById(R.id.button_select_friend);
     }
 
-    private void addFriend() {
+    private void addFriendToBooking() {
         if (selectedFriend != null) {
             selectedFriends.add(selectedFriend);
             spinnerAdapter.remove(selectedFriend);
         }
-        appendSelectedFriends();
+        appendSelectedFriendsToView();
     }
 
-    private void appendSelectedFriends() {
+    private void appendSelectedFriendsToView() {
         for (Friend friend : selectedFriends) {
             textViewSelectedFriends.append(friend.toString() + "\n");
         }
