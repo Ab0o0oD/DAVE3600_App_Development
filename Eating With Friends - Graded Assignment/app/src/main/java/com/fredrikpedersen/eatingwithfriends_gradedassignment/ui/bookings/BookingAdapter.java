@@ -23,7 +23,7 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingV
 
     private OnItemClickListener listener;
 
-    public BookingAdapter() {
+    BookingAdapter() {
         super(DIFF_CALLBACK);
     }
 
@@ -78,7 +78,7 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingV
         holder.textViewFriends.setText(sb.toString());
     }
 
-    public Booking getBookingFromPosition(int position) {
+    Booking getBookingFromPosition(int position) {
         return getItem(position);
     }
 
@@ -106,8 +106,7 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingV
         }
     }
 
-    //TODO This is to be used later when you are going to be able to click an item to edit it
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 }

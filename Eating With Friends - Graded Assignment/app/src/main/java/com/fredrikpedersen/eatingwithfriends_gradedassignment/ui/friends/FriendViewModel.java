@@ -39,7 +39,7 @@ public class FriendViewModel extends AndroidViewModel {
         repository.deleteAllFriends();
     }
 
-    public LiveData<List<Friend>> getAllFriends() {
+    LiveData<List<Friend>> getAllFriends() {
         return allFriends;
     }
 

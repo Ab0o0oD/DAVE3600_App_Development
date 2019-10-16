@@ -41,7 +41,7 @@ public class BookingViewModel extends AndroidViewModel {
         repository.deleteAllBookings();
     }
 
-    public LiveData<List<Booking>> getAllBookings() {
+    LiveData<List<Booking>> getAllBookings() {
         return allBookings;
     }
 }

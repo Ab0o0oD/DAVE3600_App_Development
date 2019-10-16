@@ -18,7 +18,7 @@ public class FriendAdapter extends ListAdapter<Friend, FriendAdapter.FriendViewH
 
     private OnItemClickListener listener;
 
-    public FriendAdapter() {
+    FriendAdapter() {
         super(DIFF_CALLBACK);
     }
 
@@ -51,7 +51,7 @@ public class FriendAdapter extends ListAdapter<Friend, FriendAdapter.FriendViewH
         holder.textViewphoneNumber.setText(currentFriend.getPhoneNumber());
     }
 
-    public Friend getFriendFromPosition(int position) {
+    Friend getFriendFromPosition(int position) {
         return getItem(position);
     }
 
