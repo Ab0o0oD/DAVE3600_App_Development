@@ -106,6 +106,4 @@ public class MainActivity extends AppCompatActivity {
            startActivityForResult(new Intent(MainActivity.this, AddEditBookingActivity.class), ADD_BOOKING_REQUEST);
        }
     }
-
-
 }
