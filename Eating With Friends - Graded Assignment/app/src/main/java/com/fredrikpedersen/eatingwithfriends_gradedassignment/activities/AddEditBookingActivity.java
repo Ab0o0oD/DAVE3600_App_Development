@@ -32,6 +32,13 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
     private static final String TAG = "AddEditBookingActivity";
 
+    public static final String EXTRA_ID = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_ID";
+    public static final String EXTRA_RESTAURANT_NAME = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_RESTAURANT_NAME";
+    public static final String EXTRA_ADDRESS = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_ADDRESS";
+    public static final String EXTRA_DATE = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_DATE";
+    public static final String EXTRA_TIME = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_TIME";
+    public static final String EXTRA_FRIENDS = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_RESTAURANT_FRIENDS";
+
     private EditText editTextRestaurantName;
     private EditText editTextAddress;
     private TextView textViewDate;
