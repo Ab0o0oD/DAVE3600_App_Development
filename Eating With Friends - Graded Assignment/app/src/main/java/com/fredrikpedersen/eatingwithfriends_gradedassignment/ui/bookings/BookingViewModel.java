@@ -26,7 +26,6 @@ public class BookingViewModel extends AndroidViewModel {
     }
 
     public void insert(Booking booking) {
-        Log.d(TAG, "insert: INSERTING " + booking.toString());
         repository.insert(booking);
     }
 
