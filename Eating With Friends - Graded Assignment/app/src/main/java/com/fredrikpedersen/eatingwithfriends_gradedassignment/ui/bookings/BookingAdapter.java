@@ -78,7 +78,7 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingV
         holder.textViewFriends.setText(sb.toString());
     }
 
-    public Booking getBookingAt(int position) {
+    public Booking getBookingFromPosition(int position) {
         return getItem(position);
     }
 

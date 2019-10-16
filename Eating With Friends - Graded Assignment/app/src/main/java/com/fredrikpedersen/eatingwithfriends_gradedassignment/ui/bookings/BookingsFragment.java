@@ -41,7 +41,7 @@ public class BookingsFragment extends Fragment {
     /* ----- Initializations ----- */
 
     private void initializeViews(View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_booking);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(bookingAdapter);
@@ -57,7 +57,7 @@ public class BookingsFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                bookingViewModel.delete(bookingAdapter.getBookingAt(viewHolder.getAdapterPosition()));
+                bookingViewModel.delete(bookingAdapter.getBookingFromPosition(viewHolder.getAdapterPosition()));
                 Toast.makeText(getActivity(), "Booking Deleted", Toast.LENGTH_SHORT).show();
             }
         });
