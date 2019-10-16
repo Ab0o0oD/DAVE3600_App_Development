@@ -7,4 +7,11 @@
     <string name="pick_date">Pick Date</string>
     <string name="print">Print</string>
     <string name="placeholder">Hello There!</string>
+
+    <string-array name="placeholders">
+        <item>Anders</item>
+        <item>Signe</item>
+        <item>Martina</item>
+        <item>Nikita</item>
+    </string-array>
 </resources>
