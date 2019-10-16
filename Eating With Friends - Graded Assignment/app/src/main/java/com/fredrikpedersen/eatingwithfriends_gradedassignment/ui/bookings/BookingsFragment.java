@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,9 @@ public class BookingsFragment extends Fragment {
 
     private static final String TAG = "BookingsFragment";
     private BookingViewModel bookingViewModel;
+    private FloatingActionButton addButton;
+    private RecyclerView recyclerView;
+    private BookingAdapter bookingAdapter;
 
     public BookingsFragment() { }
 
@@ -35,7 +39,30 @@ public class BookingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bookings, container, false);
 
-        FloatingActionButton addButton = view.findViewById(R.id.button_add_booking);
+        bookingAdapter = new BookingAdapter();
+        initializeViews(view);
+        setOnClicks();
+
+        bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
+        bookingViewModel.getAllBookings().observe(this, bookingAdapter::submitList);
+
+        return view;
+    }
+
+
+
+    /* ----- Initializations ----- */
+
+    private void initializeViews(View view) {
+        addButton = view.findViewById(R.id.button_add_booking);
+        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(bookingAdapter);
+        swipeToDelete().attachToRecyclerView(recyclerView);
+    }
+
+    private void setOnClicks() {
         addButton.setOnClickListener(v -> {
             List<Friend> friends = new ArrayList<>();
             friends.add(new Friend("Bjarne", "123456789"));
@@ -43,19 +70,10 @@ public class BookingsFragment extends Fragment {
             bookingViewModel.insert(new Booking("Mi Case", "Seven 11", "29 October 2019", "13:37", friends));
             Toast.makeText(getActivity(), "New booking Created", Toast.LENGTH_SHORT);
         });
+    }
 
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setHasFixedSize(true);
-
-        BookingAdapter bookingAdapter = new BookingAdapter();
-        recyclerView.setAdapter(bookingAdapter);
-
-        bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
-        bookingViewModel.getAllBookings().observe(this, bookingAdapter::submitList);
-        Log.d(TAG, "onCreateView: PRINTING GETALLBOOKINGS" + bookingViewModel.getAllBookings().toString());
-
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+    private ItemTouchHelper swipeToDelete() {
+        return new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -66,19 +84,7 @@ public class BookingsFragment extends Fragment {
                 bookingViewModel.delete(bookingAdapter.getBookingAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(getActivity(), "Booking Deleted", Toast.LENGTH_SHORT).show();
             }
-        }).attachToRecyclerView(recyclerView);
-
-        return view;
-    }
-
-
-
-    /* ----- Initializations ----- */
-
-    private void initializeViews(View view) {
-    }
-
-    private void setOnClicks() {
+        });
     }
 
 
