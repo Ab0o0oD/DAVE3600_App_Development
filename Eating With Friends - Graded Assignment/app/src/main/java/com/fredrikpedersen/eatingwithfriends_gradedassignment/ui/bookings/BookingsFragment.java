@@ -27,7 +27,6 @@ public class BookingsFragment extends Fragment {
     private static final String TAG = "BookingsFragment";
     private BookingViewModel bookingViewModel;
     private FloatingActionButton addButton;
-    private RecyclerView recyclerView;
     private BookingAdapter bookingAdapter;
 
     public BookingsFragment() { }
@@ -53,7 +52,7 @@ public class BookingsFragment extends Fragment {
 
     private void initializeViews(View view) {
         addButton = view.findViewById(R.id.button_add_booking);
-        recyclerView = view.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(bookingAdapter);
