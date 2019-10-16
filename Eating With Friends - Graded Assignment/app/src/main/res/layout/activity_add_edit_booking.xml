@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".activities.AddEditBookingActivity">
+
+    <EditText
+        android:id="@+id/edit_text_restaurant_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Restaurant Name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edit_text_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Resturant Address"/>
+
+    <TextView
+        android:id="@+id/text_view_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tap to choose date"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/text_view_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tap to choose time"
+        android:layout_marginTop="10dp"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner_friend_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/placeholders"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/text_view_selected_friends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Selected Friends Will Be Listed Here!"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:id="@+id/button_save_booking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Save"/>
+
+</LinearLayout>
