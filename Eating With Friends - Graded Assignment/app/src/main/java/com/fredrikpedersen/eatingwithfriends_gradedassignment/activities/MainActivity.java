@@ -74,12 +74,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ADD_BOOKING_REQUEST && resultCode == RESULT_OK && data != null) {
-            String resturantName = data.getStringExtra(AddEditBookingActivity.EXTRA_RESTAURANT_NAME);
-            String address = data.getStringExtra(AddEditBookingActivity.EXTRA_ADDRESS);
-            String time = data.getStringExtra(AddEditBookingActivity.EXTRA_TIME);
-            String date = data.getStringExtra(AddEditBookingActivity.EXTRA_DATE);
-            Toast.makeText(this, resturantName + " " + address + " " + date + " " + time, Toast.LENGTH_SHORT).show();
+        if (requestCode == ADD_BOOKING_REQUEST && resultCode == RESULT_OK) {
+            Toast.makeText(this, "Booking saved!", Toast.LENGTH_SHORT).show();
         }
     }
 
