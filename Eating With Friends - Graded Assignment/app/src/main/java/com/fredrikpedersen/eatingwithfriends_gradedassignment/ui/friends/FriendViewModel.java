@@ -11,13 +11,13 @@ import com.fredrikpedersen.eatingwithfriends_gradedassignment.repository.FriendR
 
 import java.util.List;
 
-public class FriendsViewModel extends AndroidViewModel {
+public class FriendViewModel extends AndroidViewModel {
 
     private FriendRepository repository;
     private LiveData<List<Friend>> allFriends;
 
 
-    public FriendsViewModel(@NonNull Application application) {
+    public FriendViewModel(@NonNull Application application) {
         super(application);
         repository = new FriendRepository(application);
         allFriends = repository.getAllFriends();
