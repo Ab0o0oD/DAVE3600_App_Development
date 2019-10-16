@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 
+import java.util.Objects;
+
 public class FriendsFragment extends Fragment {
 
     private static final String TAG = "FriendsFragment";
@@ -31,6 +33,7 @@ public class FriendsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
 
+        Objects.requireNonNull(getActivity()).setTitle("Friends");
         friendAdapter = new FriendAdapter();
         initializeViews(view);
 

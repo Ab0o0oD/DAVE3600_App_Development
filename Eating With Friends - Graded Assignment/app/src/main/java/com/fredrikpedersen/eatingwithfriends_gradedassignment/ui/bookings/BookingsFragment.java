@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
 
+import java.util.Objects;
+
 public class BookingsFragment extends Fragment {
 
     private static final String TAG = "BookingsFragment";
@@ -29,6 +31,7 @@ public class BookingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bookings, container, false);
 
+        Objects.requireNonNull(getActivity()).setTitle("Bookings");
         bookingAdapter = new BookingAdapter();
         initializeViews(view);
 
