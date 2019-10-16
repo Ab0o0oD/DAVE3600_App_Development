@@ -42,8 +42,6 @@ public class Friend {
     @NonNull
     @Override
     public String toString() {
-        return  "Id =" + id + '\n' +
-                "Name= " + firstName + " " + lastName + '\n' +
-                "PhoneNumber='" + phoneNumber + '\n';
+        return  firstName + " " + lastName;
     }
 }
