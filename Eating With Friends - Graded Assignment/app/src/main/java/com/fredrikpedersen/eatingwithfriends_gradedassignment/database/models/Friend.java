@@ -9,11 +9,13 @@ public class Friend {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String phoneNumber;
 
-    public Friend(String name, String phoneNumber) {
-        this.name = name;
+    public Friend(String firstName, String lastName, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.phoneNumber = phoneNumber;
     }
 
@@ -25,8 +27,12 @@ public class Friend {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getPhoneNumber() {
@@ -37,7 +43,7 @@ public class Friend {
     @Override
     public String toString() {
         return  "Id =" + id + '\n' +
-                "Name= " + name + '\n' +
+                "Name= " + firstName + " " + lastName + '\n' +
                 "PhoneNumber='" + phoneNumber + '\n';
     }
 }

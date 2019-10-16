@@ -19,7 +19,7 @@ import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Fr
 import java.util.ArrayList;
 import java.util.List;
 
-@Database(entities = {Booking.class, Friend.class}, version = 1, exportSchema = false)
+@Database(entities = {Booking.class, Friend.class}, version = 2, exportSchema = false)
 @TypeConverters(Converters.class)
 public abstract class BookingDatabase extends RoomDatabase {
     private static final String TAG = "BookingDatabase";
@@ -69,10 +69,10 @@ public abstract class BookingDatabase extends RoomDatabase {
 
         private List<Friend> createFriends() {
             List<Friend> seedFriends = new ArrayList<>();
-            seedFriends.add(new Friend("Anders", "87654321"));
-            seedFriends.add(new Friend("Martina", "12345678"));
-            seedFriends.add(new Friend("Nikita", "73738012"));
-            seedFriends.add(new Friend("Signe", "12398765"));
+            seedFriends.add(new Friend("Anders", "Gorboe", "87654321"));
+            seedFriends.add(new Friend("Martina", "Førre", "12345678"));
+            seedFriends.add(new Friend("Nikita", "Petrovs", "73738012"));
+            seedFriends.add(new Friend("Signe", "Eida", "12398765"));
             return seedFriends;
         }
 

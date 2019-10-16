@@ -68,7 +68,7 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingV
         List<Friend> friends = currentBooking.getFriends();
         if (friends != null) {
             for (Friend friend : friends) {
-                sb.append(friend.getName()).append("\n");
+                sb.append(friend.getFirstName()).append(" ").append(friend.getLastName()).append("\n");
             }
         }
 

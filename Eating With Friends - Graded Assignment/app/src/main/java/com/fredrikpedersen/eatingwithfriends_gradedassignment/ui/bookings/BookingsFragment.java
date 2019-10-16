@@ -63,8 +63,8 @@ public class BookingsFragment extends Fragment {
     private void setOnClicks() {
         addButton.setOnClickListener(v -> {
             List<Friend> friends = new ArrayList<>();
-            friends.add(new Friend("Bjarne", "123456789"));
-            friends.add(new Friend("Kåre Johhny", "98765432"));
+            friends.add(new Friend("Bjarne", "Brunsvik", "123456789"));
+            friends.add(new Friend("Kåre Johhny", "Mammadalt", "98765432"));
             bookingViewModel.insert(new Booking("Mi Case", "Seven 11", "29 October 2019", "13:37", friends));
             Toast.makeText(getActivity(), "New booking Created", Toast.LENGTH_SHORT);
         });

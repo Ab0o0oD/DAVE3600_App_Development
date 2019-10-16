@@ -67,11 +67,10 @@ public class Booking {
     @Override
     @NonNull
     public String toString() {
-
         StringBuilder sb = new StringBuilder();
         if (friends != null && friends.size() > 0) {
             for (Friend friend : friends) {
-                sb.append(friend.getName()).append(" ");
+                sb.append(friend.getFirstName()).append(" ").append(friend.getLastName()).append(" ");
             }
         }
 
