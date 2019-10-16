@@ -103,12 +103,32 @@ public class TestProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
+        if (uriMatcher.match(uri) == BOK) {
+            db.delete(TABELL, _ID + " = " + uri.getPathSegments().get(1), selectionArgs);
+            getContext().getContentResolver().notifyChange(uri, null);
+            return 1;
+        }
+        if (uriMatcher.match(uri) == MBOK) {
+            db.delete(TABELL, null, null);
+            getContext().getContentResolver().notifyChange(uri, null);
+            return 2;
+        }
         return 0;
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        if (uriMatcher.match(uri) == BOK) {
+            db.update(TABELL, values, _ID + " = " + uri.getPathSegments().get(1), null);
+            getContext().getContentResolver().notifyChange(uri, null);
+            return 1;
+        }
+        if (uriMatcher.match(uri) == MBOK) {
+            db.update(TABELL, null, null, null);
+            getContext().getContentResolver().notifyChange(uri, null);
+            return 2;
+        }
         return 0;
     }
 }

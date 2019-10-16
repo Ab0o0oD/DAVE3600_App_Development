@@ -6,23 +6,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.fredrikpedersen.contentprovidertest.MainActivity">
+
     <EditText android:id="@+id/tittel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tittel" />
+        android:hint="@string/tittel"
+        android:autofillHints="@string/bok_navn" />
+
     <Button
         android:id="@+id/leggtil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Legg til bok"
+        android:text="@string/legg_til_bok"
         android:onClick="leggtil" />
 
-    <Button
-        android:id="@+id/visalle"
+    <EditText
+        android:id="@+id/edit_text_bok_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Vis alle bøker"
-        android:onClick="visalle" />
+        android:autofillHints="@string/bok_id"
+        android:inputType="number"
+        tools:ignore="LabelFor" />
+
+    <Button
+        android:id="@+id/slett"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="slett"
+        android:text="@string/slett" />
+
+    <Button
+        android:id="@+id/oppdater"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="oppdater"
+        android:text="@string/oppdater" />
+
     <TextView android:id="@+id/vis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

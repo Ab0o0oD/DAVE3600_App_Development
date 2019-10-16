@@ -19,14 +19,16 @@ public class MainActivity extends AppCompatActivity {
     public static final String ID="_id";
     EditText tittel;
     TextView visbok;
+    TextView id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        visbok = findViewById(R.id.vis);
         tittel=findViewById(R.id.tittel);
-        Button leggtil=(Button)findViewById(R.id.leggtil);
-        visbok=(TextView)findViewById(R.id.vis);
+        id = findViewById(R.id.edit_text_bok_id);
+        visalle();
     }
 
     public void leggtil(View v){
@@ -35,19 +37,34 @@ public class MainActivity extends AppCompatActivity {
         values.put(TITTEL, inn);
         Uri uri = getContentResolver().insert( CONTENT_URI, values);
         tittel.setText("");
+        visalle();
     }
 
-    public void visalle(View v) {
+    public void visalle() {
         String tekst;
         tekst = "";
-        Cursor cur =getContentResolver().query(CONTENT_URI, null, null, null, null);
+        Cursor cur = getContentResolver().query(CONTENT_URI, null, null, null, null);
         if (cur.moveToFirst()) {
             do {
-                tekst = tekst + (cur.getString(1)) + "\r\n";
+                tekst = tekst + (cur.getString(0)) + " " + (cur.getString(1)) + "\r\n";
             }
             while (cur.moveToNext());
             cur.close();
             visbok.setText(tekst);
         }
+    }
+
+    public void slett(View v) {
+        String delete = CONTENT_URI + "/" + String.valueOf(id.getText());
+        getContentResolver().delete(Uri.parse(delete), null, null);
+        visalle();
+    }
+
+    public void oppdater(View v) {
+        String update = CONTENT_URI + "/" + String.valueOf(id.getText());
+        ContentValues cv = new ContentValues();
+        cv.put("Tittel", String.valueOf(tittel.getText()));
+        getContentResolver().update(Uri.parse(update), cv,null, null);
+        visalle();
     }
 }
