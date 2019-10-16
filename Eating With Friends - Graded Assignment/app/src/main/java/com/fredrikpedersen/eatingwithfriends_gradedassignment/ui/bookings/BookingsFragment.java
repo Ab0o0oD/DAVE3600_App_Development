@@ -15,18 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BookingsFragment extends Fragment {
 
     private static final String TAG = "BookingsFragment";
     private BookingViewModel bookingViewModel;
-    private FloatingActionButton addButton;
     private BookingAdapter bookingAdapter;
 
     public BookingsFragment() { }
@@ -38,7 +31,6 @@ public class BookingsFragment extends Fragment {
 
         bookingAdapter = new BookingAdapter();
         initializeViews(view);
-        setOnClicks();
 
         bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
         bookingViewModel.getAllBookings().observe(this, bookingAdapter::submitList);
@@ -46,27 +38,14 @@ public class BookingsFragment extends Fragment {
         return view;
     }
 
-
-
     /* ----- Initializations ----- */
 
     private void initializeViews(View view) {
-        addButton = view.findViewById(R.id.button_add_booking);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(bookingAdapter);
         swipeToDelete().attachToRecyclerView(recyclerView);
-    }
-
-    private void setOnClicks() {
-        addButton.setOnClickListener(v -> {
-            List<Friend> friends = new ArrayList<>();
-            friends.add(new Friend("Bjarne", "Brunsvik", "123456789"));
-            friends.add(new Friend("Kåre Johhny", "Mammadalt", "98765432"));
-            bookingViewModel.insert(new Booking("Mi Case", "Seven 11", "29 October 2019", "13:37", friends));
-            Toast.makeText(getActivity(), "New booking Created", Toast.LENGTH_SHORT);
-        });
     }
 
     private ItemTouchHelper swipeToDelete() {
@@ -83,9 +62,4 @@ public class BookingsFragment extends Fragment {
             }
         });
     }
-
-
-
-
-
 }

@@ -3,6 +3,7 @@ package com.fredrikpedersen.eatingwithfriends_gradedassignment.activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.bookings.Bookin
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.friends.FriendsFragment;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.notifications.NotificationsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,14 +25,17 @@ public class MainActivity extends AppCompatActivity {
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     private Fragment activeFragment = bookingFragment;
 
+    private FloatingActionButton addButton;
+    private BottomNavigationView navigation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        initializeViews();
+        setOnClicks();
 
         fragmentManager.beginTransaction().add(R.id.main_container, notificationsFragment, "notifications").hide(notificationsFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, friendsFragment, "friends").hide(friendsFragment).commit();
@@ -66,6 +71,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initializeViews() {
+        addButton = findViewById(R.id.floating_button_add);
+        navigation = findViewById(R.id.navigation);
+    }
+
+    private void setOnClicks() {
+        addButton.setOnClickListener(v -> {
+            Toast.makeText(this, "Not Implemented Yet", Toast.LENGTH_SHORT).show();
+        });
+
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
 
