@@ -1,5 +1,6 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.bookings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.AddEditBookingActivity;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity;
 
 import java.util.Objects;
 
@@ -37,6 +40,7 @@ public class BookingsFragment extends Fragment {
 
         bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
         bookingViewModel.getAllBookings().observe(this, bookingAdapter::submitList);
+        bookingAdapter.setOnItemClickListener(booking -> touchToEdit());
 
         return view;
     }
@@ -49,6 +53,11 @@ public class BookingsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(bookingAdapter);
         swipeToDelete().attachToRecyclerView(recyclerView);
+    }
+
+    private void touchToEdit() {
+        Intent intent = new Intent(getActivity(), AddEditBookingActivity.class);
+        startActivityForResult(intent, MainActivity.EDIT_BOOKING_REQUEST);
     }
 
     private ItemTouchHelper swipeToDelete() {
