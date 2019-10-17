@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.AddEditBookingActivity" />
+        <activity android:name=".activities.AddEditFriendActivity" />
     </application>
 
 </manifest>
