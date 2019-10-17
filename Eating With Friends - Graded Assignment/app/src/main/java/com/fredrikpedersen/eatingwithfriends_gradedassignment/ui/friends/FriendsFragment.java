@@ -1,5 +1,6 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.friends;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.AddEditFriendActivity;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 
 import java.util.Objects;
+
+import static android.app.Activity.RESULT_OK;
+import static com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity.EDIT_FRIEND_REQUEST;
 
 public class FriendsFragment extends Fragment {
 
@@ -39,14 +45,7 @@ public class FriendsFragment extends Fragment {
 
         friendViewModel = ViewModelProviders.of(this).get(FriendViewModel.class);
         friendViewModel.getAllFriends().observe(this, friendAdapter::submitList);
-
-        //TODO THIS IS FOR TESTING PURPOSES. TO BE REMOVED!
-        Button addFriend = view.findViewById(R.id.button_add_friend_test);
-        addFriend.setOnClickListener(v -> {
-            for (int i = 0; i < 7; i++) {
-                friendViewModel.insert(new Friend("BF", "F"+i, "12345678"));
-            }
-        });
+        friendAdapter.setOnItemClickListener(this::touchToEdit);
 
         return view;
     }
@@ -57,6 +56,17 @@ public class FriendsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(friendAdapter);
         swipeToDelete().attachToRecyclerView(recyclerView);
+    }
+
+    private void touchToEdit(Object item) {
+        Friend friend = (Friend)item;
+        Intent intent = new Intent(getActivity(), AddEditFriendActivity.class);
+        intent.putExtra(MainActivity.EXTRA_ID, friend.getId());
+        intent.putExtra(MainActivity.EXTRA_FIRST_NAME, friend.getFirstName());
+        intent.putExtra(MainActivity.EXTRA_LAST_NAME, friend.getLastName());
+        intent.putExtra(MainActivity.EXTRA_PHONENUMBER, friend.getPhoneNumber());
+
+        startActivityForResult(intent, EDIT_FRIEND_REQUEST);
     }
 
     private ItemTouchHelper swipeToDelete() {
@@ -72,5 +82,14 @@ public class FriendsFragment extends Fragment {
                 Toast.makeText(getActivity(), "Friend Deleted", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == EDIT_FRIEND_REQUEST && resultCode == RESULT_OK) {
+            Toast.makeText(getActivity(), "Friend updated!", Toast.LENGTH_SHORT).show();
+        }
     }
 }
