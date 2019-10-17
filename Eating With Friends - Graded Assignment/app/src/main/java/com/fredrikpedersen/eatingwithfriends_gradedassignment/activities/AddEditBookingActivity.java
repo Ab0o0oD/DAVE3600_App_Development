@@ -1,12 +1,9 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,33 +22,37 @@ import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.pickers.OnPicke
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.pickers.TimePickerFragment;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 //TODO This class is bit of a mess, cleanup if you get the time later.
-public class AddEditBookingActivity extends AppCompatActivity implements OnPickerValueSelectedListener, AdapterView.OnItemSelectedListener {
+public class AddEditBookingActivity extends AppCompatActivity implements OnPickerValueSelectedListener {
 
     private static final String TAG = "AddEditBookingActivity";
 
     public static final String EXTRA_ID = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_ID";
     public static final String EXTRA_RESTAURANT_NAME = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_RESTAURANT_NAME";
     public static final String EXTRA_ADDRESS = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_ADDRESS";
+    public static final String EXTRA_PHONENUMBER = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_PHONENUMBER";
+    public static final String EXTRA_TYPE = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_TYPE";
     public static final String EXTRA_DATE = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_DATE";
     public static final String EXTRA_TIME = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_TIME";
     public static final String EXTRA_FRIENDS = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_RESTAURANT_FRIENDS";
 
     private EditText editTextRestaurantName;
-    private EditText editTextAddress;
+    private EditText editTextRestaurantAddress;
+    private EditText editTextRestaurantPhone;
+    private EditText editTextRestaurantType;
     private TextView textViewDate;
     private TextView textViewTime;
     private TextView textViewSelectedFriends;
-    private Spinner spinnerFriendSelector;
     private Button buttonSave;
     private Button buttonSelectFriend;
 
-    private ArrayAdapter<Friend> spinnerAdapter;
     private List<Friend> allFriends;
-    private List<Friend> selectedFriends;
-    private Friend selectedFriend;
+    HashSet<String> selectedFriendNames;
+    private ArrayList<Integer> selectedItemsInChecklist;
+    private boolean[] checkedItemsInList;
 
     private final String[] PICKERS = {"timepicker", "datepicker"};
     private String activePicker = "";
@@ -66,88 +67,132 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_booking);
         initializeViews();
-        setTitle("Add Booking");
+
         friendViewModel = ViewModelProviders.of(this).get(FriendViewModel.class);
         bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
-        allFriends = friendViewModel.getAllFriendsAsList();
-        selectedFriends = new ArrayList<>();
 
-        buttonSave.setOnClickListener(v -> checkBookingComplete());
-        buttonSelectFriend.setOnClickListener(v -> addFriendToBooking());
-        textViewDate.setOnClickListener(v -> showDatePickerDialog());
-        textViewTime.setOnClickListener(v -> showTimePickerDialog());
-        loadFriendsToSpinner();
+        initializeVariables();
+        setOnClicks();
+        initializeAddOrEdit();
     }
+
+    /* ----- Save Booking ----- */
 
     private void checkBookingComplete() {
         String restaurantName = editTextRestaurantName.getText().toString();
-        String address = editTextAddress.getText().toString();
+        String address = editTextRestaurantAddress.getText().toString();
+        List<Friend> selectedFriends = addSelectedFriends();
 
         if (restaurantName.trim().isEmpty() || address.trim().isEmpty() || date.equals("") || time.equals("")) {
             Toast.makeText(this, "Please give data in all required fields!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (selectedFriends.isEmpty()) {
+        if (selectedFriends.isEmpty() && textViewSelectedFriends.getText().equals("")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("No Friends Selected. Proceed with saving the booking?")
                     .setCancelable(false)
-                    .setPositiveButton("Yes", (dialogInterface, i) -> saveBooking(false))
+                    .setPositiveButton("Yes", (dialogInterface, i) -> saveBooking(false, null))
                     .setNegativeButton("No", null)
                     .show();
         } else {
-            saveBooking(true);
+            saveBooking(true, selectedFriends);
         }
     }
 
-    private void saveBooking(Boolean withFriends) {
+    private void saveBooking(Boolean withFriends, @Nullable List<Friend> selectedFriends) {
         String restaurantName = editTextRestaurantName.getText().toString();
-        String address = editTextAddress.getText().toString();
+        String address = editTextRestaurantAddress.getText().toString();
+        String phone = editTextRestaurantPhone.getText().toString();
+        String type = editTextRestaurantType.getText().toString();
+
         Booking newBooking;
 
-        if (withFriends)
-            newBooking = new Booking(restaurantName, address, date, time, selectedFriends);
-        else
-            newBooking = new Booking(restaurantName, address, date, time, null);
+        if (withFriends) {
+            newBooking = new Booking(restaurantName, address, phone, type, date, time, selectedFriends);
+        } else {
+            newBooking = new Booking(restaurantName, address, phone, type, date, time, null);
+        }
 
-        bookingViewModel.insert(newBooking);
+        if (getIntent().hasExtra(EXTRA_ID)) {
+            newBooking.setId(getIntent().getIntExtra(EXTRA_ID, -1));
+            bookingViewModel.update(newBooking);
+        } else {
+            bookingViewModel.insert(newBooking);
+        }
+
         setResult(RESULT_OK);
         finish();
     }
 
-    private void initializeViews() {
-        editTextRestaurantName = findViewById(R.id.edit_text_restaurant_name);
-        editTextAddress = findViewById(R.id.edit_text_address);
-        textViewDate = findViewById(R.id.text_view_date);
-        textViewTime = findViewById(R.id.text_view_time);
-        textViewSelectedFriends = findViewById(R.id.text_view_selected_friends);
-        spinnerFriendSelector = findViewById(R.id.spinner_friend_selector);
-        buttonSave = findViewById(R.id.button_save_booking);
-        buttonSelectFriend = findViewById(R.id.button_select_friend);
+    private List<Friend> addSelectedFriends() {
+        List<Friend> selectedFriends = new ArrayList<>();
+
+        for (String friendName : selectedFriendNames) {
+            for (Friend friend : allFriends) {
+                if (friendName.equals(friend.getFirstName() + " " + friend.getLastName())) {
+                    selectedFriends.add(friend);
+                }
+            }
+        }
+        return selectedFriends;
     }
 
-    private void addFriendToBooking() {
-        if (selectedFriend != null) {
-            selectedFriends.add(selectedFriend);
-            spinnerAdapter.remove(selectedFriend);
+    /* ----- Multiple Choice List ----- */
+
+    private void showMultipleChoiceList() {
+        String[] friendNames = new String[allFriends.size()];
+        for (int i = 0; i < allFriends.size(); i++) {
+            friendNames[i] = allFriends.get(i).getFirstName() + " " + allFriends.get(i).getLastName();
         }
-        appendSelectedFriendsToView();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Friends")
+                .setMultiChoiceItems(friendNames, checkedItemsInList, (dialog, position, isChecked) -> controlChekcedInList(isChecked, position))
+                .setPositiveButton("Ok", (dialog, which) -> addSelectedToTextView(friendNames))
+                .setNegativeButton("Close", (dialog, which) -> dialog.dismiss())
+                .setNeutralButton("Clear all", (dialog, which) -> clearMultipleChoice())
+                .setCancelable(false)
+                .show();
     }
 
-    private void appendSelectedFriendsToView() {
-        for (Friend friend : selectedFriends) {
-            textViewSelectedFriends.append(friend.toString() + "\n");
+    //Used in showMultipleChoice to clear the list's checked items
+    private void clearMultipleChoice() {
+        for (int i = 0; i < checkedItemsInList.length; i++) {
+            checkedItemsInList[i] = false;
+            selectedItemsInChecklist.clear();
+            textViewSelectedFriends.setText("");
+            selectedFriendNames.clear();
         }
     }
 
-    private void loadFriendsToSpinner() {
-        if (allFriends != null) {
-            spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, allFriends);
-            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerFriendSelector.setAdapter(spinnerAdapter);
-            spinnerFriendSelector.setOnItemSelectedListener(this);
+    //Used in showMultipleChoice to add checked items to a TextView
+    private void addSelectedToTextView(String[] itemNames) {
+        StringBuilder item = new StringBuilder();
+
+        for (int i = 0; i < selectedItemsInChecklist.size(); i++) {
+            item.append(itemNames[selectedItemsInChecklist.get(i)]);
+            selectedFriendNames.add(itemNames[selectedItemsInChecklist.get(i)]);
+
+            if (i != selectedItemsInChecklist.size()-1) {
+                item.append("\n");
+            }
+        }
+        textViewSelectedFriends.setText(item.toString());
+    }
+
+    //Used in showMultipleChoice to check what items in the list are checked
+    private void controlChekcedInList(boolean isChecked, int position) {
+        if (isChecked) {
+            if(!selectedItemsInChecklist.contains(position)) {
+                selectedItemsInChecklist.add(position);
+            } else {
+                selectedItemsInChecklist.remove(position);
+            }
         }
     }
+
+    /* ----- Pickers ----- */
 
     private void showTimePickerDialog() {
         TimePickerFragment timePicker = new TimePickerFragment();
@@ -174,12 +219,59 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        selectedFriend = spinnerAdapter.getItem(position);
+    /* ----- Initializations ----- */
+    private void initializeViews() {
+        editTextRestaurantName = findViewById(R.id.edit_text_restaurant_name);
+        editTextRestaurantAddress = findViewById(R.id.edit_text_address);
+        editTextRestaurantPhone = findViewById(R.id.edit_text_restaurant_phone);
+        editTextRestaurantType = findViewById(R.id.edit_text_restaurant_type);
+        textViewDate = findViewById(R.id.text_view_date);
+        textViewTime = findViewById(R.id.text_view_time);
+        textViewSelectedFriends = findViewById(R.id.text_view_selected_friends);
+        buttonSave = findViewById(R.id.button_save_booking);
+        buttonSelectFriend = findViewById(R.id.button_select_friend);
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    private void initializeVariables() {
+        allFriends = friendViewModel.getAllFriendsAsList();
+        checkedItemsInList = new boolean[allFriends.size()];
+        selectedItemsInChecklist = new ArrayList<>();
+        selectedFriendNames = new HashSet<>();
+    }
+
+    private void setOnClicks() {
+        buttonSave.setOnClickListener(v -> checkBookingComplete());
+        textViewDate.setOnClickListener(v -> showDatePickerDialog());
+        textViewTime.setOnClickListener(v -> showTimePickerDialog());
+        buttonSelectFriend.setOnClickListener(v -> showMultipleChoiceList());
+    }
+
+    private void initializeAddOrEdit() {
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_ID)) {
+            setTitle("Booking Details");
+            editTextRestaurantName.setText(intent.getStringExtra(EXTRA_RESTAURANT_NAME));
+            editTextRestaurantAddress.setText(intent.getStringExtra(EXTRA_ADDRESS));
+            editTextRestaurantPhone.setText(intent.getStringExtra(EXTRA_PHONENUMBER));
+            editTextRestaurantType.setText(intent.getStringExtra(EXTRA_TYPE));
+
+            time = intent.getStringExtra(EXTRA_TIME);
+            textViewTime.setText(time);
+
+            date = intent.getStringExtra(EXTRA_DATE);
+            textViewDate.setText(date);
+
+            String[] friendsFromList = intent.getStringArrayExtra(EXTRA_FRIENDS);
+
+            if (friendsFromList != null) {
+                for (String friendName : friendsFromList) {
+                    selectedFriendNames.add(friendName);
+                    textViewSelectedFriends.append(friendName + "\n");
+                }
+            }
+
+        } else {
+            setTitle("Add Booking");
+        }
     }
 }

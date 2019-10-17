@@ -74,7 +74,7 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingV
 
         holder.textViewRestaurantName.setText(currentBooking.getRestaurantName());
         holder.textViewAddress.setText(currentBooking.getAddress());
-        holder.textViewDateTime.setText(currentBooking.getDate() + " " + currentBooking.getTime());
+        holder.textViewDateTime.setText(currentBooking.getTime() + " " + currentBooking.getDate());
         holder.textViewFriends.setText(sb.toString());
     }
 

@@ -23,11 +23,27 @@
         android:layout_marginTop="10dp"
         android:hint="Resturant Address"/>
 
+    <EditText
+        android:id="@+id/edit_text_restaurant_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_address"
+        android:layout_marginTop="10dp"
+        android:hint="Resturant Phone"/>
+
+    <EditText
+        android:id="@+id/edit_text_restaurant_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_restaurant_phone"
+        android:layout_marginTop="10dp"
+        android:hint="Resturant Type"/>
+
     <TextView
         android:id="@+id/text_view_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_text_address"
+        android:layout_below="@id/edit_text_restaurant_type"
         android:hint="Tap to choose date"
         android:layout_marginTop="20dp"/>
 
@@ -36,43 +52,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/text_view_date"
-        android:layout_below="@id/edit_text_address"
+        android:layout_below="@id/edit_text_restaurant_type"
         android:hint="Tap to choose time"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"/>
-
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spinner_friend_selector"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_time"
-        android:entries="@array/placeholders"
-        android:layout_marginTop="20dp"/>
-
-    <Button
-        android:id="@+id/button_select_friend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_date"
-        android:layout_toEndOf="@id/spinner_friend_selector"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:text="Select Friend" />
 
     <TextView
         android:id="@+id/text_view_selected_friends"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/button_select_friend"
+        android:layout_below="@id/text_view_time"
         android:hint="Selected Friends Will Be Listed Here!"
         android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/button_select_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_selected_friends"
+        android:layout_marginTop="20dp"
+        android:text="Select Friends" />
 
     <Button
         android:id="@+id/button_save_booking"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/text_view_selected_friends"
+        android:layout_toEndOf="@id/button_select_friend"
         android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
         android:text="Save"/>
 
 

@@ -34,8 +34,53 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        String date = year + " " + month + " " + day;
+        String date = day + ". " + getMonthText(month) + " " + year;
         callback.onValueSelected(date);
+    }
+
+    private String getMonthText (int month) {
+        String monthText = "";
+        switch (month) {
+            case 1:
+                monthText = "Jan";
+                break;
+            case 2:
+                monthText = "Feb";
+                break;
+            case 3:
+                monthText = "Mar";
+                break;
+            case 4:
+                monthText = "Apr";
+                break;
+            case  5:
+                monthText = "May";
+                break;
+            case 6:
+                monthText = "Jun";
+                break;
+            case 7:
+                monthText = "Jul";
+                break;
+            case 8:
+                monthText = "Aug";
+                break;
+            case 9:
+                monthText = "Sep";
+                break;
+            case 10:
+                monthText = "Oct";
+                break;
+            case 11:
+                monthText = "Nov";
+                break;
+            case 12:
+                monthText = "Dec";
+                break;
+            default:
+                break;
+        }
+        return monthText;
     }
 }
 

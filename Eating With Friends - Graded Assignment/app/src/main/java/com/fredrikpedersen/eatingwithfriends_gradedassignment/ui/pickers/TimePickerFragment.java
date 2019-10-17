@@ -32,7 +32,20 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        String time = hourOfDay + ":" + minute;
-        callback.onValueSelected(time);
+        callback.onValueSelected(formatTime(hourOfDay, minute));
+    }
+
+    private String formatTime(int hourOfDay, int minute) {
+        String hourString = String.valueOf(hourOfDay);
+        String minuteString = String.valueOf(minute);
+
+        if (hourOfDay < 10) {
+            hourString = "0" + hourOfDay;
+        }
+
+        if (minute < 10) {
+            minuteString = "0" + minute;
+        }
+        return hourString + ":" + minuteString;
     }
 }

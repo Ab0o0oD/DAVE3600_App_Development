@@ -19,14 +19,18 @@ public class Booking {
     private int id;
     private String restaurantName;
     private String address;
+    private String phoneNumber;
+    private String type;
     private String date;
     private String time;
     @TypeConverters(Converters.class)
     private List<Friend> friends;
 
-    public Booking(String restaurantName, String address, String date, String time, @Nullable List<Friend> friends) {
+    public Booking(String restaurantName, String address, String phoneNumber, String type, String date, String time, @Nullable List<Friend> friends) {
         this.restaurantName = restaurantName;
         this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.type = type;
         this.date = date;
         this.time = time;
         this.friends = friends;
@@ -46,6 +50,14 @@ public class Booking {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public String getDate() {

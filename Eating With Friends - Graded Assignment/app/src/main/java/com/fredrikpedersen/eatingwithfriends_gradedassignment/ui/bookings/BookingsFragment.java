@@ -17,9 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.AddEditBookingActivity;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 
+import java.util.List;
 import java.util.Objects;
+
+import static android.app.Activity.RESULT_OK;
+import static com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity.EDIT_BOOKING_REQUEST;
 
 public class BookingsFragment extends Fragment {
 
@@ -40,7 +45,7 @@ public class BookingsFragment extends Fragment {
 
         bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
         bookingViewModel.getAllBookings().observe(this, bookingAdapter::submitList);
-        bookingAdapter.setOnItemClickListener(booking -> touchToEdit());
+        bookingAdapter.setOnItemClickListener(this::touchToEdit);
 
         return view;
     }
@@ -55,9 +60,27 @@ public class BookingsFragment extends Fragment {
         swipeToDelete().attachToRecyclerView(recyclerView);
     }
 
-    private void touchToEdit() {
+    private void touchToEdit(Object item) {
+        Booking booking = (Booking)item;
         Intent intent = new Intent(getActivity(), AddEditBookingActivity.class);
-        startActivityForResult(intent, MainActivity.EDIT_BOOKING_REQUEST);
+        intent.putExtra(AddEditBookingActivity.EXTRA_ID, booking.getId());
+        intent.putExtra(AddEditBookingActivity.EXTRA_RESTAURANT_NAME, booking.getRestaurantName());
+        intent.putExtra(AddEditBookingActivity.EXTRA_ADDRESS, booking.getAddress());
+        intent.putExtra(AddEditBookingActivity.EXTRA_PHONENUMBER, booking.getPhoneNumber());
+        intent.putExtra(AddEditBookingActivity.EXTRA_TYPE, booking.getType());
+        intent.putExtra(AddEditBookingActivity.EXTRA_DATE, booking.getDate());
+        intent.putExtra(AddEditBookingActivity.EXTRA_TIME, booking.getTime());
+
+        List<Friend> friends = booking.getFriends();
+        String[] friendNames = new String[friends.size()];
+
+        for (int i = 0; i < friends.size(); i++) {
+            friendNames[i] = friends.get(i).getFirstName() + " " + friends.get(i).getLastName();
+        }
+
+        intent.putExtra(AddEditBookingActivity.EXTRA_FRIENDS, friendNames);
+
+        startActivityForResult(intent, EDIT_BOOKING_REQUEST);
     }
 
     private ItemTouchHelper swipeToDelete() {
@@ -73,5 +96,14 @@ public class BookingsFragment extends Fragment {
                 Toast.makeText(getActivity(), "Booking Deleted", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == EDIT_BOOKING_REQUEST && resultCode == RESULT_OK) {
+            Toast.makeText(getActivity(), "Booking updated!", Toast.LENGTH_SHORT).show();
+        }
     }
 }
