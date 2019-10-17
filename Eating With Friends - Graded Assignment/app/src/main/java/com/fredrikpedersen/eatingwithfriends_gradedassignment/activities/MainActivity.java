@@ -20,6 +20,19 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String EXTRA_ID = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_ID";
+    public static final String EXTRA_RESTAURANT_NAME = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_RESTAURANT_NAME";
+    public static final String EXTRA_ADDRESS = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_ADDRESS";
+    public static final String EXTRA_PHONENUMBER = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_PHONENUMBER";
+    public static final String EXTRA_TYPE = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_TYPE";
+    public static final String EXTRA_DATE = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_DATE";
+    public static final String EXTRA_TIME = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_TIME";
+    public static final String EXTRA_FRIENDS = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_RESTAURANT_FRIENDS";
+    public static final String EXTRA_FIRST_NAME = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_FIRST_NAME";
+    public static final String EXTRA_LAST_NAME = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_LAST_NAME";
+
+
+
     private static final String TAG = "MainActivity";
     public static final int ADD_BOOKING_REQUEST = 1;
     public static final int EDIT_BOOKING_REQUEST = 2;
@@ -77,6 +90,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ADD_BOOKING_REQUEST && resultCode == RESULT_OK) {
             Toast.makeText(this, "Booking saved!", Toast.LENGTH_SHORT).show();
         }
+
+        if (requestCode == ADD_FRIEND_REQUEST && resultCode == RESULT_OK) {
+            Toast.makeText(this, "Friend saved!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -97,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToAddItem() {
        if (activeFragment == friendsFragment) {
-           Toast.makeText(this, "Statement", Toast.LENGTH_SHORT).show();
-       } else {
+           startActivityForResult(new Intent(MainActivity.this, AddEditFriendActivity.class), ADD_FRIEND_REQUEST);
+       } else if (activeFragment == bookingFragment) {
            startActivityForResult(new Intent(MainActivity.this, AddEditBookingActivity.class), ADD_BOOKING_REQUEST);
        }
     }

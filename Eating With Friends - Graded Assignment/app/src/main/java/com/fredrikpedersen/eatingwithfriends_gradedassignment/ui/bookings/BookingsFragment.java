@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.AddEditBookingActivity;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 
@@ -63,13 +64,13 @@ public class BookingsFragment extends Fragment {
     private void touchToEdit(Object item) {
         Booking booking = (Booking)item;
         Intent intent = new Intent(getActivity(), AddEditBookingActivity.class);
-        intent.putExtra(AddEditBookingActivity.EXTRA_ID, booking.getId());
-        intent.putExtra(AddEditBookingActivity.EXTRA_RESTAURANT_NAME, booking.getRestaurantName());
-        intent.putExtra(AddEditBookingActivity.EXTRA_ADDRESS, booking.getAddress());
-        intent.putExtra(AddEditBookingActivity.EXTRA_PHONENUMBER, booking.getPhoneNumber());
-        intent.putExtra(AddEditBookingActivity.EXTRA_TYPE, booking.getType());
-        intent.putExtra(AddEditBookingActivity.EXTRA_DATE, booking.getDate());
-        intent.putExtra(AddEditBookingActivity.EXTRA_TIME, booking.getTime());
+        intent.putExtra(MainActivity.EXTRA_ID, booking.getId());
+        intent.putExtra(MainActivity.EXTRA_RESTAURANT_NAME, booking.getRestaurantName());
+        intent.putExtra(MainActivity.EXTRA_ADDRESS, booking.getAddress());
+        intent.putExtra(MainActivity.EXTRA_PHONENUMBER, booking.getPhoneNumber());
+        intent.putExtra(MainActivity.EXTRA_TYPE, booking.getType());
+        intent.putExtra(MainActivity.EXTRA_DATE, booking.getDate());
+        intent.putExtra(MainActivity.EXTRA_TIME, booking.getTime());
 
         List<Friend> friends = booking.getFriends();
         String[] friendNames = new String[friends.size()];
@@ -78,7 +79,7 @@ public class BookingsFragment extends Fragment {
             friendNames[i] = friends.get(i).getFirstName() + " " + friends.get(i).getLastName();
         }
 
-        intent.putExtra(AddEditBookingActivity.EXTRA_FRIENDS, friendNames);
+        intent.putExtra(MainActivity.EXTRA_FRIENDS, friendNames);
 
         startActivityForResult(intent, EDIT_BOOKING_REQUEST);
     }
