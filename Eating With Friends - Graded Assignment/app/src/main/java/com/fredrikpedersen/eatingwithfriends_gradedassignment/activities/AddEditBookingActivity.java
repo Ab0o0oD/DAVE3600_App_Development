@@ -25,19 +25,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import static com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity.EXTRA_ID;
+
 //TODO This class is bit of a mess, cleanup if you get the time later.
 public class AddEditBookingActivity extends AppCompatActivity implements OnPickerValueSelectedListener {
 
     private static final String TAG = "AddEditBookingActivity";
-
-    public static final String EXTRA_ID = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_ID";
-    public static final String EXTRA_RESTAURANT_NAME = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_RESTAURANT_NAME";
-    public static final String EXTRA_ADDRESS = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_ADDRESS";
-    public static final String EXTRA_PHONENUMBER = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_PHONENUMBER";
-    public static final String EXTRA_TYPE = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_TYPE";
-    public static final String EXTRA_DATE = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_DATE";
-    public static final String EXTRA_TIME = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_TIME";
-    public static final String EXTRA_FRIENDS = "com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.EXTRA_RESTAURANT_FRIENDS";
 
     private EditText editTextRestaurantName;
     private EditText editTextRestaurantAddress;
@@ -92,17 +85,15 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("No Friends Selected. Proceed with saving the booking?")
                     .setCancelable(false)
-                    .setPositiveButton("Yes", (dialogInterface, i) -> saveBooking(false, null))
+                    .setPositiveButton("Yes", (dialogInterface, i) -> saveBooking(false, null, restaurantName, address))
                     .setNegativeButton("No", null)
                     .show();
         } else {
-            saveBooking(true, selectedFriends);
+            saveBooking(true, selectedFriends, restaurantName, address);
         }
     }
 
-    private void saveBooking(Boolean withFriends, @Nullable List<Friend> selectedFriends) {
-        String restaurantName = editTextRestaurantName.getText().toString();
-        String address = editTextRestaurantAddress.getText().toString();
+    private void saveBooking(Boolean withFriends, @Nullable List<Friend> selectedFriends, String restaurantName, String address) {
         String phone = editTextRestaurantPhone.getText().toString();
         String type = editTextRestaurantType.getText().toString();
 
@@ -220,6 +211,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
     }
 
     /* ----- Initializations ----- */
+
     private void initializeViews() {
         editTextRestaurantName = findViewById(R.id.edit_text_restaurant_name);
         editTextRestaurantAddress = findViewById(R.id.edit_text_address);
@@ -249,19 +241,19 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
     private void initializeAddOrEdit() {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ID)) {
-            setTitle("Booking Details");
-            editTextRestaurantName.setText(intent.getStringExtra(EXTRA_RESTAURANT_NAME));
-            editTextRestaurantAddress.setText(intent.getStringExtra(EXTRA_ADDRESS));
-            editTextRestaurantPhone.setText(intent.getStringExtra(EXTRA_PHONENUMBER));
-            editTextRestaurantType.setText(intent.getStringExtra(EXTRA_TYPE));
+            setTitle("Edit Booking/Details");
+            editTextRestaurantName.setText(intent.getStringExtra(MainActivity.EXTRA_RESTAURANT_NAME));
+            editTextRestaurantAddress.setText(intent.getStringExtra(MainActivity.EXTRA_ADDRESS));
+            editTextRestaurantPhone.setText(intent.getStringExtra(MainActivity.EXTRA_PHONENUMBER));
+            editTextRestaurantType.setText(intent.getStringExtra(MainActivity.EXTRA_TYPE));
 
-            time = intent.getStringExtra(EXTRA_TIME);
+            time = intent.getStringExtra(MainActivity.EXTRA_TIME);
             textViewTime.setText(time);
 
-            date = intent.getStringExtra(EXTRA_DATE);
+            date = intent.getStringExtra(MainActivity.EXTRA_DATE);
             textViewDate.setText(date);
 
-            String[] friendsFromList = intent.getStringArrayExtra(EXTRA_FRIENDS);
+            String[] friendsFromList = intent.getStringArrayExtra(MainActivity.EXTRA_FRIENDS);
 
             if (friendsFromList != null) {
                 for (String friendName : friendsFromList) {
