@@ -1,7 +1,5 @@
 package com.fredrikpedersen.serviceandbroadcastreciever;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -16,6 +14,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
     public void startService(View v) {
         Intent intent = new Intent();
         intent.setAction("com.fredrikpedersen.serviceandbroadcastreciever.mittbroadcast");
