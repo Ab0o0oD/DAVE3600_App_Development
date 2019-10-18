@@ -1,6 +1,8 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.bookings;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -46,6 +51,9 @@ public class BookingsFragment extends Fragment {
         bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
         bookingViewModel.getAllBookings().observe(this, bookingAdapter::submitList);
         bookingAdapter.setOnItemClickListener(this::touchToEdit);
+
+        if (!(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED))
+            requestSmsPermission();
 
         return view;
     }
@@ -102,8 +110,35 @@ public class BookingsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == EDIT_BOOKING_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == StaticHolder.EDIT_BOOKING_REQUEST && resultCode == RESULT_OK) {
             Toast.makeText(getActivity(), "Booking updated!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void requestSmsPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.SEND_SMS)) {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("SMS Permission Needed")
+                    .setMessage("This app has a feature where it sends SMS reminders to your friends on the day you have an appointment with them, but it needs your approval to do so")
+                    .setPositiveButton("ok", (dialog, which) -> ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.SEND_SMS}, StaticHolder.SMS_PERMISSION_CODE))
+                    .setNegativeButton("cancel", (dialog, which) -> dialog.dismiss())
+                    .create()
+                    .show();
+
+        } else {
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.SEND_SMS}, StaticHolder.SMS_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == StaticHolder.SMS_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getActivity(), "Permission GRANTED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), "Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
