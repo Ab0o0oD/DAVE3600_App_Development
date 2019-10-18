@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.StaticHolder;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.AddEditBookingActivity;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 
@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
-import static com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity.EDIT_BOOKING_REQUEST;
 
 public class BookingsFragment extends Fragment {
 
@@ -64,13 +63,13 @@ public class BookingsFragment extends Fragment {
     private void touchToEdit(Object item) {
         Booking booking = (Booking)item;
         Intent intent = new Intent(getActivity(), AddEditBookingActivity.class);
-        intent.putExtra(MainActivity.EXTRA_ID, booking.getId());
-        intent.putExtra(MainActivity.EXTRA_RESTAURANT_NAME, booking.getRestaurantName());
-        intent.putExtra(MainActivity.EXTRA_ADDRESS, booking.getAddress());
-        intent.putExtra(MainActivity.EXTRA_PHONENUMBER, booking.getPhoneNumber());
-        intent.putExtra(MainActivity.EXTRA_TYPE, booking.getType());
-        intent.putExtra(MainActivity.EXTRA_DATE, booking.getDate());
-        intent.putExtra(MainActivity.EXTRA_TIME, booking.getTime());
+        intent.putExtra(StaticHolder.EXTRA_ID, booking.getId());
+        intent.putExtra(StaticHolder.EXTRA_RESTAURANT_NAME, booking.getRestaurantName());
+        intent.putExtra(StaticHolder.EXTRA_ADDRESS, booking.getAddress());
+        intent.putExtra(StaticHolder.EXTRA_PHONE_NUMBER, booking.getPhoneNumber());
+        intent.putExtra(StaticHolder.EXTRA_TYPE, booking.getType());
+        intent.putExtra(StaticHolder.EXTRA_DATE, booking.getDate());
+        intent.putExtra(StaticHolder.EXTRA_TIME, booking.getTime());
 
         List<Friend> friends = booking.getFriends();
         String[] friendNames = new String[friends.size()];
@@ -79,9 +78,9 @@ public class BookingsFragment extends Fragment {
             friendNames[i] = friends.get(i).getFirstName() + " " + friends.get(i).getLastName();
         }
 
-        intent.putExtra(MainActivity.EXTRA_FRIENDS, friendNames);
+        intent.putExtra(StaticHolder.EXTRA_FRIENDS, friendNames);
 
-        startActivityForResult(intent, EDIT_BOOKING_REQUEST);
+        startActivityForResult(intent, StaticHolder.EDIT_BOOKING_REQUEST);
     }
 
     private ItemTouchHelper swipeToDelete() {

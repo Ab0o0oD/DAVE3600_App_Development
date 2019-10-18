@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.StaticHolder;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.AddEditFriendActivity;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
@@ -24,7 +25,6 @@ import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Fr
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
-import static com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity.EDIT_FRIEND_REQUEST;
 
 public class FriendsFragment extends Fragment {
 
@@ -61,12 +61,12 @@ public class FriendsFragment extends Fragment {
     private void touchToEdit(Object item) {
         Friend friend = (Friend)item;
         Intent intent = new Intent(getActivity(), AddEditFriendActivity.class);
-        intent.putExtra(MainActivity.EXTRA_ID, friend.getId());
-        intent.putExtra(MainActivity.EXTRA_FIRST_NAME, friend.getFirstName());
-        intent.putExtra(MainActivity.EXTRA_LAST_NAME, friend.getLastName());
-        intent.putExtra(MainActivity.EXTRA_PHONENUMBER, friend.getPhoneNumber());
+        intent.putExtra(StaticHolder.EXTRA_ID, friend.getId());
+        intent.putExtra(StaticHolder.EXTRA_FIRST_NAME, friend.getFirstName());
+        intent.putExtra(StaticHolder.EXTRA_LAST_NAME, friend.getLastName());
+        intent.putExtra(StaticHolder.EXTRA_PHONE_NUMBER, friend.getPhoneNumber());
 
-        startActivityForResult(intent, EDIT_FRIEND_REQUEST);
+        startActivityForResult(intent, StaticHolder.EDIT_FRIEND_REQUEST);
     }
 
     private ItemTouchHelper swipeToDelete() {
@@ -88,7 +88,7 @@ public class FriendsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == EDIT_FRIEND_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == StaticHolder.EDIT_FRIEND_REQUEST && resultCode == RESULT_OK) {
             Toast.makeText(getActivity(), "Friend updated!", Toast.LENGTH_SHORT).show();
         }
     }

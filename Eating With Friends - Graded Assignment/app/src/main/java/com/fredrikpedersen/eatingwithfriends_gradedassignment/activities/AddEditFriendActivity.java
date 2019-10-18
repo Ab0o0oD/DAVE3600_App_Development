@@ -11,14 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.StaticHolder;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.friends.FriendViewModel;
 
-import static com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity.EXTRA_ID;
+import static com.fredrikpedersen.eatingwithfriends_gradedassignment.StaticHolder.EXTRA_ID;
 
 public class AddEditFriendActivity extends AppCompatActivity {
-
-
 
     private static final String TAG = "AddEditFriendActivity";
     private EditText editTextFriendFirstName;
@@ -85,9 +84,9 @@ public class AddEditFriendActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Edit Friend");
-            editTextFriendFirstName.setText(intent.getStringExtra(MainActivity.EXTRA_FIRST_NAME));
-            editTextFriendLastName.setText(intent.getStringExtra(MainActivity.EXTRA_LAST_NAME));
-            editTextFriendPhoneNumber.setText(intent.getStringExtra(MainActivity.EXTRA_PHONENUMBER));
+            editTextFriendFirstName.setText(intent.getStringExtra(StaticHolder.EXTRA_FIRST_NAME));
+            editTextFriendLastName.setText(intent.getStringExtra(StaticHolder.EXTRA_LAST_NAME));
+            editTextFriendPhoneNumber.setText(intent.getStringExtra(StaticHolder.EXTRA_PHONE_NUMBER));
         } else {
             setTitle("Add Friend");
         }

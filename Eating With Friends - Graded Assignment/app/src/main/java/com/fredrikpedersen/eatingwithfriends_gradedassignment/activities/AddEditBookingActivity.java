@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.StaticHolder;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.bookings.BookingViewModel;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import static com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity.EXTRA_ID;
+import static com.fredrikpedersen.eatingwithfriends_gradedassignment.StaticHolder.EXTRA_ID;
 
 //TODO This class is bit of a mess, cleanup if you get the time later.
 public class AddEditBookingActivity extends AppCompatActivity implements OnPickerValueSelectedListener {
@@ -242,18 +243,18 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Edit Booking/Details");
-            editTextRestaurantName.setText(intent.getStringExtra(MainActivity.EXTRA_RESTAURANT_NAME));
-            editTextRestaurantAddress.setText(intent.getStringExtra(MainActivity.EXTRA_ADDRESS));
-            editTextRestaurantPhone.setText(intent.getStringExtra(MainActivity.EXTRA_PHONENUMBER));
-            editTextRestaurantType.setText(intent.getStringExtra(MainActivity.EXTRA_TYPE));
+            editTextRestaurantName.setText(intent.getStringExtra(StaticHolder.EXTRA_RESTAURANT_NAME));
+            editTextRestaurantAddress.setText(intent.getStringExtra(StaticHolder.EXTRA_ADDRESS));
+            editTextRestaurantPhone.setText(intent.getStringExtra(StaticHolder.EXTRA_PHONE_NUMBER));
+            editTextRestaurantType.setText(intent.getStringExtra(StaticHolder.EXTRA_TYPE));
 
-            time = intent.getStringExtra(MainActivity.EXTRA_TIME);
+            time = intent.getStringExtra(StaticHolder.EXTRA_TIME);
             textViewTime.setText(time);
 
-            date = intent.getStringExtra(MainActivity.EXTRA_DATE);
+            date = intent.getStringExtra(StaticHolder.EXTRA_DATE);
             textViewDate.setText(date);
 
-            String[] friendsFromList = intent.getStringArrayExtra(MainActivity.EXTRA_FRIENDS);
+            String[] friendsFromList = intent.getStringArrayExtra(StaticHolder.EXTRA_FRIENDS);
 
             if (friendsFromList != null) {
                 for (String friendName : friendsFromList) {
