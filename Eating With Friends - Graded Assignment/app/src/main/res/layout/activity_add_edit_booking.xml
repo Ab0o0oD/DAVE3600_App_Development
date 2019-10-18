@@ -1,86 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<ScrollView
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".activities.AddEditBookingActivity">
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditText
-        android:id="@+id/edit_text_restaurant_name"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Restaurant Name"
-        android:layout_alignParentStart="true"
-        android:inputType="text" />
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context=".activities.AddEditBookingActivity">
 
-    <EditText
-        android:id="@+id/edit_text_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edit_text_restaurant_name"
-        android:layout_marginTop="10dp"
-        android:hint="Resturant Address"/>
+        <EditText
+            android:id="@+id/edit_text_restaurant_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Restaurant Name"
+            android:layout_alignParentStart="true"
+            android:inputType="text" />
 
-    <EditText
-        android:id="@+id/edit_text_restaurant_phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edit_text_address"
-        android:layout_marginTop="10dp"
-        android:hint="Resturant Phone"/>
+        <EditText
+            android:id="@+id/edit_text_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_restaurant_name"
+            android:layout_marginTop="10dp"
+            android:hint="Resturant Address"/>
 
-    <EditText
-        android:id="@+id/edit_text_restaurant_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edit_text_restaurant_phone"
-        android:layout_marginTop="10dp"
-        android:hint="Resturant Type"/>
+        <EditText
+            android:id="@+id/edit_text_restaurant_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_address"
+            android:layout_marginTop="10dp"
+            android:hint="Resturant Phone"/>
 
-    <TextView
-        android:id="@+id/text_view_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edit_text_restaurant_type"
-        android:hint="Tap to choose date"
-        android:layout_marginTop="20dp"/>
+        <EditText
+            android:id="@+id/edit_text_restaurant_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_restaurant_phone"
+            android:layout_marginTop="10dp"
+            android:hint="Resturant Type"/>
 
-    <TextView
-        android:id="@+id/text_view_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/text_view_date"
-        android:layout_below="@id/edit_text_restaurant_type"
-        android:hint="Tap to choose time"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"/>
+        <TextView
+            android:id="@+id/text_view_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_restaurant_type"
+            android:hint="Tap to choose date"
+            android:layout_marginTop="20dp"/>
 
-    <TextView
-        android:id="@+id/text_view_selected_friends"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_time"
-        android:hint="Selected Friends Will Be Listed Here!"
-        android:layout_marginTop="20dp" />
+        <TextView
+            android:id="@+id/text_view_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/text_view_date"
+            android:layout_below="@id/edit_text_restaurant_type"
+            android:hint="Tap to choose time"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"/>
 
-    <Button
-        android:id="@+id/button_select_friend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_selected_friends"
-        android:layout_marginTop="20dp"
-        android:text="Select Friends" />
+        <TextView
+            android:id="@+id/text_view_selected_friends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_time"
+            android:hint="Selected Friends Will Be Listed Here!"
+            android:layout_marginTop="20dp" />
 
-    <Button
-        android:id="@+id/button_save_booking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_selected_friends"
-        android:layout_toEndOf="@id/button_select_friend"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        android:text="Save"/>
+        <Button
+            android:id="@+id/button_select_friend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_selected_friends"
+            android:layout_marginTop="20dp"
+            android:text="Select Friends" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/button_save_booking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_selected_friends"
+            android:layout_toEndOf="@id/button_select_friend"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:text="Save"/>
+
+    </RelativeLayout>
+</ScrollView>
