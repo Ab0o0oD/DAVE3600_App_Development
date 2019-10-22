@@ -50,11 +50,7 @@ public class FriendRepository {
     public List<Friend> getAllFriendsAsList() {
         try {
             return new getAllFriendsAsList(friendDao).execute().get();
-        } catch (InterruptedException e) {
-            Log.d(TAG, "getAllFriendsAsList: INTERRUPTED EXCEPTION");
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            Log.d(TAG, "getAllFriendsAsList: EXECUTION EXCEPTION");
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return new ArrayList<>();
