@@ -16,6 +16,7 @@ import androidx.core.app.NotificationCompat;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainActivity;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.repository.BookingRepository;
 
 import java.text.SimpleDateFormat;
@@ -28,6 +29,7 @@ public class ReminderService extends Service {
 
     private static final String TAG = "ReminderService";
     private BookingRepository bookingRepository;
+    private Booking todaysBooking;
 
     @Nullable
     @Override
@@ -43,39 +45,52 @@ public class ReminderService extends Service {
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, notificationIntent,0);
 
-        Notification notification = new NotificationCompat.Builder(this, "channel_id")
-                .setContentTitle("You have a booking today!")
-                .setContentText("Sample text")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentIntent(pIntent)
-                .build();
+        if (haveBookingToday()) {
+            String contentText = " have a booking at " + todaysBooking.getRestaurantName() + " at " + todaysBooking.getTime() + " today!";
 
-        checkIfBookingToday();
+            Notification notification = new NotificationCompat.Builder(this, "channel_id")
+                    .setContentTitle("You have a booking today!")
+                    .setContentText("You" + contentText)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentIntent(pIntent)
+                    .build();
 
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        Objects.requireNonNull(notificationManager).notify(0, notification);
+            notification.flags |= Notification.FLAG_AUTO_CANCEL;
+            Objects.requireNonNull(notificationManager).notify(0, notification);
+
+            sendSms(contentText);
+
+        }
 
         return super.onStartCommand(intent, flags, startId);
     }
 
 
-    private void sendSms(String phonenumber){
-        try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phonenumber, null, "Løk", null, null);
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Eating With Friends does not have permission to send SMS. Turn off SMS service or give permission", Toast.LENGTH_SHORT).show();
+    private void sendSms(String message){
+        if (todaysBooking.getFriends() != null) {
+
+            for (Friend friend : todaysBooking.getFriends()) {
+                try {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage(friend.getPhoneNumber(), null, "We" + message, null, null);
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Eating With Friends does not have permission to send SMS. Turn off SMS service or give permission", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 
-    private void checkIfBookingToday() {
+    private boolean haveBookingToday() {
         List<Booking> bookings = bookingRepository.getAllBookingsAsList();
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        Log.d(TAG, "checkIfBookingToday: " + currentDate);
 
         for (Booking booking : bookings) {
-            Log.d(TAG, "checkIfBookingToday: " + booking.getDate());
+            if (booking.getDate().equals(currentDate)) {
+                todaysBooking = booking;
+                return true;
+            }
         }
+        return false;
     }
 
 }
