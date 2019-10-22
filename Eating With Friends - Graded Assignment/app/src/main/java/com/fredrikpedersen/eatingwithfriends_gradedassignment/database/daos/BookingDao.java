@@ -28,4 +28,7 @@ public interface BookingDao {
 
     @Query("SELECT * FROM booking_table ORDER BY id DESC")
     LiveData<List<Booking>> getAllBookings();
+
+    @Query("SELECT * FROM booking_table ORDER BY id DESC")
+    List<Booking> getAllBookingsAsList();
 }

@@ -8,9 +8,13 @@ import androidx.lifecycle.LiveData;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.BookingDatabase;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.daos.BookingDao;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.daos.FriendDao;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class BookingRepository {
 
@@ -43,6 +47,15 @@ public class BookingRepository {
 
     public LiveData<List<Booking>> getAllBookings() {
         return allBookings;
+    }
+
+    public List<Booking> getAllBookingsAsList() {
+        try {
+            return new getAllBookingsAsList(bookingDao).execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     private static class InsertBookingAsyncTask extends AsyncTask<Booking, Void, Void> {
@@ -98,6 +111,20 @@ public class BookingRepository {
         protected Void doInBackground(Booking... bookings) {
             bookingDao.deleteAllBookings();
             return null;
+        }
+    }
+
+    private static class getAllBookingsAsList extends AsyncTask<Void, Void, List<Booking>> {
+
+        private BookingDao bookingDao;
+
+        private getAllBookingsAsList(BookingDao bookingDao) {
+            this.bookingDao = bookingDao;
+        }
+
+        @Override
+        protected List<Booking> doInBackground(Void... voids) {
+            return bookingDao.getAllBookingsAsList();
         }
     }
 }
