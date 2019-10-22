@@ -34,6 +34,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
+        month += 1; //Counting starts at 0. Incrementing month here to not have to keep that in mind in the rest of the program
         String date = day + "-" + month + "-" + year;
         callback.onValueSelected(date);
     }

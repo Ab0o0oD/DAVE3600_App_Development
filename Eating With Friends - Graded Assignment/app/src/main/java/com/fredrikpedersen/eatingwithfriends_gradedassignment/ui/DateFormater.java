@@ -12,43 +12,44 @@ public class DateFormater {
     private static String formatMonthText(int month) {
         String monthText = "";
         switch (month) {
-            case 0:
+            case 1:
                 monthText = "Jan";
                 break;
-            case 1:
+            case 2:
                 monthText = "Feb";
                 break;
-            case 2:
+            case 3:
                 monthText = "Mar";
                 break;
-            case 3:
+            case 4:
                 monthText = "Apr";
                 break;
-            case 4:
+            case 5:
                 monthText = "May";
                 break;
-            case 5:
+            case 6:
                 monthText = "Jun";
                 break;
-            case 6:
+            case 7:
                 monthText = "Jul";
                 break;
-            case 7:
+            case 8:
                 monthText = "Aug";
                 break;
-            case 8:
+            case 9:
                 monthText = "Sep";
                 break;
-            case 9:
+            case 10:
                 monthText = "Oct";
                 break;
-            case 10:
+            case 11:
                 monthText = "Nov";
                 break;
-            case 11:
+            case 12:
                 monthText = "Dec";
                 break;
             default:
+                monthText = "Jan";
                 break;
         }
         return monthText;
