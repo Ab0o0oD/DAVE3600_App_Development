@@ -24,6 +24,7 @@ public class SettPeriodiskService extends Service {
         java.util.Calendar cal = Calendar.getInstance();
         Intent i = new Intent(this, MinService.class);
         PendingIntent pintent = PendingIntent.getService(this, 0, i, 0);
+
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Objects.requireNonNull(alarm).setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60 * 1000, pintent);
         return super.onStartCommand(intent, flags, startId);
