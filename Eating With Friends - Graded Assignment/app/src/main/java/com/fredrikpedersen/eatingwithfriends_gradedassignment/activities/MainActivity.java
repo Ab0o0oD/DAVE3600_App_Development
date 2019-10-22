@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().add(R.id.main_container, notificationsFragment, "notifications").hide(notificationsFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, friendsFragment, "friends").hide(friendsFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, bookingFragment, "booking").commit();
+
+        startReminderService();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = item -> {
@@ -102,5 +104,11 @@ public class MainActivity extends AppCompatActivity {
        } else if (activeFragment == bookingFragment) {
            startActivityForResult(new Intent(MainActivity.this, AddEditBookingActivity.class), StaticHolder.ADD_BOOKING_REQUEST);
        }
+    }
+
+    private void startReminderService() {
+        Intent intent = new Intent();
+        intent.setAction("com.fredrikpedersen.eatingwithfriends_gradedassignment.services.ReminderBroadcastReceiver");
+        this.sendBroadcast(intent);
     }
 }

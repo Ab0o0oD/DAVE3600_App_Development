@@ -5,12 +5,4 @@
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment">
 
-    <Button
-        android:id="@+id/button_send_sms"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="125dp"
-        android:layout_marginTop="200dp"
-        android:text="Send SMS"/>
-
 </RelativeLayout>

@@ -14,6 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <receiver android:name=".services.ReminderBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.fredrikpedersen.eatingwithfriends_gradedassignment.services.ReminderBroadcastReceiver"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".services.PeriodicService"/>
+        <service android:name=".services.ReminderService"/>
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name">
