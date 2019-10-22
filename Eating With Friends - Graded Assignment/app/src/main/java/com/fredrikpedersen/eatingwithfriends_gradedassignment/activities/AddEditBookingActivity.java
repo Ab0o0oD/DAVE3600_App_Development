@@ -16,6 +16,7 @@ import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.StaticHolder;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.DateFormater;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.bookings.BookingViewModel;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.friends.FriendViewModel;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.pickers.DatePickerFragment;
@@ -207,7 +208,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
             textViewTime.setText(time);
         } else if (activePicker.equals(PICKERS[1])) {
             date = data;
-            textViewDate.setText(date);
+            textViewDate.setText(DateFormater.formatDateText(date));
         }
     }
 
