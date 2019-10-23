@@ -7,7 +7,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -18,6 +17,7 @@ import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.MainAct
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.repository.BookingRepository;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.StaticHolder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,6 +37,9 @@ public class ReminderService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        boolean smsFunctionality = getSharedPreferences(StaticHolder.PREFERENCE, MODE_PRIVATE).getBoolean(StaticHolder.SMS_FUNCTIONALITY_PREF, true);
+        boolean useDefaultMessage = getSharedPreferences(StaticHolder.PREFERENCE, MODE_PRIVATE).getBoolean(StaticHolder.USE_DEFAULT_MESSAGE_PREF, true);
+
         BookingRepository bookingRepository = new BookingRepository(getApplication());
         List<Booking> allBookings = bookingRepository.getAllBookingsAsList();
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -48,13 +51,14 @@ public class ReminderService extends Service {
         //Iterates through all bookings, checks if there are any bookings today and sends notification to user and sms to friends if there are.
         for (Booking booking : allBookings) {
             if (booking.getDate().equals(currentDate)) {
-                String contentText = " have a booking at " + booking.getRestaurant().getRestaurantName() + " at " + booking.getTime() + " today!";
+                String contentText = generateContentText(booking, useDefaultMessage);
                 buildNotification(pIntent, notificationManager, contentText);
 
-                if (booking.getFriends() != null) {
-                    for (Friend friend : booking.getFriends()) {
-                        Log.d(TAG, "onStartCommand: Sending SMS to " + friend.getFirstName() + " Belonging to" + booking.getRestaurant().getRestaurantName());
-                        sendSms(contentText, friend.getPhoneNumber());
+                if (smsFunctionality) {
+                    if (booking.getFriends() != null) {
+                        for (Friend friend : booking.getFriends()) {
+                            sendSms(contentText, friend.getPhoneNumber());
+                        }
                     }
                 }
             }
@@ -63,10 +67,19 @@ public class ReminderService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
+    private String generateContentText(Booking booking, boolean useDefaultMessage) {
+        String defaultMessage = "Remember booking at " + booking.getRestaurant().getRestaurantName() + " at " + booking.getTime() + " today!";
+        if (useDefaultMessage) {
+            return defaultMessage;
+        } else {
+            return getSharedPreferences(StaticHolder.PREFERENCE, MODE_PRIVATE).getString(StaticHolder.CUSTOM_MESSAGE_PREF, defaultMessage);
+        }
+    }
+
     private void buildNotification(PendingIntent pIntent, NotificationManager notificationManager, String contentText) {
         Notification notification = new NotificationCompat.Builder(this, "channel_id")
                 .setContentTitle("You have a booking today!")
-                .setContentText("You" + contentText)
+                .setContentText(contentText)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pIntent)
                 .build();
@@ -78,7 +91,7 @@ public class ReminderService extends Service {
     private void sendSms(String message, String phonenumber){
         try {
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phonenumber, null, "We" + message, null, null);
+            smsManager.sendTextMessage(phonenumber, null, message, null, null);
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Eating With Friends does not have permission to send SMS. Turn off SMS service or give permission", Toast.LENGTH_SHORT).show();
         }
