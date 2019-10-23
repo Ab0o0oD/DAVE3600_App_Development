@@ -27,7 +27,8 @@ public class PeriodicService extends Service {
         PendingIntent pIntent = PendingIntent.getService(this, 0, serviceIntent, 0);
 
         AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        Objects.requireNonNull(alarm).setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60 * 1000, pIntent);
+
+        Objects.requireNonNull(alarm).setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 86400 * 1000, pIntent);
 
         return super.onStartCommand(intent, flag, startId);
     }
