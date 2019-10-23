@@ -34,6 +34,7 @@
         </activity>
         <activity android:name=".activities.AddEditBookingActivity" />
         <activity android:name=".activities.AddEditFriendActivity" />
+        <activity android:name=".activities.AddEditRestaurantActivity" />
     </application>
 
 </manifest>

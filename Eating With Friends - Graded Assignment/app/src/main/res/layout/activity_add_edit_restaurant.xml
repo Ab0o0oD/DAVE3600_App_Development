@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".activities.AddEditRestaurantActivity">
+
+    <EditText
+        android:id="@+id/edit_text_restaurant_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Restaurant Name"
+        android:layout_alignParentStart="true"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/edit_text_restaurant_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_restaurant_name"
+        android:layout_marginTop="10dp"
+        android:hint="Address"/>
+
+    <EditText
+        android:id="@+id/edit_text_restaurant_phonenumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_restaurant_address"
+        android:layout_marginTop="10dp"
+        android:hint="Phonenumber"/>
+
+    <EditText
+        android:id="@+id/edit_text_restaurant_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_restaurant_phonenumber"
+        android:layout_marginTop="10dp"
+        android:hint="Restaurant Type" />
+
+    <Button
+        android:id="@+id/button_save_restaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_restaurant_type"
+        android:layout_marginTop="20dp"
+        android:text="Save"/>
+
+</RelativeLayout>
