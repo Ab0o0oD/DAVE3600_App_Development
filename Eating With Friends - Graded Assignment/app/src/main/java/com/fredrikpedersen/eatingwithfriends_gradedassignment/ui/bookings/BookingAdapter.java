@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Restaurant;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.DateFormater;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.OnItemClickListener;
 
@@ -41,12 +42,8 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingV
             //TODO Make sure this works properly after all other functionality is implemented
             Log.d(TAG, "areContentsTheSame: "  + oldItem.getDate().equals(newItem.getDate()) + " " +  oldItem.getTime().equals(newItem.getTime()));
             if (oldItem.getDate().equals(newItem.getDate()) && oldItem.getTime().equals(newItem.getTime())) {
-                Log.d(TAG, "CHECKING RESTAURANT NAMES: " + oldItem.getRestaurantName().equals(newItem.getRestaurantName()));
-                Log.d(TAG, "CHECKING ADDRESSES: " + oldItem.getAddress().equals(newItem.getAddress()));
-                Log.d(TAG, "CHECKING FRIENDS: " + oldItem.getFriends().equals(newItem.getFriends()));
-
-                return oldItem.getRestaurantName().equals(newItem.getRestaurantName()) &&
-                        oldItem.getAddress().equals(newItem.getAddress()) &&
+                return oldItem.getRestaurant().getRestaurantName().equals(newItem.getRestaurant().getRestaurantName()) &&
+                        oldItem.getRestaurant().getAddress().equals(newItem.getRestaurant().getAddress()) &&
                         oldItem.getFriends().equals(newItem.getFriends());
             } else {
                 return false;
@@ -73,8 +70,8 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingV
             }
         }
 
-        holder.textViewRestaurantName.setText(currentBooking.getRestaurantName());
-        holder.textViewAddress.setText(currentBooking.getAddress());
+        holder.textViewRestaurantName.setText(currentBooking.getRestaurant().getRestaurantName());
+        holder.textViewAddress.setText(currentBooking.getRestaurant().getAddress());
         holder.textViewDateTime.setText(currentBooking.getTime() + " " + DateFormater.formatDateText(currentBooking.getDate()));
         holder.textViewFriends.setText(sb.toString());
     }

@@ -8,9 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.BookingDatabase;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.daos.BookingDao;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.daos.FriendDao;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -48,12 +48,12 @@ public class ReminderService extends Service {
         //Iterates through all bookings, checks if there are any bookings today and sends notification to user and sms to friends if there are.
         for (Booking booking : allBookings) {
             if (booking.getDate().equals(currentDate)) {
-                String contentText = " have a booking at " + booking.getRestaurantName() + " at " + booking.getTime() + " today!";
+                String contentText = " have a booking at " + booking.getRestaurant().getRestaurantName() + " at " + booking.getTime() + " today!";
                 buildNotification(pIntent, notificationManager, contentText);
 
                 if (booking.getFriends() != null) {
                     for (Friend friend : booking.getFriends()) {
-                        Log.d(TAG, "onStartCommand: Sending SMS to " + friend.getFirstName() + " Belonging to" + booking.getRestaurantName());
+                        Log.d(TAG, "onStartCommand: Sending SMS to " + friend.getFirstName() + " Belonging to" + booking.getRestaurant().getRestaurantName());
                         sendSms(contentText, friend.getPhoneNumber());
                     }
                 }

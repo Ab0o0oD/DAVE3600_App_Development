@@ -86,7 +86,7 @@ public class AddEditFriendActivity extends AppCompatActivity {
             setTitle("Edit Friend");
             editTextFriendFirstName.setText(intent.getStringExtra(StaticHolder.EXTRA_FIRST_NAME));
             editTextFriendLastName.setText(intent.getStringExtra(StaticHolder.EXTRA_LAST_NAME));
-            editTextFriendPhoneNumber.setText(intent.getStringExtra(StaticHolder.EXTRA_PHONE_NUMBER));
+            editTextFriendPhoneNumber.setText(intent.getStringExtra(StaticHolder.EXTRA_FRIEND_PHONE));
         } else {
             setTitle("Add Friend");
         }

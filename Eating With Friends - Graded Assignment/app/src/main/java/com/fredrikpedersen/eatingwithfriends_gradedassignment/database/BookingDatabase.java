@@ -1,20 +1,23 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.database;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.converters.FriendConverter;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.converters.RestaurantConverter;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.daos.BookingDao;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.daos.FriendDao;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.daos.RestaurantDao;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Restaurant;
 
-@Database(entities = {Booking.class, Friend.class}, version = 3, exportSchema = false)
-@TypeConverters(Converters.class)
+@Database(entities = {Booking.class, Friend.class, Restaurant.class}, version = 4, exportSchema = false)
+@TypeConverters({FriendConverter.class, RestaurantConverter.class})
 public abstract class BookingDatabase extends RoomDatabase {
     private static final String TAG = "BookingDatabase";
 
@@ -24,6 +27,7 @@ public abstract class BookingDatabase extends RoomDatabase {
     //Room generates necessary code for these methods when the database is instantiated
     public abstract BookingDao bookingDao();
     public abstract FriendDao friendDao();
+    public abstract RestaurantDao restaurantDao();
 
     public static synchronized BookingDatabase getInstance(Context context) {
         if (instance == null) {

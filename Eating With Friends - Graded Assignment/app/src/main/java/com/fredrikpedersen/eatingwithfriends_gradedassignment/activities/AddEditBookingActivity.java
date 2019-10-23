@@ -2,8 +2,10 @@ package com.fredrikpedersen.eatingwithfriends_gradedassignment.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,15 +15,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.StaticHolder;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.DateFormater;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Restaurant;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.bookings.BookingViewModel;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.friends.FriendViewModel;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.pickers.DatePickerFragment;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.pickers.OnPickerValueSelectedListener;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.pickers.TimePickerFragment;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.restaurants.RestaurantViewModel;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.DateFormater;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.StaticHolder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -34,18 +38,21 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
     private static final String TAG = "AddEditBookingActivity";
 
-    private EditText editTextRestaurantName;
-    private EditText editTextRestaurantAddress;
-    private EditText editTextRestaurantPhone;
-    private EditText editTextRestaurantType;
+    private TextView textViewChosenRestaurant;
     private TextView textViewDate;
     private TextView textViewTime;
     private TextView textViewSelectedFriends;
     private Button buttonSave;
     private Button buttonSelectFriend;
+    private Button buttonSelectRestaurant;
+    private Spinner spinnerRestaurants;
 
     private List<Friend> allFriends;
     HashSet<String> selectedFriendNames;
+
+    private List<Restaurant> allRestaurants;
+    private Restaurant selectedRestaurant;
+
     private ArrayList<Integer> selectedItemsInChecklist;
     private boolean[] checkedItemsInList;
 
@@ -56,6 +63,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
     FriendViewModel friendViewModel;
     BookingViewModel bookingViewModel;
+    RestaurantViewModel restaurantViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,20 +73,20 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
         friendViewModel = ViewModelProviders.of(this).get(FriendViewModel.class);
         bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
+        restaurantViewModel = ViewModelProviders.of(this).get(RestaurantViewModel.class);
 
         initializeVariables();
         setOnClicks();
         initializeAddOrEdit();
+        fillSpinner();
     }
 
     /* ----- Save Booking ----- */
 
     private void checkBookingComplete() {
-        String restaurantName = editTextRestaurantName.getText().toString();
-        String address = editTextRestaurantAddress.getText().toString();
         List<Friend> selectedFriends = addSelectedFriends();
 
-        if (restaurantName.trim().isEmpty() || address.trim().isEmpty() || date.equals("") || time.equals("")) {
+        if (selectedRestaurant == null || date.equals("") || time.equals("")) {
             Toast.makeText(this, "Please give data in all required fields!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -87,24 +95,22 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("No Friends Selected. Proceed with saving the booking?")
                     .setCancelable(false)
-                    .setPositiveButton("Yes", (dialogInterface, i) -> saveBooking(false, null, restaurantName, address))
+                    .setPositiveButton("Yes", (dialogInterface, i) -> saveBooking(false, null))
                     .setNegativeButton("No", null)
                     .show();
         } else {
-            saveBooking(true, selectedFriends, restaurantName, address);
+            saveBooking(true, selectedFriends);
         }
     }
 
-    private void saveBooking(Boolean withFriends, @Nullable List<Friend> selectedFriends, String restaurantName, String address) {
-        String phone = editTextRestaurantPhone.getText().toString();
-        String type = editTextRestaurantType.getText().toString();
+    private void saveBooking(Boolean withFriends, @Nullable List<Friend> selectedFriends) {
 
         Booking newBooking;
 
         if (withFriends) {
-            newBooking = new Booking(restaurantName, address, phone, type, date, time, selectedFriends);
+            newBooking = new Booking(selectedRestaurant, date, time, selectedFriends);
         } else {
-            newBooking = new Booking(restaurantName, address, phone, type, date, time, null);
+            newBooking = new Booking(selectedRestaurant, date, time, null);
         }
 
         if (getIntent().hasExtra(EXTRA_ID)) {
@@ -185,6 +191,20 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
         }
     }
 
+    private void fillSpinner() {
+        for (Restaurant restaurant : allRestaurants) {
+            Log.d(TAG, "fillSpinner: " + restaurant);
+        }
+        ArrayAdapter<Restaurant> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, allRestaurants);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRestaurants.setAdapter(spinnerAdapter);
+    }
+
+    private void getSelectedRestaurant() {
+        selectedRestaurant = (Restaurant)spinnerRestaurants.getSelectedItem();
+        textViewChosenRestaurant.setText(selectedRestaurant.getRestaurantName());
+    }
+
     /* ----- Pickers ----- */
 
     private void showTimePickerDialog() {
@@ -215,19 +235,19 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
     /* ----- Initializations ----- */
 
     private void initializeViews() {
-        editTextRestaurantName = findViewById(R.id.edit_text_restaurant_name);
-        editTextRestaurantAddress = findViewById(R.id.edit_text_address);
-        editTextRestaurantPhone = findViewById(R.id.edit_text_restaurant_phone);
-        editTextRestaurantType = findViewById(R.id.edit_text_restaurant_type);
+        textViewChosenRestaurant = findViewById(R.id.text_view_chosen_restaurant);
         textViewDate = findViewById(R.id.text_view_date);
         textViewTime = findViewById(R.id.text_view_time);
         textViewSelectedFriends = findViewById(R.id.text_view_selected_friends);
         buttonSave = findViewById(R.id.button_save_booking);
         buttonSelectFriend = findViewById(R.id.button_select_friend);
+        spinnerRestaurants = findViewById(R.id.spinner_restaurants);
+        buttonSelectRestaurant = findViewById(R.id.button_select_restaurant);
     }
 
     private void initializeVariables() {
         allFriends = friendViewModel.getAllFriendsAsList();
+        allRestaurants = restaurantViewModel.getAllRestaurantsAsList();
         checkedItemsInList = new boolean[allFriends.size()];
         selectedItemsInChecklist = new ArrayList<>();
         selectedFriendNames = new HashSet<>();
@@ -238,16 +258,16 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
         textViewDate.setOnClickListener(v -> showDatePickerDialog());
         textViewTime.setOnClickListener(v -> showTimePickerDialog());
         buttonSelectFriend.setOnClickListener(v -> showMultipleChoiceList());
+        buttonSelectRestaurant.setOnClickListener(v -> getSelectedRestaurant());
     }
 
     private void initializeAddOrEdit() {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Edit Booking/Details");
-            editTextRestaurantName.setText(intent.getStringExtra(StaticHolder.EXTRA_RESTAURANT_NAME));
-            editTextRestaurantAddress.setText(intent.getStringExtra(StaticHolder.EXTRA_ADDRESS));
-            editTextRestaurantPhone.setText(intent.getStringExtra(StaticHolder.EXTRA_PHONE_NUMBER));
-            editTextRestaurantType.setText(intent.getStringExtra(StaticHolder.EXTRA_TYPE));
+            String passedRestaurantName = intent.getStringExtra(StaticHolder.EXTRA_RESTAURANT_NAME);
+            selectedRestaurant = getChosenRestaurantFromName(passedRestaurantName);
+            textViewChosenRestaurant.setText(passedRestaurantName);
 
             time = intent.getStringExtra(StaticHolder.EXTRA_TIME);
             textViewTime.setText(time);
@@ -263,9 +283,17 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
                     textViewSelectedFriends.append(friendName + "\n");
                 }
             }
-
         } else {
             setTitle("Add Booking");
         }
+    }
+
+    private Restaurant getChosenRestaurantFromName(String passedRestaurantName) {
+        for (Restaurant restaurant : allRestaurants) {
+            if (restaurant.getRestaurantName().equals(passedRestaurantName)) {
+                return restaurant;
+            }
+        }
+        return allRestaurants.get(0); //This should never happen, as a booking can never be saved, thus never be edited without having a restaurant
     }
 }

@@ -72,10 +72,7 @@ public class BookingsFragment extends Fragment {
         Booking booking = (Booking)item;
         Intent intent = new Intent(getActivity(), AddEditBookingActivity.class);
         intent.putExtra(StaticHolder.EXTRA_ID, booking.getId());
-        intent.putExtra(StaticHolder.EXTRA_RESTAURANT_NAME, booking.getRestaurantName());
-        intent.putExtra(StaticHolder.EXTRA_ADDRESS, booking.getAddress());
-        intent.putExtra(StaticHolder.EXTRA_PHONE_NUMBER, booking.getPhoneNumber());
-        intent.putExtra(StaticHolder.EXTRA_TYPE, booking.getType());
+        intent.putExtra(StaticHolder.EXTRA_RESTAURANT_NAME, booking.getRestaurant().getRestaurantName());
         intent.putExtra(StaticHolder.EXTRA_DATE, booking.getDate());
         intent.putExtra(StaticHolder.EXTRA_TIME, booking.getTime());
 

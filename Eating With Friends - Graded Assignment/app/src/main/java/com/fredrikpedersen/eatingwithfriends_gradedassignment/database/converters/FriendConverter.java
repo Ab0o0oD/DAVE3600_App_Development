@@ -1,7 +1,6 @@
-package com.fredrikpedersen.eatingwithfriends_gradedassignment.database;
+package com.fredrikpedersen.eatingwithfriends_gradedassignment.database.converters;
 
 import androidx.room.TypeConverter;
-import androidx.room.TypeConverters;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 import com.google.gson.Gson;
@@ -11,7 +10,7 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 
-public class Converters {
+public class FriendConverter {
 
     @TypeConverter
     public static List<Friend> stringToFriend(String data) {
@@ -27,6 +26,4 @@ public class Converters {
     public static String friendToString(List<Friend> friends) {
         return new Gson().toJson(friends);
     }
-
-
 }

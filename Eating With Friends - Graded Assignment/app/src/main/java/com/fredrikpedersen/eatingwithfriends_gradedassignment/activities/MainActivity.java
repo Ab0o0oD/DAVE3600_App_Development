@@ -12,10 +12,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.restaurants.RestaurantFragment;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.StaticHolder;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.bookings.BookingsFragment;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.friends.FriendsFragment;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.notifications.NotificationsFragment;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -25,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final Fragment bookingFragment = new BookingsFragment();
     private final Fragment friendsFragment = new FriendsFragment();
-    private final Fragment notificationsFragment = new NotificationsFragment();
+    private final Fragment settingsFragment = new SettingsFragment();
+    private final Fragment restaurantFragment = new RestaurantFragment();
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     private Fragment activeFragment = bookingFragment;
 
@@ -42,9 +44,10 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(v -> goToAddItem());
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        fragmentManager.beginTransaction().add(R.id.main_container, notificationsFragment, "notifications").hide(notificationsFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.main_container, settingsFragment, "settings").hide(settingsFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.main_container, restaurantFragment, "restaurants").hide(restaurantFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, friendsFragment, "friends").hide(friendsFragment).commit();
-        fragmentManager.beginTransaction().add(R.id.main_container, bookingFragment, "booking").commit();
+        fragmentManager.beginTransaction().add(R.id.main_container, bookingFragment, "bookings").commit();
 
         startReminderService();
     }
@@ -54,16 +57,25 @@ public class MainActivity extends AppCompatActivity {
             case R.id.navigation_bookings:
                 fragmentManager.beginTransaction().hide(activeFragment).show(bookingFragment).commit();
                 activeFragment = bookingFragment;
+                setTitle("Bookings");
                 return true;
 
             case R.id.navigation_friends:
                 fragmentManager.beginTransaction().hide(activeFragment).show(friendsFragment).commit();
                 activeFragment = friendsFragment;
+                setTitle("Friends");
                 return true;
 
-            case R.id.navigation_notifications:
-                fragmentManager.beginTransaction().hide(activeFragment).show(notificationsFragment).commit();
-                activeFragment = notificationsFragment;
+            case R.id.navigation_restaurants:
+                fragmentManager.beginTransaction().hide(activeFragment).show(restaurantFragment).commit();
+                activeFragment = restaurantFragment;
+                setTitle("Restaurants");
+                return true;
+
+            case R.id.navigation_settings:
+                fragmentManager.beginTransaction().hide(activeFragment).show(settingsFragment).commit();
+                activeFragment = settingsFragment;
+                setTitle("Settings");
                 return true;
         }
         return false;
@@ -103,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
            startActivityForResult(new Intent(MainActivity.this, AddEditFriendActivity.class), StaticHolder.ADD_FRIEND_REQUEST);
        } else if (activeFragment == bookingFragment) {
            startActivityForResult(new Intent(MainActivity.this, AddEditBookingActivity.class), StaticHolder.ADD_BOOKING_REQUEST);
+       } else if (activeFragment == restaurantFragment) {
+           startActivityForResult(new Intent(MainActivity.this, AddEditRestaurantActivity.class), StaticHolder.ADD_RESTAURANT_REQUEST);
        }
     }
 

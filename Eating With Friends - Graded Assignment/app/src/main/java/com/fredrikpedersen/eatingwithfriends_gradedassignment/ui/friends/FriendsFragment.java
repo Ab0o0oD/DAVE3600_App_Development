@@ -37,7 +37,6 @@ public class FriendsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
 
-        Objects.requireNonNull(getActivity()).setTitle("Friends");
         friendAdapter = new FriendAdapter();
         initializeViews(view);
 
@@ -62,7 +61,7 @@ public class FriendsFragment extends Fragment {
         intent.putExtra(StaticHolder.EXTRA_ID, friend.getId());
         intent.putExtra(StaticHolder.EXTRA_FIRST_NAME, friend.getFirstName());
         intent.putExtra(StaticHolder.EXTRA_LAST_NAME, friend.getLastName());
-        intent.putExtra(StaticHolder.EXTRA_PHONE_NUMBER, friend.getPhoneNumber());
+        intent.putExtra(StaticHolder.EXTRA_FRIEND_PHONE, friend.getPhoneNumber());
 
         startActivityForResult(intent, StaticHolder.EDIT_FRIEND_REQUEST);
     }

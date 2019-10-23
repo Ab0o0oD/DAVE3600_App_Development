@@ -6,7 +6,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.Converters;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.converters.FriendConverter;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.converters.RestaurantConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,20 +18,17 @@ public class Booking {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;
-    private String restaurantName;
-    private String address;
-    private String phoneNumber;
-    private String type;
     private String date;
     private String time;
-    @TypeConverters(Converters.class)
+
+    @TypeConverters(RestaurantConverter.class)
+    private Restaurant restaurant;
+
+    @TypeConverters(FriendConverter.class)
     private List<Friend> friends;
 
-    public Booking(String restaurantName, String address, String phoneNumber, String type, String date, String time, @Nullable List<Friend> friends) {
-        this.restaurantName = restaurantName;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.type = type;
+    public Booking(Restaurant restaurant, String date, String time, @Nullable List<Friend> friends) {
+        this.restaurant = restaurant;
         this.date = date;
         this.time = time;
         this.friends = friends;
@@ -44,28 +42,16 @@ public class Booking {
         return id;
     }
 
-    public String getRestaurantName() {
-        return restaurantName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getType() {
-        return type;
-    }
-
     public String getDate() {
         return date;
     }
 
     public String getTime() {
         return time;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
     public List<Friend> getFriends() {
@@ -86,8 +72,7 @@ public class Booking {
             }
         }
 
-        return "RestaurantName= " + restaurantName + '\n' +
-                "Address= " + address + '\n' +
+        return  restaurant.toString() +
                 "BookingTime= " + date + " " + time + '\n' +
                 "Friends= " + sb.toString();
     }
