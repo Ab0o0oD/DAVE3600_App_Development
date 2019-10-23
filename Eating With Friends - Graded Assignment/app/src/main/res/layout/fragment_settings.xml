@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.settings.SettingsFragment">
+
+    <TextView
+        android:id="@+id/text_view_choose_sms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
+        android:text="SMS Reminders"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ToggleButton
+        android:id="@+id/toggle_button_sms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="85dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="70dp"
+        android:text="Toggle"
+        android:textOn="On"
+        android:textOff="Off"/>
+
+    <TextView
+        android:id="@+id/text_view_default_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_choose_sms"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:text="SMS Message"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button_save_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_default_message"
+        android:layout_marginTop="10dp"
+        android:text="Save"
+        android:layout_marginStart="45dp"/>
+
+    <EditText
+        android:id="@+id/edit_text_write_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_choose_sms"
+        android:layout_toEndOf="@id/text_view_default_message"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_alignParentEnd="true"
+        android:hint="Write a personal message" />
+
+    <Button
+        android:id="@+id/button_use_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_write_message"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="35dp"
+        android:text="Use Default"
+        android:textSize="14sp" />
+
+
+
+
+</RelativeLayout>
