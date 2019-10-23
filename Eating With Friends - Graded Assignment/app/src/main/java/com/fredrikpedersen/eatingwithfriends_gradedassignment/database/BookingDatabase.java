@@ -26,9 +26,7 @@ public abstract class BookingDatabase extends RoomDatabase {
     public abstract FriendDao friendDao();
 
     public static synchronized BookingDatabase getInstance(Context context) {
-        Log.d(TAG, "getInstance: TRYING TO CREATE DATABASE");
         if (instance == null) {
-            Log.d(TAG, "getInstance: SEEDING DATABASE");
             instance = createDatabase(context);
         }
         return instance;
