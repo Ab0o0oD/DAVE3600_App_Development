@@ -81,7 +81,7 @@ public class FriendsFragment extends Fragment {
                     friendViewModel.delete(friendFromPosition);
                     Toast.makeText(getActivity(), "Friend Deleted", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "Friend is part of a booking and cant be deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Friend is part of a booking and cant be deleted", Toast.LENGTH_LONG).show();
                     friendAdapter.notifyDataSetChanged();
                 }
             }
