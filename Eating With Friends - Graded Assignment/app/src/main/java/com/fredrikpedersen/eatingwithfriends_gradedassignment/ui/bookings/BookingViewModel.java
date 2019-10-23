@@ -1,7 +1,6 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.bookings;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -43,5 +42,9 @@ public class BookingViewModel extends AndroidViewModel {
 
     LiveData<List<Booking>> getAllBookings() {
         return allBookings;
+    }
+
+    public List<Booking> gettAllBoookingsAsList() {
+        return repository.getAllBookingsAsList();
     }
 }
