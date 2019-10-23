@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RandomNumberWidget</string>
+    <string name="widget">Widget</string>
 </resources>
