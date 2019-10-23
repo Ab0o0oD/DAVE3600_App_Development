@@ -1,19 +1,18 @@
-package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.notifications;
+package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
 
-public class NotificationsFragment extends Fragment {
+public class SettingsFragment extends Fragment {
 
-    public NotificationsFragment() {}
+    public SettingsFragment() {}
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notifications, container, false);
