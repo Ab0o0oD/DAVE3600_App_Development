@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.AddEditFriendActivity;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.AddEditRestaurantActivity;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Restaurant;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.BookingChecker;
@@ -83,7 +82,7 @@ public class RestaurantFragment extends Fragment {
                     restaurantViewModel.delete(restaurantFromPosition);
                     Toast.makeText(getActivity(), "Restaurant Deleted", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "Restaurant is part of a booking and cant be deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Restaurant is part of a booking and cant be deleted", Toast.LENGTH_LONG).show();
                     restaurantAdapter.notifyDataSetChanged();
                 }
             }
