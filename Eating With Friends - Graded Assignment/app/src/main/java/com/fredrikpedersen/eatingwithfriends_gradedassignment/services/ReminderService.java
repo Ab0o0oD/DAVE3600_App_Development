@@ -28,8 +28,6 @@ import java.util.Objects;
 public class ReminderService extends Service {
 
     private static final String TAG = "ReminderService";
-    private BookingRepository bookingRepository;
-    private Booking todaysBooking;
 
     @Nullable
     @Override
@@ -39,58 +37,50 @@ public class ReminderService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        bookingRepository = new BookingRepository(getApplication());
+        BookingRepository bookingRepository = new BookingRepository(getApplication());
+        List<Booking> allBookings = bookingRepository.getAllBookingsAsList();
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
         NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, notificationIntent,0);
 
-        if (haveBookingToday()) {
-            String contentText = " have a booking at " + todaysBooking.getRestaurantName() + " at " + todaysBooking.getTime() + " today!";
+        //Iterates through all bookings, checks if there are any bookings today and sends notification to user and sms to friends if there are.
+        for (Booking booking : allBookings) {
+            if (booking.getDate().equals(currentDate)) {
+                String contentText = " have a booking at " + booking.getRestaurantName() + " at " + booking.getTime() + " today!";
+                buildNotification(pIntent, notificationManager, contentText);
 
-            Notification notification = new NotificationCompat.Builder(this, "channel_id")
-                    .setContentTitle("You have a booking today!")
-                    .setContentText("You" + contentText)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentIntent(pIntent)
-                    .build();
-
-            notification.flags |= Notification.FLAG_AUTO_CANCEL;
-            Objects.requireNonNull(notificationManager).notify(0, notification);
-
-            sendSms(contentText);
-
+                if (booking.getFriends() != null) {
+                    for (Friend friend : booking.getFriends()) {
+                        Log.d(TAG, "onStartCommand: Sending SMS to " + friend.getFirstName() + " Belonging to" + booking.getRestaurantName());
+                        sendSms(contentText, friend.getPhoneNumber());
+                    }
+                }
+            }
         }
 
         return super.onStartCommand(intent, flags, startId);
     }
 
+    private void buildNotification(PendingIntent pIntent, NotificationManager notificationManager, String contentText) {
+        Notification notification = new NotificationCompat.Builder(this, "channel_id")
+                .setContentTitle("You have a booking today!")
+                .setContentText("You" + contentText)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(pIntent)
+                .build();
 
-    private void sendSms(String message){
-        if (todaysBooking.getFriends() != null) {
-
-            for (Friend friend : todaysBooking.getFriends()) {
-                try {
-                    SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(friend.getPhoneNumber(), null, "We" + message, null, null);
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Eating With Friends does not have permission to send SMS. Turn off SMS service or give permission", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+        Objects.requireNonNull(notificationManager).notify(0, notification);
     }
 
-    private boolean haveBookingToday() {
-        List<Booking> bookings = bookingRepository.getAllBookingsAsList();
-        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-
-        for (Booking booking : bookings) {
-            if (booking.getDate().equals(currentDate)) {
-                todaysBooking = booking;
-                return true;
-            }
+    private void sendSms(String message, String phonenumber){
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phonenumber, null, "We" + message, null, null);
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Eating With Friends does not have permission to send SMS. Turn off SMS service or give permission", Toast.LENGTH_SHORT).show();
         }
-        return false;
     }
-
 }
