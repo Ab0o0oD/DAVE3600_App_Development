@@ -20,12 +20,12 @@ public class MinWidget extends AppWidgetProvider {
                 SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM,
                         Locale.getDefault());
 
-        updateViews.setTextViewText(R.id.widgettekst, "Klokka er: " + format.format(date));
+        updateViews.setTextViewText(R.id.widgettekst, ""+format.format(date));
         Intent clickIntent = new Intent(context, MinWidget.class);
         clickIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         clickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
-        
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         updateViews.setOnClickPendingIntent(R.id.widgettekst, pendingIntent);
         appWidgetManager.updateAppWidget(appWidgetIds, updateViews);
     }
