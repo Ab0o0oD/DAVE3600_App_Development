@@ -76,10 +76,7 @@ public class FriendAdapter extends ListAdapter<Friend, FriendAdapter.FriendViewH
         }
     }
 
-    //TODO This is to be used later when you are going to be able to click an item to edit it
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
-
-
 }
