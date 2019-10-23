@@ -1,5 +1,7 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.database.daos;
 
+import android.database.Cursor;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -23,12 +25,21 @@ public interface BookingDao {
     @Delete
     void delete(Booking booking);
 
-    @Query("DELETE FROM booking_table")
+    @Query("DELETE FROM " + Booking.TABLE_NAME)
     void deleteAllBookings();
 
-    @Query("SELECT * FROM booking_table ORDER BY id DESC")
+    @Query("SELECT * FROM " + Booking.TABLE_NAME + " ORDER BY " + Booking.COLUMN_ID + " DESC")
     LiveData<List<Booking>> getAllBookings();
 
-    @Query("SELECT * FROM booking_table ORDER BY id DESC")
+    @Query("SELECT * FROM " + Booking.TABLE_NAME + " ORDER BY " + Booking.COLUMN_ID + " DESC")
     List<Booking> getAllBookingsAsList();
+
+    @Query("SELECT * FROM " + Booking.TABLE_NAME)
+    Cursor selectAllCursor();
+
+    @Query("SELECT * FROM " + Booking.TABLE_NAME + " WHERE " + Booking.COLUMN_ID + " = :id")
+    Cursor selectById(long id);
+
+    @Query("DELETE FROM " + Booking.TABLE_NAME + " WHERE " + Booking.COLUMN_ID + " = :id")
+    int deleteById(long id);
 }

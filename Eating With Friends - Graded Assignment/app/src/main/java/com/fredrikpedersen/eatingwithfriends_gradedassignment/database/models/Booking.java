@@ -1,7 +1,11 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models;
 
+import android.content.ContentValues;
+import android.provider.BaseColumns;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
@@ -12,19 +16,32 @@ import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.converter
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(tableName = "booking_table")
+@Entity(tableName = Booking.TABLE_NAME)
 public class Booking {
 
+    public static final String TABLE_NAME = "booking_table";
+    public static final String COLUMN_ID = BaseColumns._ID;
+    public static final String COLUMN_DATE = "date";
+    public static final String COLUMN_TIME = "time";
+    public static final String COLUMN_RESTAURANT = "restaurant";
+    public static final String COLUMN_FRIENDS = "friends";
+
     @PrimaryKey(autoGenerate = true)
-    @NonNull
+    @ColumnInfo(index = true, name = COLUMN_ID)
     private int id;
+
+    @ColumnInfo(name = COLUMN_DATE)
     private String date;
+
+    @ColumnInfo(name = COLUMN_TIME)
     private String time;
 
     @TypeConverters(RestaurantConverter.class)
+    @ColumnInfo(name = COLUMN_RESTAURANT)
     private Restaurant restaurant;
 
     @TypeConverters(FriendConverter.class)
+    @ColumnInfo(name = COLUMN_FRIENDS)
     private List<Friend> friends;
 
     public Booking(Restaurant restaurant, String date, String time, @Nullable List<Friend> friends) {
