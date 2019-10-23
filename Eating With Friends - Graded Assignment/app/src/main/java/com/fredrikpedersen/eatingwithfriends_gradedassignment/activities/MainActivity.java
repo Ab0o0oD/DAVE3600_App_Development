@@ -58,24 +58,28 @@ public class MainActivity extends AppCompatActivity {
                 fragmentManager.beginTransaction().hide(activeFragment).show(bookingFragment).commit();
                 activeFragment = bookingFragment;
                 setTitle("Bookings");
+                addButton.show();
                 return true;
 
             case R.id.navigation_friends:
                 fragmentManager.beginTransaction().hide(activeFragment).show(friendsFragment).commit();
                 activeFragment = friendsFragment;
                 setTitle("Friends");
+                addButton.show();
                 return true;
 
             case R.id.navigation_restaurants:
                 fragmentManager.beginTransaction().hide(activeFragment).show(restaurantFragment).commit();
                 activeFragment = restaurantFragment;
                 setTitle("Restaurants");
+                addButton.show();
                 return true;
 
             case R.id.navigation_settings:
                 fragmentManager.beginTransaction().hide(activeFragment).show(settingsFragment).commit();
                 activeFragment = settingsFragment;
                 setTitle("Settings");
+                addButton.hide();
                 return true;
         }
         return false;
@@ -92,12 +96,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == StaticHolder.ADD_FRIEND_REQUEST && resultCode == RESULT_OK) {
             Toast.makeText(this, "Friend saved!", Toast.LENGTH_SHORT).show();
         }
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        if (requestCode == StaticHolder.ADD_RESTAURANT_REQUEST && resultCode == RESULT_OK) {
+            Toast.makeText(this, "Restaurant saved!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
