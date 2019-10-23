@@ -1,4 +1,4 @@
-package com.fredrikpedersen.eatingwithfriends_gradedassignment;
+package com.fredrikpedersen.eatingwithfriends_gradedassignment.util;
 
 public class StaticHolder {
 

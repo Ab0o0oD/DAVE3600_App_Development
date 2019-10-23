@@ -11,11 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.StaticHolder;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.StaticHolder;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.friends.FriendViewModel;
 
-import static com.fredrikpedersen.eatingwithfriends_gradedassignment.StaticHolder.EXTRA_ID;
+import static com.fredrikpedersen.eatingwithfriends_gradedassignment.util.StaticHolder.EXTRA_ID;
 
 public class AddEditFriendActivity extends AppCompatActivity {
 

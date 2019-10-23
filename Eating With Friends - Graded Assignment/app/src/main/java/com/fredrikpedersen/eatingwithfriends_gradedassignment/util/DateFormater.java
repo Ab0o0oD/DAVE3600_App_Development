@@ -1,4 +1,4 @@
-package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui;
+package com.fredrikpedersen.eatingwithfriends_gradedassignment.util;
 
 public class DateFormater {
 

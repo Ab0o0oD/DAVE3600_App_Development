@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.StaticHolder;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.StaticHolder;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.AddEditBookingActivity;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
