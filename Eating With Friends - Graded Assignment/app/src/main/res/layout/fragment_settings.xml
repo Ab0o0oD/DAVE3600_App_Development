@@ -29,10 +29,32 @@
         android:textOff="Off"/>
 
     <TextView
+        android:id="@+id/text_view_sms_timing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toggle_button_sms"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:text="Notification time"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/text_view_time_picker_sms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toggle_button_sms"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginStart="30dp"
+        android:text="Click to Pick" />
+
+    <TextView
         android:id="@+id/text_view_default_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_choose_sms"
+        android:layout_below="@id/text_view_sms_timing"
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
         android:text="SMS Message"
@@ -52,7 +74,7 @@
         android:id="@+id/edit_text_write_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_choose_sms"
+        android:layout_below="@id/text_view_sms_timing"
         android:layout_toEndOf="@id/text_view_default_message"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
