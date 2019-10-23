@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final Fragment bookingFragment = new BookingsFragment();
     private final Fragment friendsFragment = new FriendsFragment();
-    private final Fragment settingsFragment = new SettingsFragment();
     private final Fragment restaurantFragment = new RestaurantFragment();
+    private Fragment settingsFragment = new SettingsFragment();
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     private Fragment activeFragment = bookingFragment;
 
@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(v -> goToAddItem());
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        fragmentManager.beginTransaction().add(R.id.main_container, settingsFragment, "settings").hide(settingsFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, restaurantFragment, "restaurants").hide(restaurantFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, friendsFragment, "friends").hide(friendsFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, bookingFragment, "bookings").commit();
@@ -55,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.navigation_bookings:
                 fragmentManager.beginTransaction().hide(activeFragment).show(bookingFragment).commit();
+                destroyIfActiveIsSettings();
                 activeFragment = bookingFragment;
                 setTitle("Bookings");
                 addButton.show();
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.navigation_friends:
                 fragmentManager.beginTransaction().hide(activeFragment).show(friendsFragment).commit();
+                destroyIfActiveIsSettings();
                 activeFragment = friendsFragment;
                 setTitle("Friends");
                 addButton.show();
@@ -69,13 +70,15 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.navigation_restaurants:
                 fragmentManager.beginTransaction().hide(activeFragment).show(restaurantFragment).commit();
+                destroyIfActiveIsSettings();
                 activeFragment = restaurantFragment;
                 setTitle("Restaurants");
                 addButton.show();
                 return true;
 
             case R.id.navigation_settings:
-                fragmentManager.beginTransaction().hide(activeFragment).show(settingsFragment).commit();
+                settingsFragment = new SettingsFragment();
+                fragmentManager.beginTransaction().add(R.id.main_container, settingsFragment, "settings").hide(activeFragment).show(settingsFragment).commit();
                 activeFragment = settingsFragment;
                 setTitle("Settings");
                 addButton.hide();
@@ -125,5 +128,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setAction("com.fredrikpedersen.eatingwithfriends_gradedassignment.services.ReminderBroadcastReceiver");
         this.sendBroadcast(intent);
+    }
+
+    private void destroyIfActiveIsSettings() {
+        if (activeFragment == settingsFragment) {
+            fragmentManager.beginTransaction().remove(settingsFragment).commit();
+        }
     }
 }
