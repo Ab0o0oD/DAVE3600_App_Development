@@ -64,14 +64,17 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.menuFree:
                 feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topfreeapplications/limit=%d/xml";
+                setTitle("Top " + feedLimit + " Free Apps");
                 break;
 
             case R.id.menuPaid:
                 feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/toppaidapplications/limit=%d/xml";
+                setTitle("Top " + feedLimit + " Paid Apps");
                 break;
 
             case R.id.menuSongs:
                 feedUrl = "http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topsongs/limit=%d/xml";
+                setTitle("Top " + feedLimit + " Songs");
                 break;
 
             case R.id.menu10:
