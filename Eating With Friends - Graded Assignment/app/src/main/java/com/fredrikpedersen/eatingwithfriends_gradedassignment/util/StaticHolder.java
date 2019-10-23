@@ -31,5 +31,6 @@ public class StaticHolder {
     public static final String SMS_FUNCTIONALITY_PREF = "SMS Functionality Pref";
     public static final String USE_DEFAULT_MESSAGE_PREF = "Default Message Pref";
     public static final String CUSTOM_MESSAGE_PREF = "Custom Message Pref";
+    public static final String SMS_TIMING_PREF = "SMS Timing Pref";
 
 }
