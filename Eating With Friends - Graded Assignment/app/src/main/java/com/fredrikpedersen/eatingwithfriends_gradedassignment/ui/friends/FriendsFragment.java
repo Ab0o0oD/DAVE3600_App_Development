@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.BookingChecker;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.StaticHolder;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.AddEditFriendActivity;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
@@ -75,8 +76,14 @@ public class FriendsFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                friendViewModel.delete(friendAdapter.getFriendFromPosition(viewHolder.getAdapterPosition()));
-                Toast.makeText(getActivity(), "Friend Deleted", Toast.LENGTH_SHORT).show();
+                Friend friendFromPosition = friendAdapter.getFriendFromPosition(viewHolder.getAdapterPosition());
+                if (!BookingChecker.isFriendPartOfBooking(Objects.requireNonNull(getActivity()).getApplication(),friendFromPosition)) {
+                    friendViewModel.delete(friendFromPosition);
+                    Toast.makeText(getActivity(), "Friend Deleted", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Friend is part of a booking and cant be deleted", Toast.LENGTH_SHORT).show();
+                    friendAdapter.notifyDataSetChanged();
+                }
             }
         });
     }

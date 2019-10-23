@@ -19,6 +19,7 @@ import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.AddEditFriendActivity;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.activities.AddEditRestaurantActivity;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Restaurant;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.BookingChecker;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.util.StaticHolder;
 
 import java.util.Objects;
@@ -77,8 +78,14 @@ public class RestaurantFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                restaurantViewModel.delete(restaurantAdapter.getRestaurantFromPosition(viewHolder.getAdapterPosition()));
-                Toast.makeText(getActivity(), "Restaurant Deleted", Toast.LENGTH_SHORT).show();
+                Restaurant restaurantFromPosition = restaurantAdapter.getRestaurantFromPosition(viewHolder.getAdapterPosition());
+                if (!BookingChecker.isRestaurantPartOfBooking(Objects.requireNonNull(getActivity()).getApplication(),restaurantFromPosition)) {
+                    restaurantViewModel.delete(restaurantFromPosition);
+                    Toast.makeText(getActivity(), "Restaurant Deleted", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Restaurant is part of a booking and cant be deleted", Toast.LENGTH_SHORT).show();
+                    restaurantAdapter.notifyDataSetChanged();
+                }
             }
         });
     }
