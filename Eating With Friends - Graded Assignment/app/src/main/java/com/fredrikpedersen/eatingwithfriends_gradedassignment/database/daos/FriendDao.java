@@ -26,12 +26,12 @@ public interface FriendDao {
     @Delete
     void delete(Friend friend);
 
-    @Query("DELETE FROM friend_table")
+    @Query("DELETE FROM " + Friend.TABLE_NAME)
     void deleteAllFriends();
 
-    @Query("SELECT * FROM friend_table ORDER BY id DESC")
+    @Query("SELECT * FROM " + Friend.TABLE_NAME + " ORDER BY " + Friend.COLUMN_ID + " DESC")
     LiveData<List<Friend>> getAllFriends();
 
-    @Query("SELECT * FROM friend_table ORDER BY id DESC")
+    @Query("SELECT * FROM " + Friend.TABLE_NAME + " ORDER BY " + Friend.COLUMN_ID + " DESC")
     List<Friend> getAllFriendsAsList();
 }

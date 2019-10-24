@@ -1,6 +1,5 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models;
 
-import android.content.ContentValues;
 import android.provider.BaseColumns;
 
 import androidx.annotation.NonNull;

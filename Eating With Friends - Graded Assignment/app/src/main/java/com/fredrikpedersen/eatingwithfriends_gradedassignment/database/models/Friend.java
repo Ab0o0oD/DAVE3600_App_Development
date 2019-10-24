@@ -1,16 +1,32 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models;
 
+import android.provider.BaseColumns;
+
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "friend_table")
+@Entity(tableName = Friend.TABLE_NAME)
 public class Friend {
 
+    public static final String TABLE_NAME = "friend_table";
+    public static final String COLUMN_ID = BaseColumns._ID;
+    public static final String COLUMN_FIRST_NAME = "first_name";
+    public static final String COLUMN_LAST_NAME = "last_name";
+    public static final String COLUMN_PHONE_NUMBER ="phone_number";
+
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = COLUMN_ID)
     private int id;
+
+    @ColumnInfo(name = COLUMN_FIRST_NAME)
     private String firstName;
+
+    @ColumnInfo(name = COLUMN_LAST_NAME)
     private String lastName;
+
+    @ColumnInfo(name = COLUMN_PHONE_NUMBER)
     private String phoneNumber;
 
     public Friend(String firstName, String lastName, String phoneNumber) {
