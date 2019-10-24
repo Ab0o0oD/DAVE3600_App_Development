@@ -7,7 +7,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -40,29 +39,25 @@ public class ReminderService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         boolean smsFunctionality = getSharedPreferences(StaticHolder.PREFERENCE, MODE_PRIVATE).getBoolean(StaticHolder.SMS_FUNCTIONALITY_PREF, true);
         boolean useDefaultMessage = getSharedPreferences(StaticHolder.PREFERENCE, MODE_PRIVATE).getBoolean(StaticHolder.USE_DEFAULT_MESSAGE_PREF, true);
-        String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
-        String userPrefSmsTime = getSharedPreferences(StaticHolder.PREFERENCE, MODE_PRIVATE).getString(StaticHolder.SMS_TIMING_PREF, "12:00");
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
         BookingRepository bookingRepository = new BookingRepository(getApplication());
         List<Booking> allBookings = bookingRepository.getAllBookingsAsList();
 
-        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, notificationIntent,0);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
         //Iterates through all bookings, checks if there are any bookings today and sends notification to user and sms to friends if there are.
-        if (isTimeAfterPref(currentTime, userPrefSmsTime)) {
-            for (Booking booking : allBookings) {
-                if (booking.getDate().equals(currentDate)) {
-                    String contentText = generateContentText(booking, useDefaultMessage);
-                    buildNotification(pIntent, notificationManager, contentText);
+        for (Booking booking : allBookings) {
+            if (booking.getDate().equals(currentDate)) {
+                String contentText = generateContentText(booking, useDefaultMessage);
+                buildNotification(pIntent, notificationManager, contentText);
 
-                    if (smsFunctionality) {
-                        if (booking.getFriends() != null) {
-                            for (Friend friend : booking.getFriends()) {
-                                sendSms(contentText, friend.getPhoneNumber());
-                            }
+                if (smsFunctionality) {
+                    if (booking.getFriends() != null) {
+                        for (Friend friend : booking.getFriends()) {
+                            sendSms(contentText, friend.getPhoneNumber());
                         }
                     }
                 }
@@ -92,24 +87,12 @@ public class ReminderService extends Service {
         Objects.requireNonNull(notificationManager).notify(0, notification);
     }
 
-    private void sendSms(String message, String phonenumber){
+    private void sendSms(String message, String phonenumber) {
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phonenumber, null, message, null, null);
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Eating With Friends does not have permission to send SMS. Turn off SMS service or give permission", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private boolean isTimeAfterPref(String currentTime, String userPrefTime) {
-        String[] currentSplit = currentTime.split(":");
-        String[] userSplit = userPrefTime.split(":");
-
-        if (Integer.parseInt(currentSplit[0]) > Integer.parseInt(userSplit[0]))
-            return true;
-        else if (Integer.parseInt(currentSplit[0]) == Integer.parseInt(userSplit[0]))
-            return Integer.parseInt(currentSplit[1]) > Integer.parseInt(userSplit[1]);
-        else
-            return false;
     }
 }
