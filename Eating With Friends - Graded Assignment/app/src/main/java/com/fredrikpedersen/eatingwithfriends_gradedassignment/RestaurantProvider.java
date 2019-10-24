@@ -12,24 +12,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.BookingDatabase;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.daos.BookingDao;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.daos.RestaurantDao;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
+import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Restaurant;
 
-public class BookingProvider extends ContentProvider {
+public class RestaurantProvider extends ContentProvider {
 
-    public static final String AUTHORITY = "com.fredrikpedersen.contentproviderbooking";
+    public static final String AUTHORITY = "com.fredrikpedersen.contentproviderrestaurant";
 
-    public static final Uri URI_BOOKING = Uri.parse("content://" + AUTHORITY + "/" + Booking.TABLE_NAME);
+    public static final Uri URI_RESTAURANT = Uri.parse("content://" + AUTHORITY + "/" + Restaurant.TABLE_NAME);
 
-    private static final int CODE_BOOKING_DIR = 1;
+    private static final int CODE_RESTAURANT_DIR = 1;
 
-    private static final int CODE_BOOKING_ITEM = 2;
+    private static final int CODE_RESTAURANT_ITEM = 2;
 
     private static final UriMatcher MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
-        MATCHER.addURI(AUTHORITY, Booking.TABLE_NAME, CODE_BOOKING_DIR);
-        MATCHER.addURI(AUTHORITY, Booking.TABLE_NAME + "/*", CODE_BOOKING_ITEM);
+        MATCHER.addURI(AUTHORITY, Booking.TABLE_NAME, CODE_RESTAURANT_DIR);
+        MATCHER.addURI(AUTHORITY, Booking.TABLE_NAME + "/*", CODE_RESTAURANT_ITEM);
     }
 
     @Override
@@ -42,20 +43,20 @@ public class BookingProvider extends ContentProvider {
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         final int code = MATCHER.match(uri);
 
-        if (code == CODE_BOOKING_DIR || code == CODE_BOOKING_ITEM) {
+        if (code == CODE_RESTAURANT_DIR || code == CODE_RESTAURANT_ITEM) {
             final Context context = getContext();
 
             if (context == null) {
                 return null;
 
             }
-            BookingDao bookingDao = BookingDatabase.getInstance(context).bookingDao();
+            RestaurantDao restaurantDao = BookingDatabase.getInstance(context).restaurantDao();
             final Cursor cursor;
 
-            if (code == CODE_BOOKING_DIR) {
-                cursor = bookingDao.selectAllCursor();
+            if (code == CODE_RESTAURANT_DIR) {
+                cursor = restaurantDao.selectAllCursor();
             } else {
-                cursor = bookingDao.selectById(ContentUris.parseId(uri));
+                cursor = restaurantDao.selectById(ContentUris.parseId(uri));
             }
             cursor.setNotificationUri(context.getContentResolver(), uri);
             return cursor;
@@ -68,10 +69,10 @@ public class BookingProvider extends ContentProvider {
     @Override
     public String getType(@NonNull Uri uri) {
         switch (MATCHER.match(uri)) {
-            case CODE_BOOKING_DIR:
-                return "vnd.android.cursor.dir/" + AUTHORITY + "." + Booking.TABLE_NAME;
-            case CODE_BOOKING_ITEM:
-                return "vnd.android.cursor.item/" + AUTHORITY + "." + Booking.TABLE_NAME;
+            case CODE_RESTAURANT_DIR:
+                return "vnd.android.cursor.dir/" + AUTHORITY + "." + Restaurant.TABLE_NAME;
+            case CODE_RESTAURANT_ITEM:
+                return "vnd.android.cursor.item/" + AUTHORITY + "." + Restaurant.TABLE_NAME;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }
@@ -86,15 +87,15 @@ public class BookingProvider extends ContentProvider {
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
         switch (MATCHER.match(uri)) {
-            case CODE_BOOKING_DIR:
+            case CODE_RESTAURANT_DIR:
                 throw new IllegalArgumentException("Inavlid URI, cannot update without ID" + uri);
 
-            case CODE_BOOKING_ITEM:
+            case CODE_RESTAURANT_ITEM:
                 final Context context = getContext();
                 if (context == null) {
                     return 0;
                 }
-                final int count = BookingDatabase.getInstance(context).bookingDao().deleteById(ContentUris.parseId(uri));
+                final int count = BookingDatabase.getInstance(context).restaurantDao().deleteById(ContentUris.parseId(uri));
                 context.getContentResolver().notifyChange(uri, null);
                 return count;
 

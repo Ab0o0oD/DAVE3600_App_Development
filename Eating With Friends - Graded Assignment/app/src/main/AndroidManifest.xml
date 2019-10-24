@@ -5,9 +5,9 @@
 
     <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="com.fredrikpedersen.contentproviderbooking.permission"/>
+    <uses-permission android:name="com.fredrikpedersen.contentproviderrestaurant.permission"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <permission android:name="com.fredrikpedersen.contentproviderbooking.permission"/>
+    <permission android:name="com.fredrikpedersen.contentproviderrestaurant.permission"/>
 
 
     <application
@@ -29,12 +29,12 @@
         <service android:name=".services.ReminderService"/>
 
         <provider
-            android:name="com.fredrikpedersen.eatingwithfriends_gradedassignment.BookingProvider"
-            android:authorities="com.fredrikpedersen.contentproviderbooking"
+            android:name="com.fredrikpedersen.eatingwithfriends_gradedassignment.RestaurantProvider"
+            android:authorities="com.fredrikpedersen.contentproviderrestaurant"
             android:enabled="true"
             android:exported="true"
-            android:readPermission="com.fredrikpedersen.contentproviderbooking.permission"
-            android:writePermission="com.fredrikpedersen.contentproviderbooking.permission">
+            android:readPermission="com.fredrikpedersen.contentproviderrestaurant.permission"
+            android:writePermission="com.fredrikpedersen.contentproviderrestaurant.permission">
         </provider>
 
         <activity

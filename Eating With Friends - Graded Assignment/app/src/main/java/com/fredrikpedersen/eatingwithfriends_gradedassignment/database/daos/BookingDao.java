@@ -33,13 +33,4 @@ public interface BookingDao {
 
     @Query("SELECT * FROM " + Booking.TABLE_NAME + " ORDER BY " + Booking.COLUMN_ID + " DESC")
     List<Booking> getAllBookingsAsList();
-
-    @Query("SELECT * FROM " + Booking.TABLE_NAME)
-    Cursor selectAllCursor();
-
-    @Query("SELECT * FROM " + Booking.TABLE_NAME + " WHERE " + Booking.COLUMN_ID + " = :id")
-    Cursor selectById(long id);
-
-    @Query("DELETE FROM " + Booking.TABLE_NAME + " WHERE " + Booking.COLUMN_ID + " = :id")
-    int deleteById(long id);
 }
