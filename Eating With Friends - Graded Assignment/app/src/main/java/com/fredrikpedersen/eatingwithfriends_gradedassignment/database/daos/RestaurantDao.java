@@ -9,7 +9,6 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Restaurant;
 
 import java.util.List;
@@ -18,10 +17,10 @@ import java.util.List;
 public interface RestaurantDao {
 
     @Insert
-    void insert(Restaurant restaurant);
+    long insert(Restaurant restaurant);
 
     @Update
-    void update(Restaurant restaurant);
+    int update(Restaurant restaurant);
 
     @Delete
     void delete(Restaurant restaurant);
