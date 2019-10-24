@@ -25,23 +25,15 @@ public class RestaurantViewModel extends AndroidViewModel {
     public void insert(Restaurant restaurant) {
         repository.insert(restaurant);
     }
-
     public void update(Restaurant restaurant) {
         repository.update(restaurant);
     }
-
     public void delete(Restaurant restaurant) {
         repository.delete(restaurant);
     }
-
-    public void deleteAllRestaurants(Restaurant restaurant) {
-        repository.deleteAllRestaurants();
-    }
-
     LiveData<List<Restaurant>> getAllRestaurantsAsLiveData() {
         return allRestaurantsLiveData;
     }
-
     public List<Restaurant> getAllRestaurantsAsList() {
         return repository.getAllRestaurantsAsList();
     }

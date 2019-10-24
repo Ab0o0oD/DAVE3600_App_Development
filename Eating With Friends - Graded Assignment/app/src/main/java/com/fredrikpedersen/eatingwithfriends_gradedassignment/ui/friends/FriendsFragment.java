@@ -42,7 +42,7 @@ public class FriendsFragment extends Fragment {
         initializeViews(view);
 
         friendViewModel = ViewModelProviders.of(this).get(FriendViewModel.class);
-        friendViewModel.getAllFriends().observe(this, friendAdapter::submitList);
+        friendViewModel.getAllFriendsAsLiveData().observe(this, friendAdapter::submitList);
         friendAdapter.setOnItemClickListener(this::touchToEdit);
 
         return view;

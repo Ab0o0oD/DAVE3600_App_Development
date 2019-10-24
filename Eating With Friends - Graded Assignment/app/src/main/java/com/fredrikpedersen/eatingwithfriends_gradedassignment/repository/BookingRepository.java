@@ -18,35 +18,26 @@ public class BookingRepository {
 
     private static final String TAG = "BookingRepository";
     private BookingDao bookingDao;
-    private LiveData<List<Booking>> allBookings;
+    private LiveData<List<Booking>> allBookingsLiveData;
 
     public BookingRepository(Application application) {
         BookingDatabase database = BookingDatabase.getInstance(application);
         bookingDao = database.bookingDao();
-        allBookings = bookingDao.getAllBookings();
+        allBookingsLiveData = bookingDao.getAllBookingsAsLiveData();
     }
 
     public void insert(Booking booking) {
-        Log.d(TAG, "insert: INSERTING " + booking.toString());
         new InsertBookingAsyncTask(bookingDao).execute(booking);
     }
-
     public void update(Booking booking) {
         new UpdateBookingAsyncTask(bookingDao).execute(booking);
     }
-
     public void delete(Booking booking) {
         new DeleteBookingAsyncTask(bookingDao).execute(booking);
     }
-
-    public void deleteAllBookings() {
-        new DeleteAllBookingsAsyncTask(bookingDao).execute();
+    public LiveData<List<Booking>> getAllBookingsAsLiveData() {
+        return allBookingsLiveData;
     }
-
-    public LiveData<List<Booking>> getAllBookings() {
-        return allBookings;
-    }
-
     public List<Booking> getAllBookingsAsList() {
         try {
             return new getAllBookingsAsList(bookingDao).execute().get();
@@ -69,7 +60,6 @@ public class BookingRepository {
             return null;
         }
     }
-
     private static class UpdateBookingAsyncTask extends AsyncTask<Booking, Void, Void> {
         private BookingDao bookingDao;
 
@@ -83,7 +73,6 @@ public class BookingRepository {
             return null;
         }
     }
-
     private static class DeleteBookingAsyncTask extends AsyncTask<Booking, Void, Void> {
         private BookingDao bookingDao;
 
@@ -97,21 +86,6 @@ public class BookingRepository {
             return null;
         }
     }
-
-    private static class DeleteAllBookingsAsyncTask extends AsyncTask<Booking, Void, Void> {
-        private BookingDao bookingDao;
-
-        private DeleteAllBookingsAsyncTask(BookingDao bookingDao) {
-            this.bookingDao = bookingDao;
-        }
-
-        @Override
-        protected Void doInBackground(Booking... bookings) {
-            bookingDao.deleteAllBookings();
-            return null;
-        }
-    }
-
     private static class getAllBookingsAsList extends AsyncTask<Void, Void, List<Booking>> {
 
         private BookingDao bookingDao;

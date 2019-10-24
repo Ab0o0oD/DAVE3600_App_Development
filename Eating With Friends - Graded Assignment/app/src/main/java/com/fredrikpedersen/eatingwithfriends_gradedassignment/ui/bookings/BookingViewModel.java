@@ -21,30 +21,19 @@ public class BookingViewModel extends AndroidViewModel {
     public BookingViewModel(@NonNull Application application) {
         super(application);
         repository = new BookingRepository(application);
-        allBookings = repository.getAllBookings();
+        allBookings = repository.getAllBookingsAsLiveData();
     }
 
     public void insert(Booking booking) {
         repository.insert(booking);
     }
-
     public void update(Booking booking) {
         repository.update(booking);
     }
-
     public void delete(Booking booking) {
         repository.delete(booking);
     }
-
-    public void deleteAllBookings() {
-        repository.deleteAllBookings();
-    }
-
-    LiveData<List<Booking>> getAllBookings() {
+    LiveData<List<Booking>> getAllBookingsAsLiveData() {
         return allBookings;
-    }
-
-    public List<Booking> gettAllBoookingsAsList() {
-        return repository.getAllBookingsAsList();
     }
 }

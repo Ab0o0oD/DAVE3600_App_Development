@@ -18,19 +18,16 @@ import java.util.List;
 public interface FriendDao {
 
     @Insert
-    void insert(Friend friend);
+    long insert(Friend friend);
 
     @Update
-    void update(Friend friend);
+    int update(Friend friend);
 
     @Delete
     void delete(Friend friend);
 
-    @Query("DELETE FROM " + Friend.TABLE_NAME)
-    void deleteAllFriends();
-
     @Query("SELECT * FROM " + Friend.TABLE_NAME + " ORDER BY " + Friend.COLUMN_ID + " DESC")
-    LiveData<List<Friend>> getAllFriends();
+    LiveData<List<Friend>> getAllFriendsAsLiveData();
 
     @Query("SELECT * FROM " + Friend.TABLE_NAME + " ORDER BY " + Friend.COLUMN_ID + " DESC")
     List<Friend> getAllFriendsAsList();

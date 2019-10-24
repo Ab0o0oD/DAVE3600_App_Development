@@ -25,9 +25,6 @@ public interface RestaurantDao {
     @Delete
     void delete(Restaurant restaurant);
 
-    @Query("DELETE FROM " + Restaurant.TABLE_NAME)
-    void deleteAllRestaurants();
-
     @Query("SELECT * FROM " + Restaurant.TABLE_NAME + " ORDER BY " + Restaurant.COLUMN_ID + " DESC")
     LiveData<List<Restaurant>> getAllRestaurantsAsLiveData();
 

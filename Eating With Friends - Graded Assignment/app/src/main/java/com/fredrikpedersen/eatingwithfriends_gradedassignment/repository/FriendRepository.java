@@ -2,7 +2,6 @@ package com.fredrikpedersen.eatingwithfriends_gradedassignment.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -19,34 +18,26 @@ public class FriendRepository {
     private static final String TAG = "FriendRepository";
 
     private FriendDao friendDao;
-    private LiveData<List<Friend>> allFriends;
+    private LiveData<List<Friend>> allFriendsLiveData;
 
     public FriendRepository(Application application) {
         BookingDatabase database = BookingDatabase.getInstance(application);
         friendDao = database.friendDao();
-        allFriends = friendDao.getAllFriends();
+        allFriendsLiveData = friendDao.getAllFriendsAsLiveData();
     }
 
     public void insert(Friend friend) {
         new InsertFriendAsyncTask(friendDao).execute(friend);
     }
-
     public void update(Friend friend) {
         new UpdateFriendAsyncTask(friendDao).execute(friend);
     }
-
     public void delete(Friend friend) {
         new DeleteFriendAsyncTask(friendDao).execute(friend);
     }
-
-    public void deleteAllFriends() {
-        new DeleteAllFriendAsyncTask(friendDao).execute();
+    public LiveData<List<Friend>> getAllFriendsAsLiveData() {
+        return allFriendsLiveData;
     }
-
-    public LiveData<List<Friend>> getAllFriends() {
-        return allFriends;
-    }
-
     public List<Friend> getAllFriendsAsList() {
         try {
             return new getAllFriendsAsList(friendDao).execute().get();
@@ -92,19 +83,6 @@ public class FriendRepository {
         @Override
         protected Void doInBackground(Friend... friends) {
             friendDao.delete(friends[0]);
-            return null;
-        }
-    }
-    private static class DeleteAllFriendAsyncTask extends AsyncTask<Friend, Void, Void> {
-        private FriendDao friendDao;
-
-        private DeleteAllFriendAsyncTask(FriendDao friendDao) {
-            this.friendDao = friendDao;
-        }
-
-        @Override
-        protected Void doInBackground(Friend... friends) {
-            friendDao.deleteAllFriends();
             return null;
         }
     }

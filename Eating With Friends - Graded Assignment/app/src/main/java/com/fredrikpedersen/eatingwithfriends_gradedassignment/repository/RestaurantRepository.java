@@ -18,34 +18,26 @@ public class RestaurantRepository {
     private static final String TAG = "FriendRepository";
 
     private RestaurantDao restaurantDao;
-    private LiveData<List<Restaurant>> allRestaurants;
+    private LiveData<List<Restaurant>> allRestaurantsLiveData;
 
     public RestaurantRepository(Application application) {
         BookingDatabase database = BookingDatabase.getInstance(application);
         restaurantDao = database.restaurantDao();
-        allRestaurants = restaurantDao.getAllRestaurantsAsLiveData();
+        allRestaurantsLiveData = restaurantDao.getAllRestaurantsAsLiveData();
     }
 
     public void insert(Restaurant restaurant) {
         new RestaurantRepository.InsertRestaurantAsyncTask(restaurantDao).execute(restaurant);
     }
-
     public void update(Restaurant restaurant) {
         new RestaurantRepository.UpdateRestaurantAsyncTask(restaurantDao).execute(restaurant);
     }
-
     public void delete(Restaurant restaurant) {
         new RestaurantRepository.DeleteRestaurantAsyncTask(restaurantDao).execute(restaurant);
     }
-
-    public void deleteAllRestaurants() {
-        new RestaurantRepository.DeleteAllRestaurantsAsyncTask(restaurantDao).execute();
-    }
-
     public LiveData<List<Restaurant>> getAllRestaurantsAsLiveData() {
-        return allRestaurants;
+        return allRestaurantsLiveData;
     }
-
     public List<Restaurant> getAllRestaurantsAsList() {
         try {
             return new RestaurantRepository.getAllRestaurantsAsList(restaurantDao).execute().get();
@@ -89,19 +81,6 @@ public class RestaurantRepository {
         @Override
         protected Void doInBackground(Restaurant... restaurants) {
             restaurantDao.delete(restaurants[0]);
-            return null;
-        }
-    }
-    private static class DeleteAllRestaurantsAsyncTask extends AsyncTask<Restaurant, Void, Void> {
-        private RestaurantDao restaurantDao;
-
-        private DeleteAllRestaurantsAsyncTask(RestaurantDao restaurantDao) {
-            this.restaurantDao = restaurantDao;
-        }
-
-        @Override
-        protected Void doInBackground(Restaurant... restaurants) {
-            restaurantDao.deleteAllRestaurants();
             return null;
         }
     }

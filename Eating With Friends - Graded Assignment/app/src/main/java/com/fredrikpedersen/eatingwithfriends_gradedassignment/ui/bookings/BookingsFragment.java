@@ -49,7 +49,7 @@ public class BookingsFragment extends Fragment {
         initializeViews(view);
 
         bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
-        bookingViewModel.getAllBookings().observe(this, bookingAdapter::submitList);
+        bookingViewModel.getAllBookingsAsLiveData().observe(this, bookingAdapter::submitList);
         bookingAdapter.setOnItemClickListener(this::touchToEdit);
 
         if (!(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED))
