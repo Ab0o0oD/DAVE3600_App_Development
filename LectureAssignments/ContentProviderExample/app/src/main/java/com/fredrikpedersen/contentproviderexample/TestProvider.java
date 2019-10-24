@@ -11,9 +11,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 public class TestProvider extends ContentProvider {
     public static final String _ID = "_id";
     public static final String TITTEL = "Tittel";
