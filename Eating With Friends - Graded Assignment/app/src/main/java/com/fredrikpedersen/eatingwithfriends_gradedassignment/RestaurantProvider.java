@@ -48,18 +48,21 @@ public class RestaurantProvider extends ContentProvider {
 
             if (context == null) {
                 return null;
-
             }
+
             RestaurantDao restaurantDao = BookingDatabase.getInstance(context).restaurantDao();
             final Cursor cursor;
 
             if (code == CODE_RESTAURANT_DIR) {
                 cursor = restaurantDao.selectAllCursor();
+
             } else {
                 cursor = restaurantDao.selectById(ContentUris.parseId(uri));
             }
+
             cursor.setNotificationUri(context.getContentResolver(), uri);
             return cursor;
+
         } else {
             throw new IllegalArgumentException("Unknown URI: " + uri);
         }
@@ -71,8 +74,10 @@ public class RestaurantProvider extends ContentProvider {
         switch (MATCHER.match(uri)) {
             case CODE_RESTAURANT_DIR:
                 return "vnd.android.cursor.dir/" + AUTHORITY + "." + Restaurant.TABLE_NAME;
+
             case CODE_RESTAURANT_ITEM:
                 return "vnd.android.cursor.item/" + AUTHORITY + "." + Restaurant.TABLE_NAME;
+
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }
@@ -81,7 +86,24 @@ public class RestaurantProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-        throw new UnsupportedOperationException("Not allowed to insert data to this app");
+        switch (MATCHER.match(uri)) {
+            case CODE_RESTAURANT_DIR:
+                final Context context = getContext();
+
+                if (context == null) {
+                    return null;
+                }
+
+                final long id = BookingDatabase.getInstance(context).restaurantDao().insert(Restaurant.fromContentValues(values));
+                context.getContentResolver().notifyChange(uri, null);
+                return ContentUris.withAppendedId(uri, id);
+
+            case CODE_RESTAURANT_ITEM:
+                throw new IllegalArgumentException("Invalid URI, cannot insert with ID: " + uri);
+
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
     }
 
     @Override
@@ -92,9 +114,11 @@ public class RestaurantProvider extends ContentProvider {
 
             case CODE_RESTAURANT_ITEM:
                 final Context context = getContext();
+
                 if (context == null) {
                     return 0;
                 }
+
                 final int count = BookingDatabase.getInstance(context).restaurantDao().deleteById(ContentUris.parseId(uri));
                 context.getContentResolver().notifyChange(uri, null);
                 return count;
@@ -106,6 +130,25 @@ public class RestaurantProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        throw new UnsupportedOperationException("Not allowed to update items in the database");
+        switch (MATCHER.match(uri)) {
+            case CODE_RESTAURANT_DIR:
+                throw new IllegalArgumentException("Invalid URI, cannot update without ID " + uri);
+
+            case CODE_RESTAURANT_ITEM:
+                final Context context = getContext();
+
+                if (context == null) {
+                    return 0;
+                }
+
+                final Restaurant restaurant = Restaurant.fromContentValues(values);
+                restaurant.setId((int) ContentUris.parseId(uri));
+                final int count = BookingDatabase.getInstance(context).restaurantDao().update(restaurant);
+                context.getContentResolver().notifyChange(uri, null);
+                return count;
+
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
     }
 }
