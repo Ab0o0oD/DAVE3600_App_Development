@@ -1,5 +1,6 @@
 package com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models;
 
+import android.content.ContentValues;
 import android.provider.BaseColumns;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,8 @@ public class Restaurant {
 
     @ColumnInfo(name = COLUMN_TYPE)
     private String type;
+
+    private Restaurant() {}
 
     public Restaurant(String restaurantName, String address, String phoneNumber, String type) {
         this.restaurantName = restaurantName;
@@ -68,5 +71,27 @@ public class Restaurant {
     @Override
     public String toString() {
         return  restaurantName;
+    }
+
+    public static Restaurant fromContentValues(ContentValues values) {
+        final Restaurant restaurant = new Restaurant();
+
+        if (values.containsKey(COLUMN_ID)) {
+            restaurant.id = values.getAsInteger(COLUMN_ID);
+        }
+
+        if (values.containsKey(COLUMN_ADDRESS)) {
+            restaurant.address = values.getAsString(COLUMN_ADDRESS);
+        }
+
+        if (values.containsKey(COLUMN_PHONE_NUMBER)) {
+            restaurant.phoneNumber = values.getAsString(COLUMN_PHONE_NUMBER);
+        }
+
+        if (values.containsKey(COLUMN_TYPE)) {
+            restaurant.type = values.getAsString(COLUMN_TYPE);
+        }
+
+        return restaurant;
     }
 }
