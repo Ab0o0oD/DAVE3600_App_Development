@@ -3,8 +3,10 @@ package com.fredrikpedersen.eatingwithfriends_gradedassignment.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +33,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 import static com.fredrikpedersen.eatingwithfriends_gradedassignment.util.StaticHolder.EXTRA_ID;
 
 //TODO This class is bit of a mess, cleanup if you get the time later.
@@ -42,6 +46,8 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
     private TextView textViewDate;
     private TextView textViewTime;
     private TextView textViewSelectedFriends;
+    private ImageView imageViewSelectDate;
+    private ImageView imageViewSelectTime;
     private Button buttonSave;
     private Button buttonSelectFriend;
     private Button buttonSelectRestaurant;
@@ -226,9 +232,11 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
         if (activePicker.equals(PICKERS[0])) {
             time = data;
             textViewTime.setText(time);
+            textViewTime.setVisibility(VISIBLE);
         } else if (activePicker.equals(PICKERS[1])) {
             date = data;
             textViewDate.setText(DateFormater.formatDateText(date));
+            textViewDate.setVisibility(VISIBLE);
         }
     }
 
@@ -236,13 +244,18 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
     private void initializeViews() {
         textViewChosenRestaurant = findViewById(R.id.text_view_chosen_restaurant);
-        textViewDate = findViewById(R.id.text_view_date);
-        textViewTime = findViewById(R.id.text_view_time);
         textViewSelectedFriends = findViewById(R.id.text_view_selected_friends);
         buttonSave = findViewById(R.id.button_save_booking);
         buttonSelectFriend = findViewById(R.id.button_select_friend);
         spinnerRestaurants = findViewById(R.id.spinner_restaurants);
         buttonSelectRestaurant = findViewById(R.id.button_select_restaurant);
+        imageViewSelectDate = findViewById(R.id.image_view_select_date);
+        imageViewSelectTime = findViewById(R.id.image_view_select_time);
+
+        textViewDate = findViewById(R.id.text_view_date);
+        textViewDate.setVisibility(INVISIBLE);
+        textViewTime = findViewById(R.id.text_view_time);
+        textViewTime.setVisibility(INVISIBLE);
     }
 
     private void initializeVariables() {
@@ -255,8 +268,8 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
     private void setOnClicks() {
         buttonSave.setOnClickListener(v -> checkBookingComplete());
-        textViewDate.setOnClickListener(v -> showDatePickerDialog());
-        textViewTime.setOnClickListener(v -> showTimePickerDialog());
+        imageViewSelectDate.setOnClickListener(v -> showDatePickerDialog());
+        imageViewSelectTime.setOnClickListener(v -> showTimePickerDialog());
         buttonSelectFriend.setOnClickListener(v -> showMultipleChoiceList());
         buttonSelectRestaurant.setOnClickListener(v -> getSelectedRestaurant());
     }
@@ -271,9 +284,11 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
             time = intent.getStringExtra(StaticHolder.EXTRA_TIME);
             textViewTime.setText(time);
+            textViewTime.setVisibility(VISIBLE);
 
             date = intent.getStringExtra(StaticHolder.EXTRA_DATE);
             textViewDate.setText(date);
+            textViewDate.setVisibility(VISIBLE);
 
             String[] friendsFromList = intent.getStringArrayExtra(StaticHolder.EXTRA_FRIENDS);
 
