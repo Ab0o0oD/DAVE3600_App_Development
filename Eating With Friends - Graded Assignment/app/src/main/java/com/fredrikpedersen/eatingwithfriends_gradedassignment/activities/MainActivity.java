@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startReminderService() {
         Intent intent = new Intent();
-        intent.setAction("com.fredrikpedersen.eatingwithfriends_gradedassignment.services.ReminderBroadcastReceiver");
+        intent.setAction(StaticHolder.REMINDER_BROADCAST);
         this.sendBroadcast(intent);
     }
 

@@ -13,10 +13,10 @@ public class Restaurant {
 
     public static final String TABLE_NAME = "restaurant_table";
     public static final String COLUMN_ID = BaseColumns._ID;
-    public static final String COLUMN_RESTAURANT_NAME = "restaurant_name";
-    public static final String COLUMN_ADDRESS = "address";
-    public static final String COLUMN_PHONE_NUMBER = "phone_number";
-    public static final String COLUMN_TYPE = "type";
+    private static final String COLUMN_RESTAURANT_NAME = "restaurant_name";
+    private static final String COLUMN_ADDRESS = "address";
+    private static final String COLUMN_PHONE_NUMBER = "phone_number";
+    private static final String COLUMN_TYPE = "type";
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)

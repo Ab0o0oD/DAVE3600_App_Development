@@ -12,9 +12,9 @@ public class Friend {
 
     public static final String TABLE_NAME = "friend_table";
     public static final String COLUMN_ID = BaseColumns._ID;
-    public static final String COLUMN_FIRST_NAME = "first_name";
-    public static final String COLUMN_LAST_NAME = "last_name";
-    public static final String COLUMN_PHONE_NUMBER ="phone_number";
+    private static final String COLUMN_FIRST_NAME = "first_name";
+    private static final String COLUMN_LAST_NAME = "last_name";
+    private static final String COLUMN_PHONE_NUMBER ="phone_number";
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)

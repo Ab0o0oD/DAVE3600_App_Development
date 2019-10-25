@@ -76,7 +76,7 @@ public class FriendAdapter extends ListAdapter<Friend, FriendAdapter.FriendViewH
         }
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 }

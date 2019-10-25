@@ -81,7 +81,7 @@ public class RestaurantAdapter extends ListAdapter<Restaurant, RestaurantAdapter
         }
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 }

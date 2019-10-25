@@ -33,4 +33,7 @@ public class StaticHolder {
     public static final String CUSTOM_MESSAGE_PREF = "Custom Message Pref";
     public static final String SMS_TIMING_PREF = "SMS Timing Pref";
 
+    /* ----- MISC ----- */
+    public static final String REMINDER_BROADCAST = "com.fredrikpedersen.eatingwithfriends_gradedassignment.services.ReminderBroadcastReceiver";
+
 }

@@ -10,11 +10,8 @@ public class DateFormater {
     }
 
     private static String formatMonthText(int month) {
-        String monthText = "";
+        String monthText;
         switch (month) {
-            case 1:
-                monthText = "Jan";
-                break;
             case 2:
                 monthText = "Feb";
                 break;

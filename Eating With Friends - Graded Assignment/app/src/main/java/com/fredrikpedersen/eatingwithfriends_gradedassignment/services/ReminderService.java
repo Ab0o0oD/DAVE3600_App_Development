@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+//TODO THIS CLASS IS A BIT OF A MESS, CLEAN UP LATER!
 public class ReminderService extends Service {
 
     private static final String TAG = "ReminderService";
@@ -57,6 +59,7 @@ public class ReminderService extends Service {
                 if (smsFunctionality) {
                     if (booking.getFriends() != null) {
                         for (Friend friend : booking.getFriends()) {
+                            Log.d(TAG, "onStartCommand: SENDING SMS TO " + friend.getFirstName());
                             sendSms(contentText, friend.getPhoneNumber());
                         }
                     }

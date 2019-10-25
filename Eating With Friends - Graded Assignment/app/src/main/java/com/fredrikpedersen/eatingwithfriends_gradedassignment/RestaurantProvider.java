@@ -16,11 +16,11 @@ import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.daos.Rest
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Restaurant;
 
+import java.util.Objects;
+
 public class RestaurantProvider extends ContentProvider {
 
     public static final String AUTHORITY = "com.fredrikpedersen.contentproviderrestaurant";
-
-    public static final Uri URI_RESTAURANT = Uri.parse("content://" + AUTHORITY + "/" + Restaurant.TABLE_NAME);
 
     private static final int CODE_RESTAURANT_DIR = 1;
 
@@ -94,7 +94,7 @@ public class RestaurantProvider extends ContentProvider {
                     return null;
                 }
 
-                final long id = BookingDatabase.getInstance(context).restaurantDao().insert(Restaurant.fromContentValues(values));
+                final long id = BookingDatabase.getInstance(context).restaurantDao().insert(Restaurant.fromContentValues(Objects.requireNonNull(values)));
                 context.getContentResolver().notifyChange(uri, null);
                 return ContentUris.withAppendedId(uri, id);
 
@@ -141,7 +141,7 @@ public class RestaurantProvider extends ContentProvider {
                     return 0;
                 }
 
-                final Restaurant restaurant = Restaurant.fromContentValues(values);
+                final Restaurant restaurant = Restaurant.fromContentValues(Objects.requireNonNull(values));
                 restaurant.setId((int) ContentUris.parseId(uri));
                 final int count = BookingDatabase.getInstance(context).restaurantDao().update(restaurant);
                 context.getContentResolver().notifyChange(uri, null);

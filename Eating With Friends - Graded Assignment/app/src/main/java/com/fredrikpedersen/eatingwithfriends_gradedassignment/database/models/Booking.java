@@ -20,10 +20,10 @@ public class Booking {
 
     public static final String TABLE_NAME = "booking_table";
     public static final String COLUMN_ID = BaseColumns._ID;
-    public static final String COLUMN_DATE = "date";
-    public static final String COLUMN_TIME = "time";
-    public static final String COLUMN_RESTAURANT = "restaurant";
-    public static final String COLUMN_FRIENDS = "friends";
+    private static final String COLUMN_DATE = "date";
+    private static final String COLUMN_TIME = "time";
+    private static final String COLUMN_RESTAURANT = "restaurant";
+    private static final String COLUMN_FRIENDS = "friends";
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(index = true, name = COLUMN_ID)

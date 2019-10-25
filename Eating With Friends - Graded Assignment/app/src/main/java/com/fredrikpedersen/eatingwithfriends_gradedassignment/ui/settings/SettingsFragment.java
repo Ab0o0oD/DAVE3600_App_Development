@@ -2,6 +2,7 @@ package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.settings;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,7 +96,7 @@ public class SettingsFragment extends Fragment implements OnPickerValueSelectedL
     }
 
     private void requestSmsPermission() {
-        new AlertDialog.Builder(getActivity())
+        new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
                 .setTitle("SMS Permission Needed")
                 .setMessage("We need your permission to send SMS in order to turn this on")
                 .setPositiveButton("ok", (dialog, which) -> ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.SEND_SMS}, StaticHolder.SMS_PERMISSION_CODE))
@@ -123,6 +124,14 @@ public class SettingsFragment extends Fragment implements OnPickerValueSelectedL
                 .edit()
                 .putString(StaticHolder.SMS_TIMING_PREF, smsTime)
                 .apply();
+
+        restartReminderService();
+    }
+
+    private void restartReminderService() {
+        Intent intent = new Intent();
+        intent.setAction(StaticHolder.REMINDER_BROADCAST);
+        Objects.requireNonNull(getActivity()).sendBroadcast(intent);
     }
 
     private void initializeViews(View view) {

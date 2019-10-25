@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -15,6 +16,8 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class PeriodicService extends Service {
+
+    private static final String TAG = "PeriodicService";
 
     @Nullable
     @Override
@@ -29,6 +32,8 @@ public class PeriodicService extends Service {
         java.util.Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, userPrefTime[0]);
         cal.set(Calendar.MINUTE, userPrefTime[1]);
+        Log.d(TAG, "onStartCommand: TIME FROM USER " + cal.getTimeInMillis());
+
 
         Intent serviceIntent = new Intent(this, ReminderService.class);
         PendingIntent pIntent = PendingIntent.getService(this, 0, serviceIntent, 0);
