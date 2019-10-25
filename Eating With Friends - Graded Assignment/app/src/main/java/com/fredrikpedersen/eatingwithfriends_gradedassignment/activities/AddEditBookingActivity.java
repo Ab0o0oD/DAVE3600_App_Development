@@ -3,7 +3,6 @@ package com.fredrikpedersen.eatingwithfriends_gradedassignment.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -42,15 +41,13 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
     private static final String TAG = "AddEditBookingActivity";
 
-    private TextView textViewChosenRestaurant;
     private TextView textViewDate;
     private TextView textViewTime;
     private TextView textViewSelectedFriends;
     private ImageView imageViewSelectDate;
     private ImageView imageViewSelectTime;
+    private ImageView imageViewSelectFriends;
     private Button buttonSave;
-    private Button buttonSelectFriend;
-    private Button buttonSelectRestaurant;
     private Spinner spinnerRestaurants;
 
     private List<Friend> allFriends;
@@ -91,6 +88,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
     private void checkBookingComplete() {
         List<Friend> selectedFriends = addSelectedFriends();
+        getSelectedRestaurant();
 
         if (selectedRestaurant == null || date.equals("") || time.equals("")) {
             Toast.makeText(this, "Please give data in all required fields!", Toast.LENGTH_SHORT).show();
@@ -145,7 +143,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
     /* ----- Multiple Choice List ----- */
 
-    private void showMultipleChoiceList() {
+    private void showSelectFriendsList() {
         String[] friendNames = new String[allFriends.size()];
         for (int i = 0; i < allFriends.size(); i++) {
             friendNames[i] = allFriends.get(i).getFirstName() + " " + allFriends.get(i).getLastName();
@@ -153,7 +151,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Friends")
-                .setMultiChoiceItems(friendNames, checkedItemsInList, (dialog, position, isChecked) -> controlChekcedInList(isChecked, position))
+                .setMultiChoiceItems(friendNames, checkedItemsInList, (dialog, position, isChecked) -> controlCheckedInList(isChecked, position))
                 .setPositiveButton("Ok", (dialog, which) -> addSelectedToTextView(friendNames))
                 .setNegativeButton("Close", (dialog, which) -> dialog.dismiss())
                 .setNeutralButton("Clear all", (dialog, which) -> clearMultipleChoice())
@@ -187,7 +185,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
     }
 
     //Used in showMultipleChoice to check what items in the list are checked
-    private void controlChekcedInList(boolean isChecked, int position) {
+    private void controlCheckedInList(boolean isChecked, int position) {
         if (isChecked) {
             if(!selectedItemsInChecklist.contains(position)) {
                 selectedItemsInChecklist.add(position);
@@ -198,9 +196,6 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
     }
 
     private void fillSpinner() {
-        for (Restaurant restaurant : allRestaurants) {
-            Log.d(TAG, "fillSpinner: " + restaurant);
-        }
         ArrayAdapter<Restaurant> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, allRestaurants);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRestaurants.setAdapter(spinnerAdapter);
@@ -208,7 +203,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
     private void getSelectedRestaurant() {
         selectedRestaurant = (Restaurant)spinnerRestaurants.getSelectedItem();
-        textViewChosenRestaurant.setText(selectedRestaurant.getRestaurantName());
+        Log.d(TAG, "getSelectedRestaurant: SELECTED RESTAURANT" + selectedRestaurant);
     }
 
     /* ----- Pickers ----- */
@@ -243,14 +238,12 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
     /* ----- Initializations ----- */
 
     private void initializeViews() {
-        textViewChosenRestaurant = findViewById(R.id.text_view_chosen_restaurant);
         textViewSelectedFriends = findViewById(R.id.text_view_selected_friends);
         buttonSave = findViewById(R.id.button_save_booking);
-        buttonSelectFriend = findViewById(R.id.button_select_friend);
         spinnerRestaurants = findViewById(R.id.spinner_restaurants);
-        buttonSelectRestaurant = findViewById(R.id.button_select_restaurant);
         imageViewSelectDate = findViewById(R.id.image_view_select_date);
         imageViewSelectTime = findViewById(R.id.image_view_select_time);
+        imageViewSelectFriends = findViewById(R.id.image_view_select_friends);
 
         textViewDate = findViewById(R.id.text_view_date);
         textViewDate.setVisibility(INVISIBLE);
@@ -270,8 +263,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
         buttonSave.setOnClickListener(v -> checkBookingComplete());
         imageViewSelectDate.setOnClickListener(v -> showDatePickerDialog());
         imageViewSelectTime.setOnClickListener(v -> showTimePickerDialog());
-        buttonSelectFriend.setOnClickListener(v -> showMultipleChoiceList());
-        buttonSelectRestaurant.setOnClickListener(v -> getSelectedRestaurant());
+        imageViewSelectFriends.setOnClickListener(v -> showSelectFriendsList());
     }
 
     private void initializeAddOrEdit() {
@@ -280,7 +272,6 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
             setTitle("Edit Booking/Details");
             String passedRestaurantName = intent.getStringExtra(StaticHolder.EXTRA_RESTAURANT_NAME);
             selectedRestaurant = getChosenRestaurantFromName(passedRestaurantName);
-            textViewChosenRestaurant.setText(passedRestaurantName);
 
             time = intent.getStringExtra(StaticHolder.EXTRA_TIME);
             textViewTime.setText(time);
