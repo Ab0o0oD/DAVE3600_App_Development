@@ -80,8 +80,8 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
         initializeVariables();
         setOnClicks();
-        initializeAddOrEdit();
         fillSpinner();
+        initializeAddOrEdit();
     }
 
     /* ----- Save Booking ----- */
@@ -269,9 +269,15 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
     private void initializeAddOrEdit() {
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ID)) {
-            setTitle("Edit Booking/Details");
+            setTitle("Edit Booking");
             String passedRestaurantName = intent.getStringExtra(StaticHolder.EXTRA_RESTAURANT_NAME);
             selectedRestaurant = getChosenRestaurantFromName(passedRestaurantName);
+
+            for (int i = 0; i < allRestaurants.size(); i++) {
+                if (allRestaurants.get(i) == selectedRestaurant) {
+                    spinnerRestaurants.setSelection(i);
+                }
+            }
 
             time = intent.getStringExtra(StaticHolder.EXTRA_TIME);
             textViewTime.setText(time);
