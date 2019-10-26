@@ -203,7 +203,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
     }
 
     private void fillSpinner() {
-        ArrayAdapter<Restaurant> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, allRestaurants);
+        ArrayAdapter<Restaurant> spinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, allRestaurants);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerRestaurants.setAdapter(spinnerAdapter);
     }
@@ -247,16 +247,13 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
     private void initializeViews() {
         textViewSelectFriends = findViewById(R.id.text_view_select_friends);
         textViewSelectedFriends = findViewById(R.id.text_view_selected_friends);
+        textViewDate = findViewById(R.id.text_view_date);
+        textViewTime = findViewById(R.id.text_view_time);
         buttonSave = findViewById(R.id.button_save_booking);
         spinnerRestaurants = findViewById(R.id.spinner_restaurants);
         imageViewSelectDate = findViewById(R.id.image_view_select_date);
         imageViewSelectTime = findViewById(R.id.image_view_select_time);
         imageViewSelectFriends = findViewById(R.id.image_view_select_friends);
-
-        textViewDate = findViewById(R.id.text_view_date);
-        textViewDate.setVisibility(INVISIBLE);
-        textViewTime = findViewById(R.id.text_view_time);
-        textViewTime.setVisibility(INVISIBLE);
     }
 
     private void initializeVariables() {
@@ -269,6 +266,8 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
     private void setOnClicks() {
         textViewSelectFriends.setOnClickListener(v -> showSelectFriendsList());
+        textViewTime.setOnClickListener(v -> showTimePickerDialog());
+        textViewDate.setOnClickListener(v -> showDatePickerDialog());
         buttonSave.setOnClickListener(v -> checkBookingComplete());
         imageViewSelectDate.setOnClickListener(v -> showDatePickerDialog());
         imageViewSelectTime.setOnClickListener(v -> showTimePickerDialog());
@@ -290,11 +289,9 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
             time = intent.getStringExtra(StaticHolder.EXTRA_TIME);
             textViewTime.setText(time);
-            textViewTime.setVisibility(VISIBLE);
 
             date = intent.getStringExtra(StaticHolder.EXTRA_DATE);
             textViewDate.setText(date);
-            textViewDate.setVisibility(VISIBLE);
 
             String[] friendsFromList = intent.getStringArrayExtra(StaticHolder.EXTRA_FRIENDS);
 
