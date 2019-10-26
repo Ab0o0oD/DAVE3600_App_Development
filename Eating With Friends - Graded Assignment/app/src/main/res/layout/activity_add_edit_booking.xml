@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/spinner_restaurants"
             android:layout_marginStart="20dp"
-            android:background="@drawable/ic_friends"/>
+            android:background="@drawable/ic_friends"
+            android:contentDescription="Friends Icon" />
 
         <ImageView
             android:id="@+id/image_view_select_date"
@@ -33,7 +34,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/ic_date_black"
             android:layout_below="@id/spinner_restaurants"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:contentDescription="Date Icon" />
 
         <TextView
             android:id="@+id/text_view_date"
@@ -53,7 +55,8 @@
             android:layout_toEndOf="@+id/text_view_date"
             android:layout_below="@id/spinner_restaurants"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:contentDescription="Time icon" />
 
         <TextView
             android:id="@+id/text_view_time"
@@ -62,7 +65,7 @@
             android:layout_toEndOf="@id/image_view_select_time"
             android:layout_below="@+id/spinner_restaurants"
             android:hint="12:00"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"/>
 
         <TextView
