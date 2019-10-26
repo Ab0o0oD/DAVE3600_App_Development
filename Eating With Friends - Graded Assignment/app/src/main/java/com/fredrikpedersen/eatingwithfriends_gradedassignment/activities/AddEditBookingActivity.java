@@ -43,6 +43,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
     private TextView textViewDate;
     private TextView textViewTime;
+    private TextView textViewSelectFriends;
     private TextView textViewSelectedFriends;
     private ImageView imageViewSelectDate;
     private ImageView imageViewSelectTime;
@@ -171,6 +172,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
 
     //Used in showMultipleChoice to add checked items to a TextView
     private void addSelectedToTextView(String[] itemNames) {
+        selectedFriendNames = new HashSet<>();
         StringBuilder item = new StringBuilder();
 
         for (int i = 0; i < selectedItemsInChecklist.size(); i++) {
@@ -181,6 +183,11 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
                 item.append("\n");
             }
         }
+
+        if (selectedFriendNames.size() == 0) {
+            clearMultipleChoice();
+        }
+
         textViewSelectedFriends.setText(item.toString());
     }
 
@@ -238,6 +245,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
     /* ----- Initializations ----- */
 
     private void initializeViews() {
+        textViewSelectFriends = findViewById(R.id.text_view_select_friends);
         textViewSelectedFriends = findViewById(R.id.text_view_selected_friends);
         buttonSave = findViewById(R.id.button_save_booking);
         spinnerRestaurants = findViewById(R.id.spinner_restaurants);
@@ -260,6 +268,7 @@ public class AddEditBookingActivity extends AppCompatActivity implements OnPicke
     }
 
     private void setOnClicks() {
+        textViewSelectFriends.setOnClickListener(v -> showSelectFriendsList());
         buttonSave.setOnClickListener(v -> checkBookingComplete());
         imageViewSelectDate.setOnClickListener(v -> showDatePickerDialog());
         imageViewSelectTime.setOnClickListener(v -> showTimePickerDialog());

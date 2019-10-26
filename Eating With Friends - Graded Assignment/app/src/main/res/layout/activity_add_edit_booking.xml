@@ -28,6 +28,15 @@
             android:background="@drawable/ic_friends"
             android:contentDescription="Friends Icon" />
 
+        <TextView
+            android:id="@+id/text_view_select_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/image_view_select_friends"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="7dp"
+            android:text="Select Friends" />
+
         <ImageView
             android:id="@+id/image_view_select_date"
             android:layout_width="wrap_content"
