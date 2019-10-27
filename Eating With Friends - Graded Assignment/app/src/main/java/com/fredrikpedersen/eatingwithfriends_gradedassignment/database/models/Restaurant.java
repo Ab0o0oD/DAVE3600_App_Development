@@ -34,7 +34,14 @@ public class Restaurant {
     @ColumnInfo(name = COLUMN_TYPE)
     private String type;
 
-    private Restaurant() {}
+    //Private constructor used when building object from content values.
+    //Sets empty values to prevent null-values from content values
+    private Restaurant() {
+        this.restaurantName ="";
+        this.address = "";
+        this.phoneNumber="";
+        this.type="";
+    }
 
     public Restaurant(String restaurantName, String address, String phoneNumber, String type) {
         this.restaurantName = restaurantName;

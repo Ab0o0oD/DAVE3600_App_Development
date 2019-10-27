@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.fredrikpedersen.eatingwithfriends_gradedassignment">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="com.fredrikpedersen.contentproviderrestaurant.permission"/>
+
+    <uses-permission android:name="com.fredrikpedersen.eatingwithfriends_gradedassignment.contentprovider.permission"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <permission android:name="com.fredrikpedersen.contentproviderrestaurant.permission"/>
+    <permission android:name="com.fredrikpedersen.eatingwithfriends_gradedassignment.contentprovider.permission"/>
 
 
     <application
@@ -30,11 +32,11 @@
 
         <provider
             android:name="com.fredrikpedersen.eatingwithfriends_gradedassignment.RestaurantProvider"
-            android:authorities="com.fredrikpedersen.contentproviderrestaurant"
+            android:authorities="com.fredrikpedersen.eatingwithfriends_gradedassignment.contentprovider"
             android:enabled="true"
             android:exported="true"
-            android:readPermission="com.fredrikpedersen.contentproviderrestaurant.permission"
-            android:writePermission="com.fredrikpedersen.contentproviderrestaurant.permission">
+            android:readPermission="com.fredrikpedersen.eatingwithfriends_gradedassignment.contentprovider.permission"
+            android:writePermission="com.fredrikpedersen.eatingwithfriends_gradedassignment.contentprovider.permission">
         </provider>
 
         <activity

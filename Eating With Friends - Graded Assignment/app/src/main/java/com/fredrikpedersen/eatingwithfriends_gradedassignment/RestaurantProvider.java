@@ -13,14 +13,15 @@ import androidx.annotation.Nullable;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.BookingDatabase;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.daos.RestaurantDao;
-import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Booking;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Restaurant;
 
 import java.util.Objects;
 
 public class RestaurantProvider extends ContentProvider {
 
-    public static final String AUTHORITY = "com.fredrikpedersen.contentproviderrestaurant";
+    public static final String AUTHORITY = "com.fredrikpedersen.eatingwithfriends_gradedassignment.contentprovider";
+
+    public static final Uri URI_RESTAURANT = Uri.parse("content://" + AUTHORITY + "/" + Restaurant.TABLE_NAME);
 
     private static final int CODE_RESTAURANT_DIR = 1;
 
@@ -29,8 +30,8 @@ public class RestaurantProvider extends ContentProvider {
     private static final UriMatcher MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
-        MATCHER.addURI(AUTHORITY, Booking.TABLE_NAME, CODE_RESTAURANT_DIR);
-        MATCHER.addURI(AUTHORITY, Booking.TABLE_NAME + "/*", CODE_RESTAURANT_ITEM);
+        MATCHER.addURI(AUTHORITY, Restaurant.TABLE_NAME, CODE_RESTAURANT_DIR);
+        MATCHER.addURI(AUTHORITY, Restaurant.TABLE_NAME + "/*", CODE_RESTAURANT_ITEM);
     }
 
     @Override

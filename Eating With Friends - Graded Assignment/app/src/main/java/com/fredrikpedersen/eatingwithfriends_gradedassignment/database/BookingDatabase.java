@@ -16,7 +16,7 @@ import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Bo
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Friend;
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.database.models.Restaurant;
 
-@Database(entities = {Booking.class, Friend.class, Restaurant.class}, version = 6, exportSchema = false)
+@Database(entities = {Booking.class, Friend.class, Restaurant.class}, version = 7, exportSchema = false)
 @TypeConverters({FriendConverter.class, RestaurantConverter.class})
 public abstract class BookingDatabase extends RoomDatabase {
     private static final String TAG = "BookingDatabase";
