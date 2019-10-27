@@ -2,12 +2,13 @@ package com.fredrikpedersen.eatingwithfriends_gradedassignment.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.fredrikpedersen.eatingwithfriends_gradedassignment.R;
@@ -25,7 +26,7 @@ public class AddEditRestaurantActivity extends AppCompatActivity {
     private EditText editTextRestaurantAddress;
     private EditText editTextRestaurantPhone;
     private EditText editTextRestaurantType;
-    private Button buttonSave;
+    private ImageView imageViewSave;
 
     private RestaurantViewModel restaurantViewModel;
 
@@ -76,12 +77,14 @@ public class AddEditRestaurantActivity extends AppCompatActivity {
         editTextRestaurantAddress = findViewById(R.id.edit_text_restaurant_address);
         editTextRestaurantPhone = findViewById(R.id.edit_text_restaurant_phonenumber);
         editTextRestaurantType = findViewById(R.id.edit_text_restaurant_type);
-        buttonSave = findViewById(R.id.button_save_restaurant);
+        imageViewSave = findViewById(R.id.image_view_save_restaurant);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     private void setOnClicks() {
-        buttonSave.setOnClickListener(v -> checkFriendComplete());
+        imageViewSave.setOnClickListener(v -> checkFriendComplete());
     }
 
     private void initializeAddOrEdit() {
