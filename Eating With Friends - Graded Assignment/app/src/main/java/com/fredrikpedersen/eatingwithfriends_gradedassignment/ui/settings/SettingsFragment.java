@@ -3,14 +3,15 @@ package com.fredrikpedersen.eatingwithfriends_gradedassignment.ui.settings;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -30,20 +31,22 @@ public class SettingsFragment extends Fragment implements OnPickerValueSelectedL
     private static final String TAG = "SettingsFragment";
 
     private ToggleButton buttonToggleSms;
-    private Button buttonSaveMessage;
     private Button buttonUseDefault;
     private TextView textViewTimePicker;
+    private ImageView imageViewTimePicker;
     private EditText editTextMessage;
 
     private boolean smsFunctionality;
-    private boolean useDefaultMessage;
     private String smsTime;
+    private String smsMessage;
+    private String smsDefault;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
         smsFunctionality = smsPermission();
-        useDefaultMessage = Objects.requireNonNull(getActivity()).getSharedPreferences(StaticHolder.PREFERENCE, Context.MODE_PRIVATE).getBoolean(StaticHolder.USE_DEFAULT_MESSAGE_PREF, true);
+        smsDefault = Objects.requireNonNull(getActivity()).getResources().getString(R.string.default_message);
+        smsMessage = Objects.requireNonNull(getActivity().getSharedPreferences(StaticHolder.PREFERENCE, Context.MODE_PRIVATE).getString(StaticHolder.SMS_MESSAGE_PREF, smsDefault));
         smsTime = Objects.requireNonNull(getActivity()).getSharedPreferences(StaticHolder.PREFERENCE, Context.MODE_PRIVATE).getString(StaticHolder.SMS_TIMING_PREF, "12:00");
 
         initializeViews(view);
@@ -52,31 +55,8 @@ public class SettingsFragment extends Fragment implements OnPickerValueSelectedL
         return view;
     }
 
-    private void setMessageCustom() {
-        if (editTextMessage.getText().toString().equals("")) {
-            Toast.makeText(getActivity(), "The message box is empty", Toast.LENGTH_SHORT).show();
-        } else {
-            useDefaultMessage = false;
-            String customMessage = editTextMessage.getText().toString();
-
-            Objects.requireNonNull(getActivity()).getSharedPreferences(StaticHolder.PREFERENCE, Context.MODE_PRIVATE)
-                    .edit()
-                    .putBoolean(StaticHolder.USE_DEFAULT_MESSAGE_PREF, useDefaultMessage)
-                    .putString(StaticHolder.CUSTOM_MESSAGE_PREF, customMessage)
-                    .apply();
-
-            Toast.makeText(getActivity(), "New message set!", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private void setMessageDefault() {
-        useDefaultMessage = true;
-        Objects.requireNonNull(getActivity()).getSharedPreferences(StaticHolder.PREFERENCE, Context.MODE_PRIVATE)
-                .edit()
-                .putBoolean(StaticHolder.USE_DEFAULT_MESSAGE_PREF, useDefaultMessage)
-                .apply();
-
-        Toast.makeText(getActivity(), "SMS Message set to default message!", Toast.LENGTH_SHORT).show();
+        editTextMessage.setText(smsDefault);
     }
 
     private void toggleSmsOn() {
@@ -138,18 +118,30 @@ public class SettingsFragment extends Fragment implements OnPickerValueSelectedL
         buttonToggleSms = view.findViewById(R.id.toggle_button_sms);
         buttonToggleSms.setChecked(smsFunctionality);
 
-        buttonSaveMessage = view.findViewById(R.id.button_save_message);
         buttonUseDefault = view.findViewById(R.id.button_use_default);
         editTextMessage = view.findViewById(R.id.edit_text_write_message);
+        editTextMessage.setText(smsMessage);
         textViewTimePicker = view.findViewById(R.id.text_view_time_picker_sms);
         textViewTimePicker.setText(smsTime);
+        imageViewTimePicker = view.findViewById(R.id.image_view_select_time);
     }
 
     private void setOnlicks() {
         buttonToggleSms.setOnClickListener(v -> toggleSmsOn());
         buttonUseDefault.setOnClickListener(v -> setMessageDefault());
-        buttonSaveMessage.setOnClickListener(v -> setMessageCustom());
         textViewTimePicker.setOnClickListener(v -> showTimePickerDialog());
+        imageViewTimePicker.setOnClickListener(v -> showTimePickerDialog());
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        smsMessage = editTextMessage.getText().toString();
+
+        Objects.requireNonNull(getActivity()).getSharedPreferences(StaticHolder.PREFERENCE, Context.MODE_PRIVATE)
+                .edit()
+                .putString(StaticHolder.SMS_MESSAGE_PREF, smsMessage)
+                .apply();
+    }
 }

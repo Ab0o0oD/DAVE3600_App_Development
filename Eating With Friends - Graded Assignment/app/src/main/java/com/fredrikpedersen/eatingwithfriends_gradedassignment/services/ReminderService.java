@@ -40,7 +40,6 @@ public class ReminderService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         boolean smsFunctionality = getSharedPreferences(StaticHolder.PREFERENCE, MODE_PRIVATE).getBoolean(StaticHolder.SMS_FUNCTIONALITY_PREF, true);
-        boolean useDefaultMessage = getSharedPreferences(StaticHolder.PREFERENCE, MODE_PRIVATE).getBoolean(StaticHolder.USE_DEFAULT_MESSAGE_PREF, true);
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
         BookingRepository bookingRepository = new BookingRepository(getApplication());
@@ -53,14 +52,13 @@ public class ReminderService extends Service {
         //Iterates through all bookings, checks if there are any bookings today and sends notification to user and sms to friends if there are.
         for (Booking booking : allBookings) {
             if (booking.getDate().equals(currentDate)) {
-                String contentText = generateContentText(booking, useDefaultMessage);
-                buildNotification(pIntent, notificationManager, contentText);
+                buildNotification(pIntent, notificationManager);
 
                 if (smsFunctionality) {
                     if (booking.getFriends() != null) {
                         for (Friend friend : booking.getFriends()) {
                             Log.d(TAG, "onStartCommand: SENDING SMS TO " + friend.getFirstName());
-                            sendSms(contentText, friend.getPhoneNumber());
+                            sendSms(friend.getPhoneNumber());
                         }
                     }
                 }
@@ -69,16 +67,8 @@ public class ReminderService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    private String generateContentText(Booking booking, boolean useDefaultMessage) {
-        String defaultMessage = "Remember booking at " + booking.getRestaurant().getRestaurantName() + " at " + booking.getTime() + " today!";
-        if (useDefaultMessage) {
-            return defaultMessage;
-        } else {
-            return getSharedPreferences(StaticHolder.PREFERENCE, MODE_PRIVATE).getString(StaticHolder.CUSTOM_MESSAGE_PREF, defaultMessage);
-        }
-    }
-
-    private void buildNotification(PendingIntent pIntent, NotificationManager notificationManager, String contentText) {
+    private void buildNotification(PendingIntent pIntent, NotificationManager notificationManager) {
+        String contentText = "Remember your restaurant booking(s) today!";
         Notification notification = new NotificationCompat.Builder(this, "channel_id")
                 .setContentTitle("You have a booking today!")
                 .setContentText(contentText)
@@ -90,7 +80,8 @@ public class ReminderService extends Service {
         Objects.requireNonNull(notificationManager).notify(0, notification);
     }
 
-    private void sendSms(String message, String phonenumber) {
+    private void sendSms(String phonenumber) {
+        String message  = getSharedPreferences(StaticHolder.PREFERENCE, MODE_PRIVATE).getString(StaticHolder.SMS_MESSAGE_PREF, getResources().getString(R.string.default_message));
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phonenumber, null, message, null, null);
