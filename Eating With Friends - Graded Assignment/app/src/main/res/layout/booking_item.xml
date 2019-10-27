@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_below="@id/text_view_restaurant_name"
             android:text="Date and Time"
             android:textSize="20sp" />
 

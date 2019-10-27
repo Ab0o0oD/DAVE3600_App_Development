@@ -23,6 +23,7 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingV
     private static final String TAG = "BookingAdapter";
 
     private OnItemClickListener listener;
+    private View.OnLongClickListener longClickListener;
 
     BookingAdapter() {
         super(DIFF_CALLBACK);
@@ -71,7 +72,7 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingV
 
         holder.textViewRestaurantName.setText(currentBooking.getRestaurant().getRestaurantName());
         holder.textViewAddress.setText(currentBooking.getRestaurant().getAddress());
-        holder.textViewDateTime.setText(currentBooking.getTime() + " " + DateFormater.formatDateText(currentBooking.getDate()));
+        holder.textViewDateTime.setText(DateFormater.formatDateText(currentBooking.getDate()) + " " + currentBooking.getTime());
         holder.textViewFriends.setText(sb.toString());
     }
 
@@ -105,5 +106,9 @@ public class BookingAdapter extends ListAdapter<Booking, BookingAdapter.BookingV
 
     void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
+    }
+
+    void setOnLongClickListener(View.OnLongClickListener longClickListener) {
+        this.longClickListener = longClickListener;
     }
 }

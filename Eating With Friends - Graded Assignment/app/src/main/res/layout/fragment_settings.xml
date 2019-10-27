@@ -47,8 +47,20 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="55dp"
         android:layout_marginEnd="70dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="5dp"
+        android:textSize="15sp"
         android:text="Click to Pick" />
+
+    <ImageView
+        android:id="@+id/image_view_select_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_time_black"
+        android:layout_below="@id/toggle_button_sms"
+        android:layout_toStartOf="@id/text_view_time_picker_sms"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="55dp"
+        android:contentDescription="Time icon" />
 
     <TextView
         android:id="@+id/text_view_default_message"
@@ -61,34 +73,25 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/button_save_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_default_message"
-        android:layout_marginTop="10dp"
-        android:text="Save"
-        android:layout_marginStart="45dp"/>
-
     <EditText
         android:id="@+id/edit_text_write_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/text_view_sms_timing"
         android:layout_toEndOf="@id/text_view_default_message"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="30dp"
         android:layout_marginStart="30dp"
         android:layout_alignParentEnd="true"
-        android:hint="Write a personal message" />
+        android:hint="Write Custom Message" />
 
     <Button
         android:id="@+id/button_use_default"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_text_write_message"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="35dp"
+        android:layout_below="@id/text_view_default_message"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="45dp"
         android:text="Use Default"
         android:textSize="14sp" />
 

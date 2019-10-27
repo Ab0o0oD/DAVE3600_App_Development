@@ -9,6 +9,7 @@
     <string name="placeholder">Hello There!</string>
     <string name="restaurants">Restaurants</string>
     <string name="title_setting">Settings</string>
+    <string name="default_message">Remember that we are going out eating today :)</string>
 
     <string-array name="placeholders">
         <item>Anders</item>
