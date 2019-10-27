@@ -11,32 +11,47 @@
         android:id="@+id/edit_text_friend_first_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Given Name"
         android:layout_alignParentStart="true"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textSize="20sp"
+        android:hint="Given Name" />
 
     <EditText
         android:id="@+id/edit_friend_last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_text_friend_first_name"
-        android:layout_marginTop="10dp"
-        android:hint="Lastname"/>
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        android:textSize="20sp"
+        android:hint="Lastname" />
 
     <EditText
         android:id="@+id/edit_text_friend_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_friend_last_name"
-        android:layout_marginTop="10dp"
-        android:hint="Phonenumber"/>
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:inputType="phone"
+        android:hint="Phonenumber" />
 
-    <Button
-        android:id="@+id/button_save_friend"
+    <ImageView
+        android:id="@+id/image_view_save_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/edit_text_friend_phone"
-        android:layout_marginTop="20dp"
-        android:text="Save"/>
+        android:background="@drawable/ic_save_black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/text_view_save_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_view_save_friend"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:text="Save" />
 
 </RelativeLayout>
