@@ -19,15 +19,6 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="5dp"/>
 
-        <TextView
-            android:id="@+id/text_view_select_restaurant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/spinner_restaurants"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
-            android:text="Choose Restaurant" />
-
         <ImageView
             android:id="@+id/image_view_select_date"
             android:layout_width="wrap_content"
@@ -41,19 +32,20 @@
             android:id="@+id/text_view_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/image_view_select_date"
             android:layout_below="@id/spinner_restaurants"
-            android:hint="Select Date"
+            android:layout_toEndOf="@id/image_view_select_date"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="22dp"/>
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:hint="Select Date" />
 
         <ImageView
             android:id="@+id/image_view_select_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_time_black"
-            android:layout_toEndOf="@+id/text_view_date"
             android:layout_below="@id/spinner_restaurants"
+            android:layout_toEndOf="@+id/text_view_date"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:contentDescription="Time icon" />
@@ -62,18 +54,20 @@
             android:id="@+id/text_view_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/image_view_select_time"
             android:layout_below="@+id/spinner_restaurants"
-            android:hint="Select Time"
+            android:layout_toEndOf="@id/image_view_select_time"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="22dp"/>
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:hint="Select Time"
+            />
 
         <ImageView
             android:id="@+id/image_view_select_friends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/image_view_select_date"
             android:background="@drawable/ic_friends"
+            android:layout_below="@id/image_view_select_date"
             android:layout_marginTop="20dp"
             android:contentDescription="Friends Icon" />
 
@@ -83,8 +77,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/image_view_select_date"
             android:layout_toEndOf="@+id/image_view_select_friends"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
+            android:textSize="20sp"
             android:text="Select Friends" />
 
         <TextView
@@ -92,17 +87,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/image_view_select_friends"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
             android:hint="Selected Friends Will Be Listed Here!"
-            android:layout_marginTop="20dp" />
+             />
 
-        <Button
-            android:id="@+id/button_save_booking"
+        <ImageView
+            android:id="@+id/image_view_save_booking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_selected_friends"
-            android:layout_marginTop="20dp"
+            android:background="@drawable/ic_save_black"
             android:layout_centerHorizontal="true"
-            android:text="Save Booking"/>
+            android:layout_marginTop="30dp" />
+
+        <TextView
+            android:id="@+id/text_view_save_booking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_view_save_booking"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:text="Save" />
 
     </RelativeLayout>
 </ScrollView>
