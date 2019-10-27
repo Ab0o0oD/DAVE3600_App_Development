@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button_get_restaurants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Restaurants"/>
+
+    <Button
+        android:id="@+id/button_add_restaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_get_restaurants"
+        android:layout_marginTop="20dp"
+        android:text="Add Restaurant" />
+
+    <TextView
+        android:id="@+id/text_view_restaurants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_add_restaurant"
+        android:layout_marginTop="20dp"
+        android:text="Restaurants"/>
+
+    <EditText
+        android:id="@+id/edit_text_restaurant_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_restaurants"
+        android:layout_marginTop="20dp"
+        android:hint="Restaurant Name" />
+
+    <EditText
+        android:id="@+id/edit_text_restaurant_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_restaurant_name"
+        android:layout_marginTop="20dp"
+        android:hint="Restaurant Address" />
+
+    <EditText
+        android:id="@+id/edit_text_restaurant_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_restaurant_address"
+        android:layout_marginTop="20dp"
+        android:hint="Restaurant Phone" />
+
+    <EditText
+        android:id="@+id/edit_text_restaurant_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_restaurant_phone"
+        android:layout_marginTop="20dp"
+        android:hint="Restaurant Type" />
+
+</RelativeLayout>
