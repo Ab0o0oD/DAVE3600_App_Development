@@ -2,12 +2,13 @@ package com.fredrikpedersen.eatingwithfriends_gradedassignment.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton addButton;
     private BottomNavigationView navigation;
+    private FrameLayout mainContainer;
 
 
     @Override
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 activeFragment = bookingFragment;
                 setTitle("Bookings");
                 addButton.show();
+                mainContainer.setBackgroundResource(R.drawable.dinner);
                 return true;
 
             case R.id.navigation_friends:
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 activeFragment = friendsFragment;
                 setTitle("Friends");
                 addButton.show();
+                mainContainer.setBackgroundResource(R.drawable.friends);
                 return true;
 
             case R.id.navigation_restaurants:
@@ -75,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 activeFragment = restaurantFragment;
                 setTitle("Restaurants");
                 addButton.show();
+                mainContainer.setBackgroundResource(R.drawable.restaurant);
                 return true;
 
             case R.id.navigation_settings:
@@ -83,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 activeFragment = settingsFragment;
                 setTitle("Settings");
                 addButton.hide();
+                mainContainer.setBackgroundResource(0);
                 return true;
         }
         return false;
@@ -113,6 +119,11 @@ public class MainActivity extends AppCompatActivity {
     private void initializeViews() {
         addButton = findViewById(R.id.floating_button_add);
         navigation = findViewById(R.id.navigation);
+        mainContainer = findViewById(R.id.main_container);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setLogo(R.drawable.logo_white);
     }
 
     private void goToAddItem() {
