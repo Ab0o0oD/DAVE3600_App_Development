@@ -19,6 +19,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.s306631.room4you.util.ServiceChecker;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -66,30 +67,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     /* ---------- Permission and Service Checks ---------- */
 
     public boolean isPermissionsGranted() {
+        ServiceChecker serviceChecker = new ServiceChecker(this);
         getLocationPermission();
-        return isServiceOk() && permissionsGranted;
+        return serviceChecker.isServiceOk() && permissionsGranted;
     }
 
-    public boolean isServiceOk() {
-        Log.d(TAG, "isServiceOk: Checking Gooogle Services Version");
-
-        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MapActivity.this);
-
-        if (available == ConnectionResult.SUCCESS) {
-            Log.d(TAG, "isServiceOk: Google Play Services is working!");
-            return true;
-
-        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
-            Log.d(TAG, "isServiceOk: A fixable error occured");
-            Log.d(TAG, "isServiceOk: ");
-
-            //Displays a dialog prompting the user to install Google Play services
-            GoogleApiAvailability.getInstance().getErrorDialog(MapActivity.this, available, getResources().getInteger(R.integer.ERROR_DIALOG_REQUEST)).show();
-        } else {
-            Toast.makeText(this, "You can't access map functionality", Toast.LENGTH_SHORT).show();
-        }
-        return false;
-    }
 
     private void getLocationPermission() {
         Log.d(TAG, "getLocationPermission: getting location permissions");
