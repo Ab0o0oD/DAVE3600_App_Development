@@ -9,7 +9,6 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -21,10 +20,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     public static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
-    private static final String TAG = "MapsActivity";
+    private static final String TAG = "MapActivity";
 
     private GoogleMap mMap;
     private boolean permissionsGranted = false;
@@ -51,7 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void initializeMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(MapsActivity.this);
+        mapFragment.getMapAsync(MapActivity.this);
     }
 
     @Override
@@ -74,7 +73,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public boolean isServiceOk() {
         Log.d(TAG, "isServiceOk: Checking Gooogle Services Version");
 
-        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MapsActivity.this);
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MapActivity.this);
 
         if (available == ConnectionResult.SUCCESS) {
             Log.d(TAG, "isServiceOk: Google Play Services is working!");
@@ -85,7 +84,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.d(TAG, "isServiceOk: ");
 
             //Displays a dialog prompting the user to install Google Play services
-            GoogleApiAvailability.getInstance().getErrorDialog(MapsActivity.this, available, getResources().getInteger(R.integer.ERROR_DIALOG_REQUEST)).show();
+            GoogleApiAvailability.getInstance().getErrorDialog(MapActivity.this, available, getResources().getInteger(R.integer.ERROR_DIALOG_REQUEST)).show();
         } else {
             Toast.makeText(this, "You can't access map functionality", Toast.LENGTH_SHORT).show();
         }
