@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="ERROR_DIALOG_REQUEST">9001</integer>
+    <integer name="LOCATION_PERMISSION_REQUEST_CODE">1234</integer>
 </resources>
