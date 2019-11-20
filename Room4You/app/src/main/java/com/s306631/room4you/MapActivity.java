@@ -1,18 +1,16 @@
 package com.s306631.room4you;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -23,7 +21,8 @@ import com.s306631.room4you.util.ServiceChecker;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    public static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    public static final String INTERNET = Manifest.permission.INTERNET;
     private static final String TAG = "MapActivity";
 
     private GoogleMap mMap;
@@ -75,10 +74,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     private void getLocationPermission() {
         Log.d(TAG, "getLocationPermission: getting location permissions");
-        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION};
+        String[] permissions = {FINE_LOCATION, INTERNET};
 
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this.getApplicationContext(), INTERNET) == PackageManager.PERMISSION_GRANTED) {
             permissionsGranted = true;
         } else {
             ActivityCompat.requestPermissions(this, permissions, getResources().getInteger(R.integer.LOCATION_PERMISSION_REQUEST_CODE));
