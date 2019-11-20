@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -23,73 +24,79 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         textView = findViewById(R.id.jasontekst);
-        getJSON task = new getJSON(this);
-        task.execute(new String[]{"http://student.cs.hioa.no/~s306631/jsonout.php"});
+
+        GetJSON task = new GetJSON(this);
+        task.execute("http://student.cs.hioa.no/~s306631/jsonout.php", "Hello there");
     }
 
-    private static class getJSON extends AsyncTask<String, Void, String> {
+    private static class GetJSON extends AsyncTask<String, Void, String> {
 
         //NB! Remember to make inner AsyncTask classes static and hold a reference to the activity!
         //This is not covered in the course, and will not be included in any of Torun's examples!
         private WeakReference<MainActivity> activityReference;
 
-        getJSON(MainActivity context) {
+        GetJSON(MainActivity context) {
             activityReference = new WeakReference<>(context);
         }
 
         @Override
         protected String doInBackground(String... urls) {
-            String retur = "";
+            StringBuilder retur = new StringBuilder();
             String s;
-            String output = "";
+            StringBuilder output = new StringBuilder();
 
-            for (String url : urls) {
+            for (int i = 0; i < urls.length; i++) {
+
                 try {
-                    URL urlen = new URL(urls[0]);
-                    HttpURLConnection conn = (HttpURLConnection) urlen.openConnection();
-                    conn.setRequestMethod("GET");
-                    conn.setRequestProperty("Accept", "application/json");
+                    URL url = new URL(urls[0]);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setRequestProperty("Accept", "application/json");
 
-                    if (conn.getResponseCode() != 200) {
-                        throw new RuntimeException("Failed : HTTP error code : "
-                                + conn.getResponseCode());
+                    if (connection.getResponseCode() != 200) {
+                        throw new RuntimeException("Failed : HTTP error code : " + connection.getResponseCode());
                     }
 
-                    BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-                    System.out.println("Output from Server .... \n");
+                    BufferedReader br = new BufferedReader(new InputStreamReader((connection.getInputStream())));
 
                     while ((s = br.readLine()) != null) {
-                        output = output + s;
+                        output.append(s);
                     }
 
-                    conn.disconnect();
+                    Log.d("TAG", "doInBackground: output= " + output);
+
+                    connection.disconnect();
 
                     try {
-                        JSONArray mat = new JSONArray(output);
-                        for (int i = 0; i < mat.length(); i++) {
-                            JSONObject jsonobject = mat.getJSONObject(i);
-                            String name = jsonobject.getString("name");
-                            retur = retur + name + "\n";
+
+                        JSONArray rooms = new JSONArray(output.toString());
+
+                        for (int j = 0; j < rooms.length(); j++) {
+                            JSONObject jsonobject = rooms.getJSONObject(j);
+                            String name = jsonobject.getString("Name");
+                            retur.append(name).append("\n");
                         }
 
-                        return retur;
+                        return retur.toString();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
-                    return retur;
+                    return retur.toString();
 
                 } catch (Exception e) {
                     return "Noe gikk feil";
                 }
             }
-            return retur;
+            return retur.toString();
         }
 
         @Override
         protected void onPostExecute(String ss) {
+            Log.d("TAG", "onPostExecute: " + ss);
             MainActivity activity = activityReference.get();
             activity.textView.setText(ss);
         }

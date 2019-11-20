@@ -1,6 +1,3 @@
-Database:
-
-Table Rooms
 CREATE TABLE Rooms(
 	RoomID INT AUTO_INCREMENT NOT NULL, 
 	Name VARCHAR(100) NOT NULL,
@@ -16,5 +13,25 @@ CREATE TABLE Bookings(
 	ToTime VARCHAR(5) NOT NULL,
 	FOREIGN KEY(RoomID) REFERENCES Rooms(RoomID)
 );
+
+INSERT INTO Rooms values('','PH170 Auditorium', 1, '59.919453, 10.735152');
+INSERT INTO Rooms values('','PH131 Auditorium', 1, '59.919293, 10.735110');
+INSERT INTO Rooms values('','PH372', 3, '59.919400, 10.735054');
+INSERT INTO Rooms values('','PH374', 3, '59.919444, 10.735256');
+INSERT INTO Rooms values('','PH355', 3, '59.919441, 10.734835');
+INSERT INTO Rooms values('','PH472', 3, '59.919426, 10.735154');
+INSERT INTO Rooms values('','PH445', 3, '59.919458, 10.735728');
+INSERT INTO Rooms values('','PH439', 3, '59.919232, 10.734666');
+
+INSERT INTO Bookings values('', 1, '12:00', '13:00');
+INSERT INTO Bookings values('', 2, '15:00', '16:00');
+INSERT INTO Bookings values('', 3, '14:00', '15:00');
+INSERT INTO Bookings values('', 1, '14:00', '15:00');
+
+How to see all bookings belonging to Room With ID = 1
+SELECT * FROM Bookings WHERE RoomID = (SELECT RoomID FROM Rooms where RoomID = 1); 
+
+
+
 		
 		
