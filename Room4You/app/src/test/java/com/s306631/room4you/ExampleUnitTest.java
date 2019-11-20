@@ -1,4 +1,4 @@
-package com.s306631;
+package com.s306631.room4you;
 
 import org.junit.Test;
 

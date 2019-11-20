@@ -1,4 +1,4 @@
-package com.s306631;
+package com.s306631.room4you;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.s306631", appContext.getPackageName());
+        assertEquals("com.s306631.room4you", appContext.getPackageName());
     }
 }
