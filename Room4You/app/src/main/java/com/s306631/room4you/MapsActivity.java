@@ -9,6 +9,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -42,6 +43,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /* ---------- Map Methods ---------- */
 
+    public void moveMap(LatLng coordinates, float zoom, String title) {
+        Log.d(TAG, "moveMap: moving the map to: lat: " + coordinates.latitude + ", lng: " + coordinates.longitude);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, zoom));
+        mMap.addMarker(new MarkerOptions().position(coordinates).title(title));
+    }
+
     public void initializeMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(MapsActivity.this);
@@ -53,8 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap = googleMap;
 
             LatLng osloMet = new LatLng(59.919390, 10.735208);
-            mMap.addMarker(new MarkerOptions().position(osloMet).title("Marker at OsloMet P35"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(osloMet));
+            moveMap(osloMet, getResources().getInteger(R.integer.DEFAULT_ZOOM), "OsloMet P35");
         }
     }
 
