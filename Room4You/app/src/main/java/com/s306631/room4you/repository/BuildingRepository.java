@@ -49,7 +49,6 @@ public class BuildingRepository {
                         String buildingName = jsonobject.getString("Name");
                         String coordinates = jsonobject.getString("Coordinates");
                         objectFromJson = new Building(buildingId, buildingName, coordinates);
-
                         buildingList.add(objectFromJson);
                     }
 

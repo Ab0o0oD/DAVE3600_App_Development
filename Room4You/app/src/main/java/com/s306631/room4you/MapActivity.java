@@ -19,10 +19,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.s306631.room4you.models.Booking;
 import com.s306631.room4you.models.Building;
 import com.s306631.room4you.models.Room;
-import com.s306631.room4you.repository.BuildingRepository;
+import com.s306631.room4you.repository.BookingRepository;
 import com.s306631.room4you.util.ServiceChecker;
+import com.s306631.room4you.viewModels.BookingViewModel;
 import com.s306631.room4you.viewModels.BuildingViewModel;
 import com.s306631.room4you.viewModels.RoomViewModel;
 
@@ -37,9 +39,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     private RoomViewModel roomViewModel;
     private BuildingViewModel buildingViewModel;
+    private BookingViewModel bookingViewModel;
 
     private List<Room> roomList;
     private List<Building> buildingList;
+    private List<Booking> bookingList;
 
     private GoogleMap mMap;
     private boolean permissionsGranted = false;
@@ -51,13 +55,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         buildingViewModel = ViewModelProviders.of(this).get(BuildingViewModel.class);
         roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
+        bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
 
         buildingList = buildingViewModel.getAllBuildingsAsList();
         roomList = roomViewModel.getAllRoomsAsList();
-
-        for (Building building : buildingList) {
-            Log.d(TAG, "onCreate: " + building);
-        }
+        bookingList = bookingViewModel.getAllBookingsAsList();
 
         if (isPermissionsGranted()) {
             initializeMap();
