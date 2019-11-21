@@ -19,14 +19,11 @@ public class RoomRepository {
 
     private static final String TAG = "RoomRepository";
 
-    public RoomRepository() {
-    }
-
     public List<Room> getRoomsFromWebService() {
         GetRooms task = new GetRooms();
 
         try {
-            return task.execute("http://student.cs.hioa.no/~s306631/jsonout.php").get();
+            return task.execute("http://student.cs.hioa.no/~s306631/roomjsonout.php").get();
 
         } catch (InterruptedException | ExecutionException e) {
             Log.d(TAG, "getRoomsFromWebService: Interrupted Exception | Execution Exception: " + e.getMessage());
@@ -46,8 +43,8 @@ public class RoomRepository {
             if (rooms != null) {
                 try {
 
-                    for (int j = 0; j < rooms.length(); j++) {
-                        JSONObject jsonobject = rooms.getJSONObject(j);
+                    for (int i = 0; i < rooms.length(); i++) {
+                        JSONObject jsonobject = rooms.getJSONObject(i);
                         int roomId = jsonobject.getInt("RoomID");
                         int buildingId = jsonobject.getInt("BuildingID");
                         String roomName = jsonobject.getString("Name");
