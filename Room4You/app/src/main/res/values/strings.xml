@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Room4You</string>
+    <string name="title_activity_startup">Permission Check</string>
     <string name="title_activity_maps">Map</string>
 </resources>
