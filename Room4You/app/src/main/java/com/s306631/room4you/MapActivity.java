@@ -19,9 +19,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.s306631.room4you.models.Building;
 import com.s306631.room4you.models.Room;
-import com.s306631.room4you.repository.RoomRepository;
+import com.s306631.room4you.repository.BuildingRepository;
 import com.s306631.room4you.util.ServiceChecker;
+import com.s306631.room4you.viewModels.BuildingViewModel;
 import com.s306631.room4you.viewModels.RoomViewModel;
 
 import java.util.List;
@@ -34,8 +36,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
 
     private RoomViewModel roomViewModel;
+    private BuildingViewModel buildingViewModel;
 
     private List<Room> roomList;
+    private List<Building> buildingList;
 
     private GoogleMap mMap;
     private boolean permissionsGranted = false;
@@ -45,8 +49,15 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        buildingViewModel = ViewModelProviders.of(this).get(BuildingViewModel.class);
         roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
+
+        buildingList = buildingViewModel.getAllBuildingsAsList();
         roomList = roomViewModel.getAllRoomsAsList();
+
+        for (Building building : buildingList) {
+            Log.d(TAG, "onCreate: " + building);
+        }
 
         if (isPermissionsGranted()) {
             initializeMap();
