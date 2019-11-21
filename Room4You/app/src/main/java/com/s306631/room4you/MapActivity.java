@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,7 +21,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.s306631.room4you.models.Booking;
 import com.s306631.room4you.models.Building;
 import com.s306631.room4you.models.Room;
-import com.s306631.room4you.repository.BookingRepository;
 import com.s306631.room4you.util.ServiceChecker;
 import com.s306631.room4you.viewModels.BookingViewModel;
 import com.s306631.room4you.viewModels.BuildingViewModel;

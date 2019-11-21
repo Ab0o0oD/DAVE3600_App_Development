@@ -48,8 +48,9 @@ public class RoomRepository {
                         int roomId = jsonobject.getInt("RoomID");
                         int buildingId = jsonobject.getInt("BuildingID");
                         String roomName = jsonobject.getString("Name");
+                        int floor = jsonobject.getInt("Floor");
                         String coordinates = jsonobject.getString("Coordinates");
-                        objectFromJson = new Room(roomId, buildingId, roomName, coordinates);
+                        objectFromJson = new Room(roomId, buildingId, roomName, floor, coordinates);
 
                         roomList.add(objectFromJson);
                     }

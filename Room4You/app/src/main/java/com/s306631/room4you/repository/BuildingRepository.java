@@ -47,8 +47,9 @@ public class BuildingRepository {
                         JSONObject jsonobject = buildings.getJSONObject(i);
                         int buildingId = jsonobject.getInt("BuildingID");
                         String buildingName = jsonobject.getString("Name");
+                        int floors = jsonobject.getInt("Floors");
                         String coordinates = jsonobject.getString("Coordinates");
-                        objectFromJson = new Building(buildingId, buildingName, coordinates);
+                        objectFromJson = new Building(buildingId, buildingName, floors, coordinates);
                         buildingList.add(objectFromJson);
                     }
 
