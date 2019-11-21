@@ -17,6 +17,8 @@ public class JsonParser {
 
     private static final String TAG = "JsonParser";
 
+    private JsonParser() {}
+
     public static JSONArray createJsonArray(String webservice) {
 
         try {
