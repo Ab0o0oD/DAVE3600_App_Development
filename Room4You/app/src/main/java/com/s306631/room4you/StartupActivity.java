@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,8 +30,7 @@ public class StartupActivity extends AppCompatActivity {
         if (isPermissionsGranted()) {
             Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
-        } else {
-            recreate();
+            finish();
         }
     }
 
@@ -66,11 +66,13 @@ public class StartupActivity extends AppCompatActivity {
                 if (grantResult != PackageManager.PERMISSION_GRANTED) {
                     Log.d(TAG, "onRequestPermissionsResult: PERMISSIONS GRANTED" + permissionsGranted);
                     Log.d(TAG, "onRequestPermissionsResult: permission failed");
-                    return;
+                    Toast.makeText(this, "Sorry, " + getResources().getString(R.string.app_name) + " needs your location permission to function", Toast.LENGTH_LONG).show();
+                    finish();
                 }
 
                 Log.d(TAG, "onRequestPermissionsResult: permission granted");
                 permissionsGranted = true;
+                recreate();
             }
         }
     }
