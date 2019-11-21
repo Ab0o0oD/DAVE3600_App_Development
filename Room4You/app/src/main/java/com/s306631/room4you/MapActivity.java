@@ -17,7 +17,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.s306631.room4you.models.Room;
+import com.s306631.room4you.repository.RoomRepository;
 import com.s306631.room4you.util.ServiceChecker;
+
+import java.util.List;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -37,6 +41,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             initializeMap();
         } else {
             Toast.makeText(this, "Can't find your location without permissions, sorry", Toast.LENGTH_LONG).show();
+        }
+
+        RoomRepository roomRepository = new RoomRepository();
+        List<Room> roomList = roomRepository.getRoomsFromWebService();
+        for (Room room : roomList) {
+            Log.d(TAG, "onCreate: Room" + room);
         }
     }
 
