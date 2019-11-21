@@ -1,4 +1,4 @@
-package com.s306631.room4you;
+package com.s306631.room4you.activities;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +12,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.s306631.room4you.R;
 import com.s306631.room4you.models.Booking;
 import com.s306631.room4you.models.Building;
 import com.s306631.room4you.models.Room;

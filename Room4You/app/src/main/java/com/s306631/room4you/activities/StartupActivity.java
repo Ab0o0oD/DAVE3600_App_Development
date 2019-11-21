@@ -1,4 +1,4 @@
-package com.s306631.room4you;
+package com.s306631.room4you.activities;
 
 import android.Manifest;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.s306631.room4you.R;
 import com.s306631.room4you.util.ServiceChecker;
 
 public class StartupActivity extends AppCompatActivity {
