@@ -12,5 +12,22 @@
     <string name="booking_dialog_pt2">\'s bookings?</string>
     <string name="go_to_user_text">Find me</string>
     <string name="find_building">Find building</string>
+    <string name="book_this_room">Book This Room</string>
+
+    <string name="EXTRA_ROOM">com.s306631.room4you.activities.EXTRA_ROOM</string>
+
+    <string-array name="possible_booking_times">
+        <item>08:00 - 09:00</item>
+        <item>09:00 - 10:00</item>
+        <item>10:00 - 11:00</item>
+        <item>11:00 - 12:00</item>
+        <item>12:00 - 13:00</item>
+        <item>13:00 - 14:00</item>
+        <item>14:00 - 15:00</item>
+        <item>15:00 - 16:00</item>
+        <item>16:00 - 17:00</item>
+        <item>17:00 - 18:00</item>
+        <item>18:00 - 19:00</item>
+    </string-array>
 
 </resources>
