@@ -13,7 +13,7 @@
         tools:context=".activities.MapActivity" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/map_ui_layout"
+        android:id="@+id/map_selector_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -87,6 +87,52 @@
             app:layout_constraintTop_toBottomOf="@+id/text_view_rooms" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/image_view_center_position"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/map_selector_layout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_gps" />
+
+    <TextView
+        android:id="@+id/text_view_go_to_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_view_center_position"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        android:text="@string/go_to_user_text"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/image_view_center_building"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/text_view_go_to_user"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_building" />
+
+    <TextView
+        android:id="@+id/text_view_go_to_building"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_view_center_building"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        android:text="@string/find_building"
+        android:textAlignment="center"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
 
 
 

@@ -1,25 +1,34 @@
 package com.s306631.room4you.activities;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.s306631.room4you.R;
 import com.s306631.room4you.models.Booking;
 import com.s306631.room4you.models.Building;
 import com.s306631.room4you.models.Room;
+import com.s306631.room4you.ui.CustomDialog;
 import com.s306631.room4you.viewModels.BookingViewModel;
 import com.s306631.room4you.viewModels.BuildingViewModel;
 import com.s306631.room4you.viewModels.RoomViewModel;
@@ -27,13 +36,13 @@ import com.s306631.room4you.viewModels.RoomViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback, Spinner.OnItemSelectedListener, GoogleMap.OnMapClickListener {
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback, Spinner.OnItemSelectedListener,
+        GoogleMap.OnMapClickListener, GoogleMap.OnMarkerClickListener, OnCompleteListener {
 
     private static final String TAG = "MapActivity";
 
-    private Spinner buildingSpinner;
-    private Spinner floorSpinner;
-    private Spinner roomSpinner;
+    private Spinner buildingSpinner, floorSpinner, roomSpinner;
+    private ImageView gpsIcon, buildingIcon;
 
     private RoomViewModel roomViewModel;
     private BuildingViewModel buildingViewModel;
@@ -68,15 +77,38 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     public void moveMap(LatLng coordinates, float zoom) {
         Log.d(TAG, "moveMap: moving the map to: lat: " + coordinates.latitude + ", lng: " + coordinates.longitude);
-        mMap.clear();
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordinates, zoom));
+    }
+
+    public void moveToCurrentBuilding() {
+        Building currentBuilding = (Building)buildingSpinner.getSelectedItem();
+        moveMap(currentBuilding.getCoordinates(), getResources().getInteger(R.integer.DEFAULT_ZOOM));
     }
 
     public void addRoomMarkers(List<Room> selectedBuildingRooms) {
         mMap.clear();
         for (Room room : selectedBuildingRooms) {
-            mMap.addMarker(new MarkerOptions().position(room.getCoordinates()).title(room.getRoomName()));
+            mMap.addMarker(new MarkerOptions().position(room.getCoordinates()).title(room.getRoomName()).snippet(String.valueOf(room.getRoomId())));
         }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        CustomDialog bookingDialog = new CustomDialog(this, getResources().getString(R.string.booking_dialog_pt1) + " " + marker.getTitle() + getResources().getString(R.string.booking_dialog_pt2));
+        bookingDialog.show();
+        return false;
+    }
+
+    private void getUserLocation() {
+        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        final Task location = fusedLocationProviderClient.getLastLocation();
+        location.addOnCompleteListener(this);
+    }
+
+    @Override
+    public void onComplete(@NonNull Task task) {
+        Location currentLocation = (Location)task.getResult();
+        moveMap(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), getResources().getInteger(R.integer.DEFAULT_ZOOM));
     }
 
     /* ---------- UI-Elements ---------- */
@@ -139,7 +171,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
         floorSpinner = findViewById(R.id.spinner_floors);
         floorSpinner.setOnItemSelectedListener(this);
+
         roomSpinner = findViewById(R.id.spinner_rooms);
+
+        gpsIcon = findViewById(R.id.image_view_center_position);
+        gpsIcon.setOnClickListener(v -> getUserLocation());
+
+        buildingIcon = findViewById(R.id.image_view_center_building);
+        buildingIcon.setOnClickListener(v -> moveToCurrentBuilding());
     }
 
     public void initializeMap() {
@@ -150,6 +189,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setOnMarkerClickListener(this);
         mMap.setOnMapClickListener(this);
         mMap.setMyLocationEnabled(true);
     }

@@ -1,8 +1,16 @@
 <resources>
     <string name="app_name">Room4You</string>
+    <string name="placeholder">Hello There</string>
     <string name="title_activity_startup">Permission Check</string>
     <string name="title_activity_maps">Map</string>
     <string name="building">Building</string>
     <string name="floor">Floor</string>
     <string name="room">Room</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="booking_dialog_pt1">Would you like to see</string>
+    <string name="booking_dialog_pt2">\'s bookings?</string>
+    <string name="go_to_user_text">Find me</string>
+    <string name="find_building">Find building</string>
+
 </resources>
