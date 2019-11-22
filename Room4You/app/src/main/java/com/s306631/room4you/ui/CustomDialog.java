@@ -2,7 +2,6 @@ package com.s306631.room4you.ui;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,7 +10,12 @@ import com.s306631.room4you.R;
 public class CustomDialog extends Dialog implements View.OnClickListener {
     private static final String TAG = "CustomDialog";
 
-    TextView content, confirm, cancel;
+    private TextView content, confirm, cancel;
+    private OnDialogOptionSelectedListener callback;
+
+    public void setOnDialogOptionSelectedListener(OnDialogOptionSelectedListener callback) {
+        this.callback = callback;
+    }
 
     public CustomDialog(Activity context, String message) {
         super(context);
@@ -33,7 +37,8 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == confirm) {
-            Log.d(TAG, "onClick: Start a new activity");
+            callback.onDialogOptionSelected();
+            dismiss();
         } else {
             dismiss();
         }

@@ -1,5 +1,6 @@
 package com.s306631.room4you.activities;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,7 @@ import com.s306631.room4you.models.Booking;
 import com.s306631.room4you.models.Building;
 import com.s306631.room4you.models.Room;
 import com.s306631.room4you.ui.CustomDialog;
+import com.s306631.room4you.ui.OnDialogOptionSelectedListener;
 import com.s306631.room4you.viewModels.BookingViewModel;
 import com.s306631.room4you.viewModels.BuildingViewModel;
 import com.s306631.room4you.viewModels.RoomViewModel;
@@ -37,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback, Spinner.OnItemSelectedListener,
-        GoogleMap.OnMapClickListener, GoogleMap.OnMarkerClickListener, OnCompleteListener {
+        GoogleMap.OnMapClickListener, GoogleMap.OnMarkerClickListener, OnCompleteListener, OnDialogOptionSelectedListener {
 
     private static final String TAG = "MapActivity";
 
@@ -46,11 +48,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     private RoomViewModel roomViewModel;
     private BuildingViewModel buildingViewModel;
-    private BookingViewModel bookingViewModel;
 
     private List<Room> roomList;
     private List<Building> buildingList;
-    private List<Booking> bookingList;
+
+    private Room selectedRoom;
+
 
     private GoogleMap mMap;
 
@@ -62,11 +65,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
         buildingViewModel = ViewModelProviders.of(this).get(BuildingViewModel.class);
         roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
-        bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
 
         buildingList = buildingViewModel.getAllBuildingsAsList();
         roomList = roomViewModel.getAllRoomsAsList();
-        bookingList = bookingViewModel.getAllBookingsAsList();
 
         initializeViews();
         fillBuildingSpinner();
@@ -95,7 +96,15 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public boolean onMarkerClick(Marker marker) {
         CustomDialog bookingDialog = new CustomDialog(this, getResources().getString(R.string.booking_dialog_pt1) + " " + marker.getTitle() + getResources().getString(R.string.booking_dialog_pt2));
+        bookingDialog.setOnDialogOptionSelectedListener(this);
         bookingDialog.show();
+
+        for (Room room : roomList) {
+            if ((room.getRoomId() == Integer.parseInt(marker.getSnippet()))) {
+                selectedRoom = room;
+            }
+        }
+
         return false;
     }
 
@@ -160,6 +169,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+    }
+
+    @Override
+    public void onDialogOptionSelected() {
+        BookRoomActivity.selectedRoom = selectedRoom;
+        Intent intent = new Intent(this, BookRoomActivity.class);
+        startActivity(intent);
     }
 
 
