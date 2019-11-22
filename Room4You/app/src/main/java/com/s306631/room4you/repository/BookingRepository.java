@@ -46,9 +46,10 @@ public class BookingRepository {
                         JSONObject jsonobject = bookings.getJSONObject(i);
                         int bookingId = jsonobject.getInt("BookingID");
                         int roomId = jsonobject.getInt("RoomID");
+                        String bookerName = jsonobject.getString("BookerName");
                         String fromTime = jsonobject.getString("FromTime");
                         String toTime = jsonobject.getString("ToTime");
-                        objectFromJson = new Booking(bookingId, roomId, fromTime, toTime);
+                        objectFromJson = new Booking(bookingId, roomId, bookerName, fromTime, toTime);
                         buildingList.add(objectFromJson);
                     }
 
@@ -62,6 +63,4 @@ public class BookingRepository {
             return new ArrayList<>();
         }
     }
-
-
 }
