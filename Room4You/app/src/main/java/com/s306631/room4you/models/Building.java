@@ -50,7 +50,7 @@ public class Building {
     }
 
     public String toString() {
-        return buildingId + " " + buildingName + " " + floors + " " + coordinates.toString();
+        return buildingName;
     }
 
 }
