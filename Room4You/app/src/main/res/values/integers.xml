@@ -2,5 +2,5 @@
 <resources>
     <integer name="ERROR_DIALOG_REQUEST">9001</integer>
     <integer name="LOCATION_PERMISSION_REQUEST_CODE">1234</integer>
-    <integer name="DEFAULT_ZOOM">18</integer>
+    <integer name="DEFAULT_ZOOM">17</integer>
 </resources>
