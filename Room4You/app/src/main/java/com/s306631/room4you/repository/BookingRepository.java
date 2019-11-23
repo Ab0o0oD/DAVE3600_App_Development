@@ -49,7 +49,8 @@ public class BookingRepository {
                         String bookerName = jsonobject.getString("BookerName");
                         String fromTime = jsonobject.getString("FromTime");
                         String toTime = jsonobject.getString("ToTime");
-                        objectFromJson = new Booking(bookingId, roomId, bookerName, fromTime, toTime);
+                        String date = jsonobject.getString("Date");
+                        objectFromJson = new Booking(bookingId, roomId, bookerName, fromTime, toTime, date);
                         buildingList.add(objectFromJson);
                     }
 

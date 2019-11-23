@@ -114,7 +114,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     public void onComplete(@NonNull Task task) {
-        Location currentLocation = (Location)task.getResult();
+        Location currentLocation = (Location) task.getResult();
         moveMap(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), getResources().getInteger(R.integer.DEFAULT_ZOOM));
     }
 
