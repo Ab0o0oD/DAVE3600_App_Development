@@ -15,6 +15,10 @@
     <string name="book_this_room">Book This Room</string>
 
     <string name="EXTRA_ROOM">com.s306631.room4you.activities.EXTRA_ROOM</string>
+    <string name="available_times">Available Times</string>
+    <string name="registered_bookings">Registered Bookings</string>
+    <string name="register_booking">Register Booking</string>
+    <string name="your_name">Your Name</string>
 
     <string-array name="possible_booking_times">
         <item>08:00 - 09:00</item>

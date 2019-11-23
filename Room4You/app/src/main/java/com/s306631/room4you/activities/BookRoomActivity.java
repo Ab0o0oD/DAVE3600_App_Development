@@ -2,6 +2,12 @@ package com.s306631.room4you.activities;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -17,16 +23,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BookRoomActivity extends AppCompatActivity {
+public class BookRoomActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static Room selectedRoom = null;
     private static final String TAG = "BookRoomActivity";
 
-    private TextView headline, availableTimes, takenTimes, bookerNames;
+    private TextView textViewHeadline, textViewAvailableTimes, textViewTakenTimes, textViewBookerNames;
+    private Spinner spinnerAvailableSpinner;
+    private EditText editTextBookerName;
+    private Button buttonRegisterBooking;
+
     private BookingViewModel bookingViewModel;
+
     private List<Booking> bookingsFromWebService;
     private List<Booking> takenBookingTimes;
     private List<String> availableBookingTimes;
+    private String selectedTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,29 +69,69 @@ public class BookRoomActivity extends AppCompatActivity {
         }
 
         initializeViews();
-
-        for (String bookingTime : availableBookingTimes) {
-            availableTimes.append(bookingTime + "\n");
-        }
+        fillAvailableSpinner();
 
         for (Booking booking : takenBookingTimes) {
-            takenTimes.append(booking.getFromTime() + " - " + booking.getToTime());
-            bookerNames.append(booking.getBookerName());
+            textViewTakenTimes.append(booking.getFromTime() + " - " + booking.getToTime() + "\n");
+            textViewBookerNames.append(booking.getBookerName() + "\n");
         }
     }
 
+    private void registerBooking() {
+        if (editTextBookerName.getText().length() == 0) {
+            editTextBookerName.setError("Name is required");
+            return;
+        }
+
+        Booking newBooking = createNewBooking();
+        Log.d(TAG, "registerBooking: BOOKING TO BE REGISTERED " + newBooking.toString());
+    }
+
+    private Booking createNewBooking() {
+        String bookerName = editTextBookerName.getText().toString();
+
+        String[] timeSplit = selectedTime.split(" - ");
+        String fromTime = timeSplit[0];
+        String toTime = timeSplit[1];
+
+        return new Booking(selectedRoom.getRoomId(), bookerName, fromTime, toTime);
+    }
+
+    private void fillAvailableSpinner() {
+        ArrayAdapter<String> availableSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, availableBookingTimes);
+        availableSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAvailableSpinner.setAdapter(availableSpinnerAdapter);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selectedTime = availableBookingTimes.get(position);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
     private void initializeViews() {
-        headline = findViewById(R.id.text_view_bookings_headline);
-        headline.setText(selectedRoom.getRoomName());
+        textViewHeadline = findViewById(R.id.text_view_bookings_headline);
+        textViewHeadline.setText(selectedRoom.getRoomName());
 
-        availableTimes = findViewById(R.id.text_view_available_times);
-        availableTimes.setText("");
+        textViewAvailableTimes = findViewById(R.id.text_view_available_times);
 
-        takenTimes = findViewById(R.id.text_view_taken_times);
-        takenTimes.setText("");
+        textViewTakenTimes = findViewById(R.id.text_view_taken_times);
+        textViewTakenTimes.setText("");
 
-        bookerNames = findViewById(R.id.text_view_booker_name);
-        bookerNames.setText("");
+        textViewBookerNames = findViewById(R.id.text_view_booker_name);
+        textViewBookerNames.setText("");
+
+        spinnerAvailableSpinner = findViewById(R.id.spinner_available_times);
+        spinnerAvailableSpinner.setOnItemSelectedListener(this);
+
+        buttonRegisterBooking = findViewById(R.id.button_register_booking);
+        buttonRegisterBooking.setOnClickListener(v -> registerBooking());
+
+        editTextBookerName = findViewById(R.id.edit_text_booker_name);
     }
 
     @Override
