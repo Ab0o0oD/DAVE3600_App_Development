@@ -45,6 +45,10 @@ public class Building {
         return coordinates;
     }
 
+    public String getCoordinatesAsString() {
+        return coordinates.latitude + ", " + coordinates.longitude;
+    }
+
     public void setCoordinates(LatLng coordinates) {
         this.coordinates = coordinates;
     }
