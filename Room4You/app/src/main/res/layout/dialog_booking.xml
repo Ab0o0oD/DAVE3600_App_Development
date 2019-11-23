@@ -15,8 +15,8 @@
         android:text="@string/placeholder"
         android:textStyle="italic" />
 
-    <TextView
-        android:id="@+id/text_view_dialog_confirm"
+    <Button
+        android:id="@+id/button_dialog_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -24,21 +24,23 @@
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
         android:text="@string/yes"
-        android:textColor="#43A047"
-        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/green_button"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/text_view_dialog_dissmiss"
+    <Button
+        android:id="@+id/button_dialog_dissmiss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="15dp"
-        android:layout_toStartOf="@id/text_view_dialog_confirm"
+        android:layout_toStartOf="@id/button_dialog_confirm"
         android:text="@string/no"
-        android:textColor="#FF0000"
-        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/red_button"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
 
