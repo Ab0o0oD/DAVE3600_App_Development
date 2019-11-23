@@ -16,6 +16,13 @@ public class Booking {
         this.toTime = toTime;
     }
 
+    public Booking(int roomId, String bookerName, String fromTime, String toTime) {
+        this.roomId = roomId;
+        this.bookerName = bookerName;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
+    }
+
     public int getBookingId() {
         return bookingId;
     }
@@ -57,6 +64,6 @@ public class Booking {
     }
 
     public String toString() {
-        return bookingId + " " + roomId + " " + fromTime + " " + toTime;
+        return bookingId + " " + roomId + " " + bookerName + " " + fromTime + " " + toTime;
     }
 }
