@@ -26,12 +26,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.s306631.room4you.R;
-import com.s306631.room4you.models.Booking;
 import com.s306631.room4you.models.Building;
 import com.s306631.room4you.models.Room;
 import com.s306631.room4you.ui.CustomDialog;
 import com.s306631.room4you.ui.OnDialogOptionSelectedListener;
-import com.s306631.room4you.viewModels.BookingViewModel;
 import com.s306631.room4you.viewModels.BuildingViewModel;
 import com.s306631.room4you.viewModels.RoomViewModel;
 
@@ -43,8 +41,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     private static final String TAG = "MapActivity";
 
-    private Spinner buildingSpinner, floorSpinner, roomSpinner;
-    private ImageView gpsIcon, buildingIcon;
+    private Spinner spinnerBuilding, spinnerFloor, spinnerRoom;
+    private ImageView iconGps, iconBuilding;
 
     private RoomViewModel roomViewModel;
     private BuildingViewModel buildingViewModel;
@@ -82,7 +80,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     }
 
     public void moveToCurrentBuilding() {
-        Building currentBuilding = (Building)buildingSpinner.getSelectedItem();
+        Building currentBuilding = (Building) spinnerBuilding.getSelectedItem();
         moveMap(currentBuilding.getCoordinates(), getResources().getInteger(R.integer.DEFAULT_ZOOM));
     }
 
@@ -125,7 +123,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private void fillBuildingSpinner() {
         ArrayAdapter<Building> buildingSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, buildingList);
         buildingSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        buildingSpinner.setAdapter(buildingSpinnerAdapter);
+        spinnerBuilding.setAdapter(buildingSpinnerAdapter);
     }
 
     private void fillRoomSpinner(Building selectedBuilding, int selectedFloor) {
@@ -138,7 +136,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         }
         ArrayAdapter<Room> roomSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, selectedBuildingRooms);
         roomSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        roomSpinner.setAdapter(roomSpinnerAdapter);
+        spinnerRoom.setAdapter(roomSpinnerAdapter);
         addRoomMarkers(selectedBuildingRooms);
     }
 
@@ -152,18 +150,18 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
         ArrayAdapter<Integer> floorSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, selectedBuildingFloors);
         floorSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        floorSpinner.setAdapter(floorSpinnerAdapter);
+        spinnerFloor.setAdapter(floorSpinnerAdapter);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (parent == buildingSpinner) {
+        if (parent == spinnerBuilding) {
             Building selectedBuilding = buildingList.get(position);
             fillFloorSpinner(selectedBuilding);
-            fillRoomSpinner(selectedBuilding, (int)floorSpinner.getSelectedItem());
+            fillRoomSpinner(selectedBuilding, (int) spinnerFloor.getSelectedItem());
             moveMap(selectedBuilding.getCoordinates(), getResources().getInteger(R.integer.DEFAULT_ZOOM));
-        } else if (parent == floorSpinner) {
-            fillRoomSpinner((Building)buildingSpinner.getSelectedItem(), (int)floorSpinner.getSelectedItem());
+        } else if (parent == spinnerFloor) {
+            fillRoomSpinner((Building) spinnerBuilding.getSelectedItem(), (int) spinnerFloor.getSelectedItem());
         }
     }
 
@@ -182,19 +180,19 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     /* ---------- Initialization ---------- */
 
     public void initializeViews() {
-        buildingSpinner = findViewById(R.id.spinner_buildings);
-        buildingSpinner.setOnItemSelectedListener(this);
+        spinnerBuilding = findViewById(R.id.spinner_buildings);
+        spinnerBuilding.setOnItemSelectedListener(this);
 
-        floorSpinner = findViewById(R.id.spinner_floors);
-        floorSpinner.setOnItemSelectedListener(this);
+        spinnerFloor = findViewById(R.id.spinner_floors);
+        spinnerFloor.setOnItemSelectedListener(this);
 
-        roomSpinner = findViewById(R.id.spinner_rooms);
+        spinnerRoom = findViewById(R.id.spinner_rooms);
 
-        gpsIcon = findViewById(R.id.image_view_center_position);
-        gpsIcon.setOnClickListener(v -> getUserLocation());
+        iconGps = findViewById(R.id.image_view_center_position);
+        iconGps.setOnClickListener(v -> getUserLocation());
 
-        buildingIcon = findViewById(R.id.image_view_center_building);
-        buildingIcon.setOnClickListener(v -> moveToCurrentBuilding());
+        iconBuilding = findViewById(R.id.image_view_center_building);
+        iconBuilding.setOnClickListener(v -> moveToCurrentBuilding());
     }
 
     public void initializeMap() {
