@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +20,16 @@ import com.s306631.room4you.models.Booking;
 import com.s306631.room4you.models.Room;
 import com.s306631.room4you.viewModels.BookingViewModel;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class BookRoomActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -28,7 +37,7 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
     public static Room selectedRoom = null;
     private static final String TAG = "BookRoomActivity";
 
-    private TextView textViewHeadline, textViewAvailableTimes, textViewTakenTimes, textViewBookerNames;
+    private TextView textViewHeadline, textViewAvailableTimes, textViewRegisteredHeadline, textViewTakenTimes, textViewBookerNames;
     private Spinner spinnerAvailableSpinner;
     private EditText editTextBookerName;
     private Button buttonRegisterBooking;
@@ -39,6 +48,7 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
     private List<Booking> takenBookingTimes;
     private List<String> availableBookingTimes;
     private String selectedTime;
+    private String currentDate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,9 +59,13 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
         bookingsFromWebService = bookingViewModel.getAllBookingsAsList();
         takenBookingTimes = new ArrayList<>();
 
+        Date date = Calendar.getInstance().getTime();
+        SimpleDateFormat formater = new SimpleDateFormat("dd. MMM yyyy");
+        currentDate = formater.format(date);
+
         //Create a list of bookings belonging to the passed in Room
         for (Booking booking : bookingsFromWebService) {
-            if (booking.getRoomId() == selectedRoom.getRoomId()) {
+            if (booking.getRoomId() == selectedRoom.getRoomId() && booking.getDate().equals(currentDate)) {
                 takenBookingTimes.add(booking);
             }
         }
@@ -83,19 +97,20 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
             return;
         }
 
-        Booking newBooking = createNewBooking();
-        Log.d(TAG, "registerBooking: BOOKING TO BE REGISTERED " + newBooking.toString());
-    }
-
-    private Booking createNewBooking() {
         String bookerName = editTextBookerName.getText().toString();
 
         String[] timeSplit = selectedTime.split(" - ");
         String fromTime = timeSplit[0];
         String toTime = timeSplit[1];
-
-        return new Booking(selectedRoom.getRoomId(), bookerName, fromTime, toTime);
+        Booking booking = new Booking(selectedRoom.getRoomId(), bookerName, fromTime, toTime, currentDate);
+        bookingViewModel.postBooking(this, booking);
     }
+
+    //TODO Make this method refresh the activity
+    public void refresh() {
+        Toast.makeText(this, "refreshed", Toast.LENGTH_SHORT).show();
+    }
+
 
     private void fillAvailableSpinner() {
         ArrayAdapter<String> availableSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, availableBookingTimes);
@@ -132,6 +147,9 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
         buttonRegisterBooking.setOnClickListener(v -> registerBooking());
 
         editTextBookerName = findViewById(R.id.edit_text_booker_name);
+
+        textViewRegisteredHeadline = findViewById(R.id.text_view_registered_bookings_headline);
+        textViewRegisteredHeadline.append(":\n" + currentDate);
     }
 
     @Override

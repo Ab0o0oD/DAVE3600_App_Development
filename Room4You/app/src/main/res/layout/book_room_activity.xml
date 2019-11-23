@@ -68,12 +68,13 @@
         android:id="@+id/text_view_registered_bookings_headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/registered_bookings"
-        android:textSize="25sp"
-        android:textStyle="bold"
         android:layout_below="@id/view_line"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:text="@string/registered_bookings"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/text_view_taken_times"
