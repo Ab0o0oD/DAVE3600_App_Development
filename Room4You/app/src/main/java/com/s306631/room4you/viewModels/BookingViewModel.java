@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.s306631.room4you.activities.BookRoomActivity;
 import com.s306631.room4you.models.Booking;
 import com.s306631.room4you.repository.BookingRepository;
 
@@ -23,5 +24,9 @@ public class BookingViewModel extends AndroidViewModel {
 
     public List<Booking> getAllBookingsAsList() {
         return bookingRepository.getBookingsFromWebService();
+    }
+
+    public void postBooking(BookRoomActivity context, Booking booking) {
+        bookingRepository.postBooking(context, booking);
     }
 }
