@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,12 +25,14 @@ import com.s306631.room4you.models.Building;
 import com.s306631.room4you.ui.fragments.MapFragment;
 import com.s306631.room4you.viewModels.BuildingViewModel;
 
+import java.util.List;
+
 public class AddDeleteBuildingActivity extends AppCompatActivity {
 
     private static final String TAG = "AddDeleteBuildingActivi";
     private RelativeLayout deleteLayout, mapLayout;
     private ImageView imageViewCoordinates;
-    private EditText editTextBuildingName, editTextFloors, editTextCoordinates;
+    private EditText editTextBuildingName, editTextFloors;
     private TextView textViewCoordinates;
     private Button buttonAddBuilding, buttonDeleteBuilding, buttonConfirmCoordinates, buttonHideMap;
     private Spinner spinnerAllBuildings;
@@ -44,6 +47,7 @@ public class AddDeleteBuildingActivity extends AppCompatActivity {
         buildingViewModel = ViewModelProviders.of(this).get(BuildingViewModel.class);
 
         initializeViews();
+        fillBuildingSpinner();
     }
 
     private void registerBuilding() {
@@ -67,10 +71,15 @@ public class AddDeleteBuildingActivity extends AppCompatActivity {
         if (name.length() == 0) {
             editTextBuildingName.setError("The building needs a name!");
             return null;
+        } else if (name.length() > 30) {
+            editTextBuildingName.setError("Building name can't be longer than 30 character!");
+            return null;
         }
 
         return name;
     }
+
+    /* --------- Add Building --------- */
 
     private int getBuildingFloorsFromView() {
         String floorsAsString = editTextFloors.getText().toString();
@@ -140,6 +149,15 @@ public class AddDeleteBuildingActivity extends AppCompatActivity {
         imageViewCoordinates.setClickable(true);
     }
 
+    /* --------- Delete Building ---------- */
+
+    private void fillBuildingSpinner() {
+        List<Building> buildingList = buildingViewModel.getAllBuildingsAsList();
+        ArrayAdapter<Building> buildingSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, buildingList);
+        buildingSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAllBuildings.setAdapter(buildingSpinnerAdapter);
+    }
+
     private void initializeViews() {
         deleteLayout = findViewById(R.id.layout_delete);
         mapLayout = findViewById(R.id.layout_map);
@@ -150,6 +168,7 @@ public class AddDeleteBuildingActivity extends AppCompatActivity {
 
         imageViewCoordinates = findViewById(R.id.image_view_coordinates);
         imageViewCoordinates.setOnClickListener(v -> openMap());
+
         textViewCoordinates = findViewById(R.id.text_view_coordinates);
         textViewCoordinates.setOnClickListener(v -> openMap());
 
