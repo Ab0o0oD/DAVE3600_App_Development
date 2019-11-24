@@ -17,6 +17,12 @@ public class Building {
         this.coordinates = CoordinatesParser.coordinatesFromString(coordinates);
     }
 
+    public Building(String buildingName, int floors, String coordinates) {
+        this.buildingName = buildingName;
+        this.floors = floors;
+        this.coordinates = CoordinatesParser.coordinatesFromString(coordinates);
+    }
+
     public int getBuildingId() {
         return buildingId;
     }
