@@ -34,8 +34,6 @@ public class AddDeleteBuildingActivity extends AppCompatActivity {
     private Button buttonAddBuilding, buttonDeleteBuilding, buttonConfirmCoordinates, buttonHideMap;
     private Spinner spinnerAllBuildings;
 
-    private LatLng chosenCoordinates;
-
     private BuildingViewModel buildingViewModel;
 
     @Override
