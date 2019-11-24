@@ -36,8 +36,8 @@
         </activity>
         <activity android:name=".activities.MapActivity" />
         <activity android:name=".activities.BookRoomActivity" />
-        <activity android:name=".activities.AddRoomActivity" />
-        <activity android:name=".activities.AddBuildingActivity" />
+        <activity android:name=".activities.AddDeleteRoomActivity" />
+        <activity android:name=".activities.AddDeleteBuildingActivity" />
     </application>
 
 </manifest>
