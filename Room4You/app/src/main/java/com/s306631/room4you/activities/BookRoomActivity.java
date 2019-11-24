@@ -19,8 +19,8 @@ import androidx.lifecycle.ViewModelProviders;
 import com.s306631.room4you.R;
 import com.s306631.room4you.models.Booking;
 import com.s306631.room4you.models.Room;
-import com.s306631.room4you.ui.pickers.DatePickerFragment;
-import com.s306631.room4you.ui.pickers.OnPickerValueSelectedListener;
+import com.s306631.room4you.ui.fragments.pickers.DatePickerFragment;
+import com.s306631.room4you.ui.fragments.pickers.OnPickerValueSelectedListener;
 import com.s306631.room4you.util.DateFormater;
 import com.s306631.room4you.viewModels.BookingViewModel;
 
