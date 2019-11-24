@@ -183,6 +183,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     
     public void addBuilding() {
         Log.d(TAG, "addBuilding: ADD Building");
+        Intent intent = new Intent(this, AddDeleteBuildingActivity.class);
+        startActivity(intent);
     }
     
     public void addRoom() {
