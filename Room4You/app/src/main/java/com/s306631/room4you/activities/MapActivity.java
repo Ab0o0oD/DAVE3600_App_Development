@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,6 +45,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     private Spinner spinnerBuilding, spinnerFloor, spinnerRoom;
     private ImageView iconGps, iconBuilding;
+    private FloatingActionMenu floatingActionMenu;
+    private FloatingActionButton floatingActionButtonRoom, floatingActionButtonBuilding;
 
     private RoomViewModel roomViewModel;
     private BuildingViewModel buildingViewModel;
@@ -119,6 +123,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     /* ---------- UI-Elements ---------- */
 
+
+
     private void fillBuildingSpinner() {
         ArrayAdapter<Building> buildingSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, buildingList);
         buildingSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -174,6 +180,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         Intent intent = new Intent(this, BookRoomActivity.class);
         startActivity(intent);
     }
+    
+    public void addBuilding() {
+        Log.d(TAG, "addBuilding: ADD Building");
+    }
+    
+    public void addRoom() {
+        Log.d(TAG, "addRoom: ADD ROOM");
+    }
 
 
     /* ---------- Initialization ---------- */
@@ -192,6 +206,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
         iconBuilding = findViewById(R.id.image_view_center_building);
         iconBuilding.setOnClickListener(v -> moveToCurrentBuilding());
+
+        floatingActionMenu = findViewById(R.id.floating_action_menu);
+        
+        floatingActionButtonRoom = findViewById(R.id.floating_action_menu_item_1);
+        floatingActionButtonRoom.setOnClickListener(v -> addBuilding());
+        floatingActionButtonBuilding = findViewById(R.id.floating_action_menu_item_2);
+        floatingActionButtonBuilding.setOnClickListener(v -> addRoom());
     }
 
     public void initializeMap() {
