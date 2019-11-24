@@ -1,4 +1,4 @@
-package com.s306631.room4you.ui.pickers;
+package com.s306631.room4you.ui.fragments.pickers;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
