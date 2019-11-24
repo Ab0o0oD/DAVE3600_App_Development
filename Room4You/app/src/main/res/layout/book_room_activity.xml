@@ -1,101 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_view_bookings_headline"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="@string/placeholder"
-        android:textSize="35sp"
-        android:textStyle="bold" />
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
 
-    <TextView
-        android:id="@+id/text_view_available_times"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_bookings_headline"
-        android:layout_marginTop="20dp"
-        android:text="@string/available_times"
-        android:textSize="20sp" />
-
-    <Spinner
-        android:id="@+id/spinner_available_times"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_bookings_headline"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/text_view_available_times" />
-
-    <EditText
-        android:id="@+id/edit_text_booker_name"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner_available_times"
-        android:layout_marginTop="20dp"
-        android:inputType="text"
-        android:hint="@string/your_name"/>
-
-    <Button
-        android:id="@+id/button_register_booking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edit_text_booker_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:text="@string/register_booking"
-        android:textColor="#fff"
-        android:background="@drawable/green_button"
-        android:textSize="15sp"
-        android:padding="10dp"
-        android:textStyle="bold" />
-
-    <View
-        android:id="@+id/view_line"
-        android:layout_width="400dp"
-        android:layout_height="1dp"
-        android:layout_below="@id/button_register_booking"
-        android:layout_marginTop="20dp"
-        android:background="#80000000" />
-
-    <TextView
-        android:id="@+id/text_view_registered_bookings_headline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view_line"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/registered_bookings"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/text_view_taken_times"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_registered_bookings_headline"
-        android:layout_marginTop="20dp"
-        android:text="@string/placeholder"
-        android:textColor="#E53935"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/text_view_booker_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/text_view_registered_bookings_headline"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_toEndOf="@id/text_view_taken_times"
-        android:text="@string/placeholder"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/text_view_bookings_headline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="@string/placeholder"
+            android:textSize="35sp"
+            android:textStyle="bold" />
 
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/image_view_select_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_date"
+            android:layout_below="@id/text_view_bookings_headline"
+            android:layout_marginTop="20dp"
+            android:contentDescription="Date Icon" />
+
+        <TextView
+            android:id="@+id/text_view_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_bookings_headline"
+            android:layout_toEndOf="@id/image_view_select_date"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:hint="Select Date" />
+
+        <ImageView
+            android:id="@+id/image_view_select_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_time"
+            android:layout_below="@id/text_view_date"
+            android:layout_marginTop="20dp" />
+
+        <Spinner
+            android:id="@+id/spinner_available_times"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_date"
+            android:layout_toEndOf="@+id/image_view_select_time"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp" />
+
+        <EditText
+            android:id="@+id/edit_text_booker_name"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner_available_times"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:hint="@string/your_name"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/button_register_booking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_booker_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/green_button"
+            android:padding="10dp"
+            android:text="@string/register_booking"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="400dp"
+            android:layout_height="1dp"
+            android:layout_below="@id/button_register_booking"
+            android:layout_marginTop="20dp"
+            android:background="#80000000" />
+
+        <TextView
+            android:id="@+id/text_view_registered_bookings_headline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view_line"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/placeholder"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_view_taken_times"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_registered_bookings_headline"
+            android:layout_marginTop="20dp"
+            android:text="@string/placeholder"
+            android:textColor="#E53935"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/text_view_booker_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_registered_bookings_headline"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@id/text_view_taken_times"
+            android:text="@string/placeholder"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+</ScrollView>
