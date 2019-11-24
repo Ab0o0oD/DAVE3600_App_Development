@@ -25,4 +25,8 @@ public class CoordinatesParser {
             return new LatLng(0, 0);
         }
     }
+
+    public static String stringFromCoordinates(LatLng coordinates) {
+        return coordinates.latitude + ", " + coordinates.longitude;
+    }
 }
