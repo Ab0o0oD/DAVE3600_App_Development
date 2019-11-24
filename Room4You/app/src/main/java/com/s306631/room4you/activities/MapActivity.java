@@ -52,7 +52,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     private Room selectedRoom;
 
-
     private GoogleMap mMap;
 
 
