@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.s306631.room4you.R;
@@ -42,7 +43,7 @@ public class AddDeleteBuildingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_delete_building);
 
-
+        buildingViewModel = ViewModelProviders.of(this).get(BuildingViewModel.class);
 
         initializeViews();
     }
@@ -57,10 +58,9 @@ public class AddDeleteBuildingActivity extends AppCompatActivity {
             return;
         }
 
-        Log.d(TAG, "registerBuilding: Time to post the buidling: " + name);
         Building building = new Building(name, floors, coordinates);
-        buildingViewModel.postBuilding(this, building);
 
+        buildingViewModel.postBuilding(this, building);
     }
 
     private String getBuildingNameFromView() {
