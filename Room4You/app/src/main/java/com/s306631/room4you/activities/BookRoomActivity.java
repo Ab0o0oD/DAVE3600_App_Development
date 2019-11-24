@@ -36,11 +36,9 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
     public static Room selectedRoom = null;
     private static final String TAG = "BookRoomActivity";
 
-    private TextView textViewHeadline, textViewRegisteredHeadline, textViewTakenTimes, textViewBookerNames, textViewDate;
-    private ImageView imageViewSelectDate;
+    private TextView textViewRegisteredHeadline, textViewTakenTimes, textViewBookerNames, textViewDate;
     private Spinner spinnerAvailableSpinner;
     private EditText editTextBookerName;
-    private Button buttonRegisterBooking;
 
     private BookingViewModel bookingViewModel;
 
@@ -71,6 +69,8 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
+    /* ---------- Register Bookings ---------- */
+
     private void registerBooking() {
         if (editTextBookerName.getText().length() == 0) {
             editTextBookerName.setError("Name is required");
@@ -86,6 +86,8 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
         bookingViewModel.postBooking(this, booking);
     }
 
+    /* ---------- Pickers ---------- */
+
     private void showDateSelector() {
         DatePickerFragment datePicker = new DatePickerFragment();
         datePicker.setOnDateSelectedListener(this);
@@ -100,22 +102,7 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
         refreshAfterDateSelection();
     }
 
-
-    private void fillAvailableSpinner() {
-        ArrayAdapter<String> availableSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, availableBookingTimes);
-        availableSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerAvailableSpinner.setAdapter(availableSpinnerAdapter);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        selectedTime = availableBookingTimes.get(position);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+    /* ---------- Lists ---------- */
 
     private void fillTakenBookingTimes() {
         takenBookingTimes = new ArrayList<>();
@@ -140,8 +127,30 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
         }
     }
 
+    /* ---------- Views ---------- */
+
+    /* ----- Spinners ---- */
+
+    private void fillAvailableSpinner() {
+        ArrayAdapter<String> availableSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, availableBookingTimes);
+        availableSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAvailableSpinner.setAdapter(availableSpinnerAdapter);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selectedTime = availableBookingTimes.get(position);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    /* ----- Misc Views ----- */
+
     private void initializeViews() {
-        textViewHeadline = findViewById(R.id.text_view_bookings_headline);
+        TextView textViewHeadline = findViewById(R.id.text_view_bookings_headline);
         textViewHeadline.setText(selectedRoom.getRoomName());
 
         textViewTakenTimes = findViewById(R.id.text_view_taken_times);
@@ -160,13 +169,13 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
         textViewDate.setOnClickListener(v -> showDateSelector());
         textViewDate.setText(selectedDate);
 
-        imageViewSelectDate = findViewById(R.id.image_view_select_date);
+        ImageView imageViewSelectDate = findViewById(R.id.image_view_select_date);
         imageViewSelectDate.setOnClickListener(v -> showDateSelector());
 
         spinnerAvailableSpinner = findViewById(R.id.spinner_available_times);
         spinnerAvailableSpinner.setOnItemSelectedListener(this);
 
-        buttonRegisterBooking = findViewById(R.id.button_register_booking);
+        Button buttonRegisterBooking = findViewById(R.id.button_register_booking);
         buttonRegisterBooking.setOnClickListener(v -> registerBooking());
 
         editTextBookerName = findViewById(R.id.edit_text_booker_name);
@@ -201,6 +210,8 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
         initializeViews();
         fillAvailableSpinner();
     }
+
+    /* ---------- Life-Cycle and Default Functionality ---------- */
 
     @Override
     public void onBackPressed() {
