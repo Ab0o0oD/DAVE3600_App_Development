@@ -149,7 +149,7 @@ public class BuildingRepository {
             try {
 
                 URL url = new URL(urlString);
-                Log.d(TAG, "delebuilding: CONNECTING TO URL" + url.toString());
+                Log.d(TAG, "deleteBuilding: CONNECTING TO URL" + url.toString());
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
                 urlConnection.setRequestMethod("POST");
@@ -163,11 +163,11 @@ public class BuildingRepository {
                 urlConnection.disconnect();
 
             } catch (MalformedURLException e) {
-                Log.d(TAG, "postBuilding: MalformedURLException " + e.getMessage());
+                Log.d(TAG, "deleteBuilding: MalformedURLException " + e.getMessage());
             } catch (ProtocolException e) {
-                Log.d(TAG, "postBuilding: ProtocolException " + e.getMessage());
+                Log.d(TAG, "deleteBuilding: ProtocolException " + e.getMessage());
             } catch (IOException e) {
-                Log.d(TAG, "postBuilding: IOException " + e.getMessage());
+                Log.d(TAG, "deleteBuilding: IOException " + e.getMessage());
             }
 
             return null;
