@@ -31,6 +31,10 @@
     <string name="confirm">Confirm</string>
     <string name="hide_map">Hide Map</string>
     <string name="no_coordinates_selected">No Coordinates Selected</string>
+    <string name="add_room">Add Room</string>
+    <string name="room_name">Room Name</string>
+    <string name="floormnumber">Floormnumber</string>
+    <string name="delete_room">Delete Room</string>
 
     <string-array name="possible_booking_times">
         <item>08:00 - 09:00</item>
