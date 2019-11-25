@@ -19,15 +19,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.s306631.room4you.R;
+import com.s306631.room4you.models.Booking;
 import com.s306631.room4you.models.Building;
+import com.s306631.room4you.models.Room;
+import com.s306631.room4you.ui.CustomDialog;
+import com.s306631.room4you.ui.OnDialogOptionSelectedListener;
 import com.s306631.room4you.ui.fragments.MapFragment;
+import com.s306631.room4you.viewModels.BookingViewModel;
 import com.s306631.room4you.viewModels.BuildingViewModel;
+import com.s306631.room4you.viewModels.RoomViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AddDeleteBuildingActivity extends AppCompatActivity {
+public class AddDeleteBuildingActivity extends AppCompatActivity implements OnDialogOptionSelectedListener {
 
     private static final String TAG = "AddDeleteBuildingActivi";
     private RelativeLayout deleteLayout, mapLayout;
@@ -38,6 +44,7 @@ public class AddDeleteBuildingActivity extends AppCompatActivity {
     private Spinner spinnerAllBuildings;
 
     private BuildingViewModel buildingViewModel;
+    private Building buildingToBeDeleted;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -151,11 +158,64 @@ public class AddDeleteBuildingActivity extends AppCompatActivity {
 
     /* --------- Delete Building ---------- */
 
-    private void fillBuildingSpinner() {
+    public void fillBuildingSpinner() {
         List<Building> buildingList = buildingViewModel.getAllBuildingsAsList();
         ArrayAdapter<Building> buildingSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, buildingList);
         buildingSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAllBuildings.setAdapter(buildingSpinnerAdapter);
+    }
+
+    private void deleteSelectedBuilding() {
+        //TODO Update this once the method for deleting is fixed in the BuildingRepository Class!
+        List<Room> roomsBelongingToBuildingList = getRoomsBelonging();
+        List<Booking> bookingsBelongingToBuildingList = getBookingsBelonging(roomsBelongingToBuildingList);
+
+        //buildingViewModel.deleteBuilding(this, buildingToBeDeleted);
+    }
+
+    private List<Room> getRoomsBelonging() {
+        RoomViewModel roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
+        List<Room> roomList = roomViewModel.getAllRoomsAsList();
+        List<Room> roomsBelongingToBuildingList = new ArrayList<>();
+
+        for (Room room : roomList) {
+            if (room.getBuildingId() == buildingToBeDeleted.getBuildingId()) {
+                roomsBelongingToBuildingList.add(room);
+            }
+        }
+
+        return roomsBelongingToBuildingList;
+    }
+
+    private List<Booking> getBookingsBelonging(List<Room> roomsBelonging) {
+        BookingViewModel bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
+        List<Booking> bookingList = bookingViewModel.getAllBookingsAsList();
+        List<Booking> bookingsBelongingToBuildingList = new ArrayList<>();
+
+        for (Room room : roomsBelonging) {
+            Log.d(TAG, "deleteSelectedBuilding: Rooms Belonging to the building: " + room.toString());
+            for (Booking booking : bookingList) {
+                if (booking.getRoomId() == room.getRoomId()) {
+                    bookingsBelongingToBuildingList.add(booking);
+                    Log.d(TAG, "deleteSelectedBuilding: Bookings Belonging to the building: " + booking.getBookerName() + " " + booking.getFromTime());
+                }
+            }
+        }
+
+        return bookingsBelongingToBuildingList;
+    }
+
+    private void showWarning() {
+        buildingToBeDeleted = (Building) spinnerAllBuildings.getSelectedItem();
+        CustomDialog warningDialog = new CustomDialog(this, "Deleting a building will delete all rooms and bookings belonging to it." +
+                " Are you certain you want to delete " + buildingToBeDeleted.getBuildingName() + "?");
+        warningDialog.setOnDialogOptionSelectedListener(this);
+        warningDialog.show();
+    }
+
+    @Override
+    public void onDialogOptionSelected() {
+        deleteSelectedBuilding();
     }
 
     private void initializeViews() {
@@ -177,6 +237,7 @@ public class AddDeleteBuildingActivity extends AppCompatActivity {
         buttonAddBuilding.setOnClickListener(v -> registerBuilding());
 
         buttonDeleteBuilding = findViewById(R.id.button_delete_building);
+        buttonDeleteBuilding.setOnClickListener(v -> showWarning());
         spinnerAllBuildings = findViewById(R.id.spinner_deleteable_buildings);
 
         buttonConfirmCoordinates = findViewById(R.id.button_confirm_coordinates);
@@ -187,5 +248,4 @@ public class AddDeleteBuildingActivity extends AppCompatActivity {
         buttonHideMap.setOnClickListener(v -> removeMap());
         buttonHideMap.setVisibility(View.INVISIBLE);
     }
-
 }
