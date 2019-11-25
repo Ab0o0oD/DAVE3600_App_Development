@@ -41,9 +41,11 @@ public class BuildingRepository {
 
         return new ArrayList<>();
     }
-
     public void postBuilding(AddDeleteBuildingActivity context, Building building) {
         new BuildingRepository.PostBuilding(context).execute(building);
+    }
+    public void deleteBuilding(AddDeleteBuildingActivity context, Building building) {
+        new BuildingRepository.DeleteBuilding(context).execute(building);
     }
 
     private static class GetBuildings extends AsyncTask<String, Void, List<Building>> {
@@ -127,6 +129,58 @@ public class BuildingRepository {
             super.onPostExecute(aVoid);
             AddDeleteBuildingActivity activity = activityReference.get();
             Toast.makeText(activity, "Building Added", Toast.LENGTH_SHORT).show();
+            activity.fillBuildingSpinner();
+        }
+    }
+    private static class DeleteBuilding extends AsyncTask<Building, Void, Void> {
+
+        //TODO Make this class first delete bookings and rooms belonging to the building, and finally the building.
+
+        private WeakReference<AddDeleteBuildingActivity> activityReference;
+
+        private DeleteBuilding(AddDeleteBuildingActivity context) {
+            this.activityReference = new WeakReference<>(context);
+        }
+
+        @Override
+        protected Void doInBackground(Building... buildings) {
+            Building building = buildings[0];
+            String urlString = "http://student.cs.hioa.no/~s306631/deletebuilding.php/?" +
+                    "buildingId=" + building.getBuildingId();
+
+            try {
+
+                URL url = new URL(urlString);
+                Log.d(TAG, "delebuilding: CONNECTING TO URL" + url.toString());
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Accept", "application/json");
+
+                int status = urlConnection.getResponseCode();
+                if (status != 200) {
+                    throw new RuntimeException("Failed to get response from server, HTTP response code: " + urlConnection.getResponseCode());
+                }
+
+                urlConnection.disconnect();
+
+            } catch (MalformedURLException e) {
+                Log.d(TAG, "postBuilding: MalformedURLException " + e.getMessage());
+            } catch (ProtocolException e) {
+                Log.d(TAG, "postBuilding: ProtocolException " + e.getMessage());
+            } catch (IOException e) {
+                Log.d(TAG, "postBuilding: IOException " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            AddDeleteBuildingActivity activity = activityReference.get();
+            Toast.makeText(activity, "Building Deleted", Toast.LENGTH_SHORT).show();
+            activity.fillBuildingSpinner();
         }
     }
 

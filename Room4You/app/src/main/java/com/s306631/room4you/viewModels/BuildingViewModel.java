@@ -29,4 +29,8 @@ public class BuildingViewModel extends AndroidViewModel {
     public void postBuilding(AddDeleteBuildingActivity context, Building building) {
         buildingRepository.postBuilding(context, building);
     }
+
+    public void deleteBuilding(AddDeleteBuildingActivity context, Building building) {
+        buildingRepository.deleteBuilding(context, building);
+    }
 }
