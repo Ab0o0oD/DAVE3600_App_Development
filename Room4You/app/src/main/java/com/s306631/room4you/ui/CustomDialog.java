@@ -21,7 +21,7 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
 
     public CustomDialog(Activity context, String message) {
         super(context);
-        setContentView(R.layout.dialog_booking);
+        setContentView(R.layout.dialog_custom);
 
         initializeViews();
         content.setText(message);
