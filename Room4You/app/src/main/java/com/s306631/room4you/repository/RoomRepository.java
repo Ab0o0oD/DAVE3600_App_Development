@@ -8,6 +8,7 @@ import com.s306631.room4you.activities.AddDeleteBuildingActivity;
 import com.s306631.room4you.activities.AddDeleteRoomActivity;
 import com.s306631.room4you.models.Building;
 import com.s306631.room4you.models.Room;
+import com.s306631.room4you.util.CoordinatesParser;
 import com.s306631.room4you.util.JsonParser;
 
 import org.json.JSONArray;
@@ -97,7 +98,7 @@ public class RoomRepository {
                     "buildingId=" + room.getBuildingId() +
                     "&name=" + room.getRoomName() +
                     "&floor=" + room.getFloor() +
-                    "&coordinates=" + room.getCoordinates())
+                    "&coordinates=" + CoordinatesParser.stringFromCoordinates(room.getCoordinates()))
                     .replaceAll(" ", "%20");
 
             try {
