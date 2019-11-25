@@ -4,22 +4,25 @@ public class Booking {
 
     private int bookingId;
     private int roomId;
+    private int buildingId;
     private String bookerName;
     private String fromTime;
     private String toTime;
     private String date;
 
-    public Booking(int bookingId, int roomId, String bookerName, String fromTime, String toTime, String date) {
+    public Booking(int bookingId, int roomId, int buildingId, String bookerName, String fromTime, String toTime, String date) {
         this.bookingId = bookingId;
         this.roomId = roomId;
+        this.buildingId = buildingId;
         this.bookerName = bookerName;
         this.fromTime = fromTime;
         this.toTime = toTime;
         this.date = date;
     }
 
-    public Booking(int roomId, String bookerName, String fromTime, String toTime, String date) {
+    public Booking(int roomId, int buildingId, String bookerName, String fromTime, String toTime, String date) {
         this.roomId = roomId;
+        this.buildingId = buildingId;
         this.bookerName = bookerName;
         this.fromTime = fromTime;
         this.toTime = toTime;
@@ -40,6 +43,14 @@ public class Booking {
 
     public void setRoomId(int roomId) {
         this.roomId = roomId;
+    }
+
+    public int getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(int buildingId) {
+        this.buildingId = buildingId;
     }
 
     public String getBookerName() {

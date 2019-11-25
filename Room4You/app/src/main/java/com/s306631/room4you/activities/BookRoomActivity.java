@@ -82,7 +82,7 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
         String[] timeSplit = selectedTime.split(" - ");
         String fromTime = timeSplit[0];
         String toTime = timeSplit[1];
-        Booking booking = new Booking(selectedRoom.getRoomId(), bookerName, fromTime, toTime, selectedDate);
+        Booking booking = new Booking(selectedRoom.getRoomId(), selectedRoom.getBuildingId(), bookerName, fromTime, toTime, selectedDate);
         bookingViewModel.postBooking(this, booking);
     }
 

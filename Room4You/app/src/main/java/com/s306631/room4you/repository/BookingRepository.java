@@ -57,11 +57,12 @@ public class BookingRepository {
                         JSONObject jsonobject = bookings.getJSONObject(i);
                         int bookingId = jsonobject.getInt("BookingID");
                         int roomId = jsonobject.getInt("RoomID");
+                        int buildingId = jsonobject.getInt("BuildingID");
                         String bookerName = jsonobject.getString("BookerName");
                         String fromTime = jsonobject.getString("FromTime");
                         String toTime = jsonobject.getString("ToTime");
                         String date = jsonobject.getString("Date");
-                        objectFromJson = new Booking(bookingId, roomId, bookerName, fromTime, toTime, date);
+                        objectFromJson = new Booking(bookingId, roomId, buildingId, bookerName, fromTime, toTime, date);
                         buildingList.add(objectFromJson);
                     }
 
@@ -88,6 +89,7 @@ public class BookingRepository {
             Booking booking = bookings[0];
             String urlString = ("http://student.cs.hioa.no/~s306631/bookingjsonin.php/?" +
                     "roomid=" + booking.getRoomId() +
+                    "&buildingid=" + booking.getBuildingId() +
                     "&name=" + booking.getBookerName() +
                     "&fromtime=" + booking.getFromTime() +
                     "&totime=" + booking.getToTime() +
