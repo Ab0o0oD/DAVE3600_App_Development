@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.s306631.room4you.activities.AddDeleteRoomActivity;
 import com.s306631.room4you.models.Room;
 import com.s306631.room4you.repository.RoomRepository;
 
@@ -23,5 +24,8 @@ public class RoomViewModel extends AndroidViewModel {
 
     public List<Room> getAllRoomsAsList() {
         return roomRepository.getRoomsFromWebService();
+    }
+    public void postRoom(AddDeleteRoomActivity context, Room room) {
+        roomRepository.postRoom(context, room);
     }
 }

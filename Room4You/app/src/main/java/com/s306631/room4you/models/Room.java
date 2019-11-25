@@ -23,6 +23,13 @@ public class Room {
         this.coordinates = CoordinatesParser.coordinatesFromString(coordinates);
     }
 
+    public Room(@NonNull int buildingId, @NonNull String roomName, @NonNull int floor, @NonNull String coordinates) {
+        this.buildingId = buildingId;
+        this.roomName = roomName;
+        this.floor = floor;
+        this.coordinates = CoordinatesParser.coordinatesFromString(coordinates);
+    }
+
     public static String getTAG() {
         return TAG;
     }

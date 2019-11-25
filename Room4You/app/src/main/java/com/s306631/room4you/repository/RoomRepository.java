@@ -2,7 +2,11 @@ package com.s306631.room4you.repository;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.s306631.room4you.activities.AddDeleteBuildingActivity;
+import com.s306631.room4you.activities.AddDeleteRoomActivity;
+import com.s306631.room4you.models.Building;
 import com.s306631.room4you.models.Room;
 import com.s306631.room4you.util.JsonParser;
 
@@ -10,6 +14,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -30,6 +40,9 @@ public class RoomRepository {
         }
 
         return new ArrayList<>();
+    }
+    public void postRoom(AddDeleteRoomActivity context, Room room) {
+        new PostRoom(context).execute(room);
     }
 
     private static class GetRooms extends AsyncTask<String, Void, List<Room>> {
@@ -64,6 +77,58 @@ public class RoomRepository {
             }
 
             return new ArrayList<>();
+        }
+    }
+    private static class PostRoom extends AsyncTask<Room, Void, Void> {
+
+        private WeakReference<AddDeleteRoomActivity> activityReference;
+
+        private PostRoom(AddDeleteRoomActivity context) {
+            this.activityReference = new WeakReference<>(context);
+        }
+
+        @Override
+        protected Void doInBackground(Room... rooms) {
+            Room room = rooms[0];
+            String urlString = ("http://student.cs.hioa.no/~s306631/roomjsonin.php/?" +
+                    "buildingId=" + room.getBuildingId() +
+                    "&name=" + room.getRoomName() +
+                    "&floor=" + room.getFloor() +
+                    "&coordinates=" + room.getCoordinates())
+                    .replaceAll(" ", "%20");
+
+            try {
+
+                URL url = new URL(urlString);
+                Log.d(TAG, "postRoom: CONNECTING TO URL" + url.toString());
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Accept", "application/json");
+
+                int status = urlConnection.getResponseCode();
+                if (status != 200) {
+                    throw new RuntimeException("Failed to get response from server, HTTP response code: " + urlConnection.getResponseCode());
+                }
+
+                urlConnection.disconnect();
+
+            } catch (MalformedURLException e) {
+                Log.d(TAG, "postRoom: MalformedURLException " + e.getMessage());
+            } catch (ProtocolException e) {
+                Log.d(TAG, "postRoom: ProtocolException " + e.getMessage());
+            } catch (IOException e) {
+                Log.d(TAG, "postRoom: IOException " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            AddDeleteRoomActivity activity = activityReference.get();
+            Toast.makeText(activity, "Room Added", Toast.LENGTH_SHORT).show();
         }
     }
 }
