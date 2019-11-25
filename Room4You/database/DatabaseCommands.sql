@@ -17,11 +17,13 @@ CREATE TABLE Rooms(
 CREATE TABLE Bookings(
 	BookingID INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	RoomID INT NOT NULL,
+	BuildingID INT NOT NULL,
 	BookerName VARCHAR(30) NOT NULL,
 	FromTime VARCHAR(5) NOT NULL,
 	ToTime VARCHAR(5) NOT NULL,
 	Date VARCHAR(15) NOT NULL,
-	FOREIGN KEY(RoomID) REFERENCES Rooms(RoomID)
+	FOREIGN KEY(RoomID) REFERENCES Rooms(RoomID),
+	FOREIGN KEY(BuildingID) REFERENCES Buildings(BuildingID)
 );
 
 INSERT INTO Buildings values('', 'Pilestredet 35', 8, '59.919390, 10.735208');
@@ -40,11 +42,11 @@ INSERT INTO Rooms values('', 2, 'N020_025', 2, '59.920050, 10.736118');
 INSERT INTO Rooms values('', 2, 'N040_005', 4, '59.920050, 10.736118'); 
 
 
-INSERT INTO Bookings values('', 1, 'Anders Gorboe', '12:00', '13:00', '23. Nov 2019');
-INSERT INTO Bookings values('', 2, 'Ana-Maria Poljac', '15:00', '16:00', '23. Nov 2019');
-INSERT INTO Bookings values('', 3, 'Martina Førre', '14:00', '15:00', '23. Nov 2019');
-INSERT INTO Bookings values('', 1, 'Nikita Petrovs', '14:00', '15:00', '02. Dec 2019');
-INSERT INTO Bookings values('', 9, 'Signe Eide', '14:00', '15:00', '23. Nov 2019');
+INSERT INTO Bookings values('', 1, 1, 'Anders Gorboe', '12:00', '13:00', '23. Nov 2019');
+INSERT INTO Bookings values('', 2, 1, 'Ana-Maria Poljac', '15:00', '16:00', '23. Nov 2019');
+INSERT INTO Bookings values('', 3, 1, 'Martina Førre', '14:00', '15:00', '23. Nov 2019');
+INSERT INTO Bookings values('', 1, 1, 'Nikita Petrovs', '14:00', '15:00', '02. Dec 2019');
+INSERT INTO Bookings values('', 9, 2, 'Signe Eide', '14:00', '15:00', '23. Nov 2019');
 
 How to see all bookings belonging to Room With ID = 1
 SELECT * FROM Bookings WHERE RoomID = (SELECT RoomID FROM Rooms where RoomID = 1); 
