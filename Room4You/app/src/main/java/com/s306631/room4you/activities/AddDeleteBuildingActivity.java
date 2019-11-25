@@ -52,6 +52,9 @@ public class AddDeleteBuildingActivity extends AppCompatActivity implements OnDi
         fillBuildingSpinner();
     }
 
+
+    /* --------- Add Building --------- */
+
     private void registerBuilding() {
         String name = getBuildingNameFromView();
         int floors = getBuildingFloorsFromView();
@@ -80,8 +83,6 @@ public class AddDeleteBuildingActivity extends AppCompatActivity implements OnDi
 
         return name;
     }
-
-    /* --------- Add Building --------- */
 
     private int getBuildingFloorsFromView() {
         String floorsAsString = editTextFloors.getText().toString();

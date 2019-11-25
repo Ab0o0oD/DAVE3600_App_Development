@@ -181,14 +181,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         startActivity(intent);
     }
     
-    public void addBuilding() {
-        Log.d(TAG, "addBuilding: ADD Building");
+    public void goToAddDeleteBuilding() {
         Intent intent = new Intent(this, AddDeleteBuildingActivity.class);
         startActivity(intent);
     }
     
-    public void addRoom() {
-        Log.d(TAG, "addRoom: ADD ROOM");
+    public void goToAddDeleteRoom() {
+        Intent intent = new Intent(this, AddDeleteRoomActivity.class);
+        startActivity(intent);
     }
 
 
@@ -212,9 +212,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         floatingActionMenu = findViewById(R.id.floating_action_menu);
         
         floatingActionButtonRoom = findViewById(R.id.floating_action_menu_item_1);
-        floatingActionButtonRoom.setOnClickListener(v -> addBuilding());
+        floatingActionButtonRoom.setOnClickListener(v -> goToAddDeleteBuilding());
         floatingActionButtonBuilding = findViewById(R.id.floating_action_menu_item_2);
-        floatingActionButtonBuilding.setOnClickListener(v -> addRoom());
+        floatingActionButtonBuilding.setOnClickListener(v -> goToAddDeleteRoom());
     }
 
     public void initializeMap() {
