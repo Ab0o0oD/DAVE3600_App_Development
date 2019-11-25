@@ -2,21 +2,15 @@
 
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
-        android:id="@+id/layout_add"
+        android:id="@+id/layout_add_building"
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="30dp">
-
-        <FrameLayout
-            android:id="@+id/fragment_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/text_view_add_building_header"
@@ -131,10 +125,10 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/layout_delete"
+        android:id="@+id/layout_delete_building"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/layout_add"
+        android:layout_below="@id/layout_add_building"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp">
 
@@ -179,10 +173,10 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/layout_map"
+        android:id="@+id/layout_building_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/layout_add"
+        android:layout_below="@id/layout_add_building"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp" />
 

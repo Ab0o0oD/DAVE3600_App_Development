@@ -140,9 +140,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="11dp"
-        android:layout_marginLeft="11dp"
-        android:layout_marginRight="11dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         fab:menu_animationDelayPerItem="55"
         fab:menu_backgroundColor="@android:color/transparent"
         fab:menu_buttonSpacing="0dp"
@@ -178,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_building_white"
-            fab:fab_label="Add Building"
+            fab:fab_label="Add/Delete Building"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -186,7 +186,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_room_white"
-            fab:fab_label="Add Room"
+            fab:fab_label="Add/Delete Room"
             fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>

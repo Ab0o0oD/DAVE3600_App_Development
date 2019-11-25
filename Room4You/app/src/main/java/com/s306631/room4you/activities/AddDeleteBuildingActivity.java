@@ -20,17 +20,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.s306631.room4you.R;
-import com.s306631.room4you.models.Booking;
 import com.s306631.room4you.models.Building;
-import com.s306631.room4you.models.Room;
 import com.s306631.room4you.ui.CustomDialog;
 import com.s306631.room4you.ui.OnDialogOptionSelectedListener;
 import com.s306631.room4you.ui.fragments.MapFragment;
-import com.s306631.room4you.viewModels.BookingViewModel;
 import com.s306631.room4you.viewModels.BuildingViewModel;
-import com.s306631.room4you.viewModels.RoomViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddDeleteBuildingActivity extends AppCompatActivity implements OnDialogOptionSelectedListener {
@@ -120,7 +115,7 @@ public class AddDeleteBuildingActivity extends AppCompatActivity implements OnDi
     private void openMap() {
         Log.d(TAG, "openMap: IS CALLED");
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.layout_map, new MapFragment());
+        ft.replace(R.id.layout_building_map, new MapFragment());
         ft.commit();
 
         deleteLayout.setVisibility(RelativeLayout.GONE);
@@ -183,8 +178,8 @@ public class AddDeleteBuildingActivity extends AppCompatActivity implements OnDi
     }
 
     private void initializeViews() {
-        deleteLayout = findViewById(R.id.layout_delete);
-        mapLayout = findViewById(R.id.layout_map);
+        deleteLayout = findViewById(R.id.layout_delete_building);
+        mapLayout = findViewById(R.id.layout_building_map);
         mapLayout.setVisibility(RelativeLayout.GONE);
 
         editTextBuildingName = findViewById(R.id.edit_text_building_name);
