@@ -44,6 +44,9 @@ public class RoomRepository {
     public void postRoom(AddDeleteRoomActivity context, Room room) {
         new PostRoom(context).execute(room);
     }
+    public void deleteRoom(AddDeleteRoomActivity context, Room room) {
+        new DeleteRoom(context).execute(room);
+    }
 
     private static class GetRooms extends AsyncTask<String, Void, List<Room>> {
 
@@ -129,6 +132,55 @@ public class RoomRepository {
             super.onPostExecute(aVoid);
             AddDeleteRoomActivity activity = activityReference.get();
             Toast.makeText(activity, "Room Added", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private static class DeleteRoom extends AsyncTask<Room, Void, Void> {
+
+        private WeakReference<AddDeleteRoomActivity> activityReference;
+
+        private DeleteRoom(AddDeleteRoomActivity context) {
+            this.activityReference = new WeakReference<>(context);
+        }
+
+        @Override
+        protected Void doInBackground(Room... rooms) {
+            Room room = rooms[0];
+            String urlString = "http://student.cs.hioa.no/~s306631/deleteroom.php/?" +
+                    "roomId=" + room.getRoomId();
+
+            try {
+
+                URL url = new URL(urlString);
+                Log.d(TAG, "deleteRoom: CONNECTING TO URL" + url.toString());
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Accept", "application/json");
+
+                int status = urlConnection.getResponseCode();
+                if (status != 200) {
+                    throw new RuntimeException("Failed to get response from server, HTTP response code: " + urlConnection.getResponseCode());
+                }
+
+                urlConnection.disconnect();
+
+            } catch (MalformedURLException e) {
+                Log.d(TAG, "deleteRoom: MalformedURLException " + e.getMessage());
+            } catch (ProtocolException e) {
+                Log.d(TAG, "deleteRoom: ProtocolException " + e.getMessage());
+            } catch (IOException e) {
+                Log.d(TAG, "deleteRoom: IOException " + e.getMessage());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            AddDeleteRoomActivity activity = activityReference.get();
+            Toast.makeText(activity, "Room Deleted", Toast.LENGTH_SHORT).show();
+            activity.fillRoomToBeDeletedSpinner();
         }
     }
 }

@@ -28,4 +28,7 @@ public class RoomViewModel extends AndroidViewModel {
     public void postRoom(AddDeleteRoomActivity context, Room room) {
         roomRepository.postRoom(context, room);
     }
+    public void deleteRoom(AddDeleteRoomActivity context, Room room) {
+        roomRepository.deleteRoom(context, room);
+    }
 }
