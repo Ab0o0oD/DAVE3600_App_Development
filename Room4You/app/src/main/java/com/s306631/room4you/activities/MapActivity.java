@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -183,12 +184,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     
     public void goToAddDeleteBuilding() {
         Intent intent = new Intent(this, AddDeleteBuildingActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 9001);
     }
     
     public void goToAddDeleteRoom() {
         Intent intent = new Intent(this, AddDeleteRoomActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 9001);
     }
 
 
@@ -233,5 +234,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onMapClick(LatLng latLng) {
         Log.d(TAG, "onMapClick: " + latLng);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        buildingList = buildingViewModel.getAllBuildingsAsList();
+        roomList = roomViewModel.getAllRoomsAsList();
+        fillBuildingSpinner();
     }
 }
