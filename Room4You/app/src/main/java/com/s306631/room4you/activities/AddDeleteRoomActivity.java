@@ -24,6 +24,8 @@ import androidx.lifecycle.ViewModelProviders;
 import com.s306631.room4you.R;
 import com.s306631.room4you.models.Building;
 import com.s306631.room4you.models.Room;
+import com.s306631.room4you.ui.CustomDialog;
+import com.s306631.room4you.ui.OnDialogOptionSelectedListener;
 import com.s306631.room4you.ui.fragments.MapFragment;
 import com.s306631.room4you.viewModels.BuildingViewModel;
 import com.s306631.room4you.viewModels.RoomViewModel;
@@ -31,7 +33,7 @@ import com.s306631.room4you.viewModels.RoomViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddDeleteRoomActivity extends AppCompatActivity implements Spinner.OnItemSelectedListener {
+public class AddDeleteRoomActivity extends AppCompatActivity implements Spinner.OnItemSelectedListener, OnDialogOptionSelectedListener {
 
     private static final String TAG = "AddDeleteRoomActivity";
 
@@ -45,16 +47,23 @@ public class AddDeleteRoomActivity extends AppCompatActivity implements Spinner.
     private BuildingViewModel buildingViewModel;
     private RoomViewModel roomViewModel;
 
+    private List<Building> buildingList;
+    private Room roomToBeDeleted;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_delete_room);
 
         buildingViewModel = ViewModelProviders.of(this).get(BuildingViewModel.class);
+        buildingList = buildingViewModel.getAllBuildingsAsList();
+
         roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
 
         initializeViews();
-        fillNewRoomBuildingSpinner();
+        fillBuildingSpinner(spinnerBuildingsForNewRoom);
+        fillBuildingSpinner(spinnerBuilding);
+
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
@@ -66,7 +75,7 @@ public class AddDeleteRoomActivity extends AppCompatActivity implements Spinner.
         int floor = (int)spinnerFloorsInNewRoomBuilding.getSelectedItem();
         String coordinates = getCoordinatesFromView();
 
-        if (name == null || coordinates.equals("")) {
+        if (name == null || coordinates == null) {
             Log.d(TAG, "registerBuilding: Something went wrong!");
             return;
         }
@@ -101,33 +110,7 @@ public class AddDeleteRoomActivity extends AppCompatActivity implements Spinner.
         return coordinates;
     }
 
-    public void fillNewRoomBuildingSpinner() {
-        List<Building> buildingList = buildingViewModel.getAllBuildingsAsList();
-        ArrayAdapter<Building> buildingSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, buildingList);
-        buildingSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerBuildingsForNewRoom.setAdapter(buildingSpinnerAdapter);
-    }
-
-    public void fillFloorsInNewRoomBuildingSpinner() {
-        Log.d(TAG, "fillFloorsInNewRoomBuildingSpinner: CALLED");
-        Building selectedBuilding = (Building)spinnerBuildingsForNewRoom.getSelectedItem();
-        int floors = selectedBuilding.getFloors();
-
-        List<Integer> floorsList = new ArrayList<>();
-        for (int i = 1; i <= floors; i++) {
-            floorsList.add(i);
-        }
-
-        for (Integer integer : floorsList) {
-            Log.d(TAG, "fillFloorsInNewRoomBuildingSpinner: INTEGERLIST " + integer);
-        }
-
-        ArrayAdapter<Integer> floorSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, floorsList);
-        floorSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerFloorsInNewRoomBuilding.setAdapter(floorSpinnerAdapter);
-    }
-
-    public void openMap() {
+    private void openMap() {
         Log.d(TAG, "openMap: IS CALLED");
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.layout_room_map, new MapFragment());
@@ -166,11 +149,89 @@ public class AddDeleteRoomActivity extends AppCompatActivity implements Spinner.
         imageViewCoordinates.setClickable(true);
     }
 
+    /* ---------- Delete Room ---------- */
+
+    private void showWarning() {
+        roomToBeDeleted = (Room)spinnerRoom.getSelectedItem();
+
+        if (roomToBeDeleted != null) {
+            CustomDialog warningDialog = new CustomDialog(this, "Deleting a room will delete all bookings belonging to it." +
+                    " Are you certain you want to delete " + roomToBeDeleted.getRoomName() + "?");
+            warningDialog.setOnDialogOptionSelectedListener(this);
+            warningDialog.show();
+        } else {
+            Log.d(TAG, "showWarning: SELECTED ROOM WAS NULL");
+            Toast.makeText(this, "Please select a room", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void deleteRoom() {
+        roomViewModel.deleteRoom(this, roomToBeDeleted);
+    }
+
+    public void fillRoomToBeDeletedSpinner() {
+        List<Room> roomList = roomViewModel.getAllRoomsAsList();
+        Building selectedBuilding = (Building)spinnerBuilding.getSelectedItem();
+        int selectedFloor = (int)spinnerFloor.getSelectedItem();
+
+        List<Room> fillList = new ArrayList<>();
+        for (Room room : roomList) {
+            if (room.getBuildingId() == selectedBuilding.getBuildingId() && room.getFloor() == selectedFloor) {
+                fillList.add(room);
+            }
+        }
+
+        ArrayAdapter<Room> buildingSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, fillList);
+        buildingSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRoom.setAdapter(buildingSpinnerAdapter);
+    }
+
+    @Override
+    public void onDialogOptionSelected() {
+        deleteRoom();
+    }
+
+
+    /* ---------- Spinners ---------- */
+
+    private void fillBuildingSpinner(Spinner spinner) {
+        ArrayAdapter<Building> buildingSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, buildingList);
+        buildingSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(buildingSpinnerAdapter);
+    }
+
+    private void fillFloorSpinner(Spinner spinnerToBeFilled, Spinner connectedSpinner) {
+        Log.d(TAG, "fillFloorsInNewRoomBuildingSpinner: CALLED");
+        Building selectedBuilding = (Building)connectedSpinner.getSelectedItem();
+        int floors = selectedBuilding.getFloors();
+
+        List<Integer> floorsList = new ArrayList<>();
+        for (int i = 1; i <= floors; i++) {
+            floorsList.add(i);
+        }
+
+        for (Integer integer : floorsList) {
+            Log.d(TAG, "fillFloorsInNewRoomBuildingSpinner: INTEGERLIST " + integer);
+        }
+
+        ArrayAdapter<Integer> floorSpinnerAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, floorsList);
+        floorSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerToBeFilled.setAdapter(floorSpinnerAdapter);
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Log.d(TAG, "onItemSelected: CALLED");
         if (parent == spinnerBuildingsForNewRoom) {
-            fillFloorsInNewRoomBuildingSpinner();
+            fillFloorSpinner(spinnerFloorsInNewRoomBuilding, spinnerBuildingsForNewRoom);
+        }
+
+        if (parent == spinnerBuilding) {
+            fillFloorSpinner(spinnerFloor, spinnerBuilding);
+        }
+
+        if (parent == spinnerFloor) {
+            fillRoomToBeDeletedSpinner();
         }
     }
 
@@ -203,6 +264,7 @@ public class AddDeleteRoomActivity extends AppCompatActivity implements Spinner.
         buttonHideMap.setOnClickListener(v -> removeMap());
 
         buttonDeleteRoom = findViewById(R.id.button_delete_room);
+        buttonDeleteRoom.setOnClickListener(v -> showWarning());
 
         spinnerBuildingsForNewRoom = findViewById(R.id.spinner_buildings_for_new_room);
         spinnerBuildingsForNewRoom.setOnItemSelectedListener(this);
@@ -210,7 +272,10 @@ public class AddDeleteRoomActivity extends AppCompatActivity implements Spinner.
         spinnerFloorsInNewRoomBuilding = findViewById(R.id.spinner_floors_in_new_room_building);
 
         spinnerBuilding = findViewById(R.id.spinner_rooms_building);
+        spinnerBuilding.setOnItemSelectedListener(this);
+
         spinnerFloor = findViewById(R.id.spinner_floors_in_building);
+        spinnerFloor.setOnItemSelectedListener(this);
         spinnerRoom = findViewById(R.id.spinner_deleteable_rooms);
     }
 }
