@@ -166,43 +166,7 @@ public class AddDeleteBuildingActivity extends AppCompatActivity implements OnDi
     }
 
     private void deleteSelectedBuilding() {
-        //TODO Update this once the method for deleting is fixed in the BuildingRepository Class!
-        List<Room> roomsBelongingToBuildingList = getRoomsBelonging();
-        List<Booking> bookingsBelongingToBuildingList = getBookingsBelonging(roomsBelongingToBuildingList);
-
-        //buildingViewModel.deleteBuilding(this, buildingToBeDeleted);
-    }
-
-    private List<Room> getRoomsBelonging() {
-        RoomViewModel roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
-        List<Room> roomList = roomViewModel.getAllRoomsAsList();
-        List<Room> roomsBelongingToBuildingList = new ArrayList<>();
-
-        for (Room room : roomList) {
-            if (room.getBuildingId() == buildingToBeDeleted.getBuildingId()) {
-                roomsBelongingToBuildingList.add(room);
-            }
-        }
-
-        return roomsBelongingToBuildingList;
-    }
-
-    private List<Booking> getBookingsBelonging(List<Room> roomsBelonging) {
-        BookingViewModel bookingViewModel = ViewModelProviders.of(this).get(BookingViewModel.class);
-        List<Booking> bookingList = bookingViewModel.getAllBookingsAsList();
-        List<Booking> bookingsBelongingToBuildingList = new ArrayList<>();
-
-        for (Room room : roomsBelonging) {
-            Log.d(TAG, "deleteSelectedBuilding: Rooms Belonging to the building: " + room.toString());
-            for (Booking booking : bookingList) {
-                if (booking.getRoomId() == room.getRoomId()) {
-                    bookingsBelongingToBuildingList.add(booking);
-                    Log.d(TAG, "deleteSelectedBuilding: Bookings Belonging to the building: " + booking.getBookerName() + " " + booking.getFromTime());
-                }
-            }
-        }
-
-        return bookingsBelongingToBuildingList;
+        buildingViewModel.deleteBuilding(this, buildingToBeDeleted);
     }
 
     private void showWarning() {

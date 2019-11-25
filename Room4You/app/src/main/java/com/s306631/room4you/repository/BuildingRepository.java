@@ -134,8 +134,6 @@ public class BuildingRepository {
     }
     private static class DeleteBuilding extends AsyncTask<Building, Void, Void> {
 
-        //TODO Make this class first delete bookings and rooms belonging to the building, and finally the building.
-
         private WeakReference<AddDeleteBuildingActivity> activityReference;
 
         private DeleteBuilding(AddDeleteBuildingActivity context) {
