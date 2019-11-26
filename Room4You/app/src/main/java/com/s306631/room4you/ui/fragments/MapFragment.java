@@ -54,6 +54,7 @@ public class MapFragment extends Fragment implements GoogleMap.OnMapClickListene
         mapView.getMapAsync(mMap -> {
             googleMap = mMap;
             googleMap.setMyLocationEnabled(true);
+            googleMap.getUiSettings().setMyLocationButtonEnabled(false);
             googleMap.setOnMapClickListener(this);
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(59.919390, 10.735208), getResources().getInteger(R.integer.DEFAULT_ZOOM)));
 
