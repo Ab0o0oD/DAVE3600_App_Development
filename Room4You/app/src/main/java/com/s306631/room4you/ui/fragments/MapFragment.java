@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -25,7 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.s306631.room4you.R;
 import com.s306631.room4you.util.CoordinatesParser;
 
-public class MapFragment extends Fragment implements OnCompleteListener, GoogleMap.OnMapClickListener  {
+public class MapFragment extends Fragment implements GoogleMap.OnMapClickListener  {
 
     private static final String TAG = "MapFragment";
 
@@ -45,31 +46,20 @@ public class MapFragment extends Fragment implements OnCompleteListener, GoogleM
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NullPointerException e) {
+            Log.d(TAG, "onCreateView: NullpointerException" + e.getMessage());
+            Toast.makeText(getActivity(), "Something went wrong, can't load map. Restart the app and try again", Toast.LENGTH_SHORT).show();
         }
 
         mapView.getMapAsync(mMap -> {
             googleMap = mMap;
             googleMap.setMyLocationEnabled(true);
             googleMap.setOnMapClickListener(this);
-            getUserLocation();
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(59.919390, 10.735208), getResources().getInteger(R.integer.DEFAULT_ZOOM)));
 
         });
 
         return rootView;
-    }
-
-    private void getUserLocation() {
-        FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-        final Task location = fusedLocationProviderClient.getLastLocation();
-        location.addOnCompleteListener(this);
-    }
-
-    @Override
-    public void onComplete(@NonNull Task task) {
-        Location currentLocation = (Location) task.getResult();
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), getResources().getInteger(R.integer.DEFAULT_ZOOM)));
     }
 
     @Override
