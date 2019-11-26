@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         tools:context=".activities.MapActivity" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/map_selector_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,19 +21,19 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:elevation="10dp"
-        android:background="#fff" >
+        android:background="@drawable/border_box" >
 
-        <TextView
-            android:id="@+id/text_view_building"
+        <ImageView
+            android:id="@+id/image_view_building"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="5dp"
+            android:layout_alignParentStart="true"
             android:text="@string/building"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/ic_building_black" />
 
         <Spinner
             android:id="@+id/spinner_buildings"
@@ -41,98 +41,54 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
             android:layout_marginTop="2dp"
-            app:layout_constraintEnd_toEndOf="@+id/text_view_building"
-            app:layout_constraintStart_toStartOf="@+id/text_view_building"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_building" />
+            android:layout_toEndOf="@id/image_view_building"/>
 
-        <TextView
-            android:id="@+id/text_view_floors"
+        <ImageView
+            android:id="@+id/image_view_floors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
             android:text="@string/floor"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_view_building"
-            app:layout_constraintStart_toEndOf="@+id/text_view_building" />
+            android:layout_toEndOf="@id/spinner_buildings"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_stairs_black" />
 
         <Spinner
             android:id="@+id/spinner_floors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="2dp"
-            app:layout_constraintEnd_toEndOf="@+id/text_view_floors"
-            app:layout_constraintStart_toStartOf="@+id/text_view_floors"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_floors" />
+            android:layout_toEndOf="@id/image_view_floors" />
 
-        <TextView
-            android:id="@+id/text_view_rooms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="65dp"
-            android:text="@string/room"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBaseline_toBaselineOf="@+id/text_view_building"
-            app:layout_constraintStart_toEndOf="@+id/text_view_floors" />
+    </RelativeLayout>
 
-        <Spinner
-            android:id="@+id/spinner_rooms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="2dp"
-            app:layout_constraintEnd_toEndOf="@+id/text_view_rooms"
-            app:layout_constraintStart_toStartOf="@+id/text_view_rooms"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_rooms" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/image_view_center_position"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_center_position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/map_selector_layout"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_gps" />
+        android:layout_marginTop="15dp"
+        android:theme="@style/MapButtons"
+        android:src="@drawable/ic_gps_white"
+        app:rippleColor="@color/colorRipple"
+        />
 
-    <TextView
-        android:id="@+id/text_view_go_to_user"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_center_building"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/image_view_center_position"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="8dp"
-        android:text="@string/go_to_user_text"
-        android:textSize="12sp"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/image_view_center_building"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/text_view_go_to_user"
+        android:layout_below="@+id/fab_center_position"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_building_black" />
-
-    <TextView
-        android:id="@+id/text_view_go_to_building"
-        android:layout_width="45dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/image_view_center_building"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="8dp"
-        android:text="@string/find_building"
-        android:textAlignment="center"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+        android:theme="@style/MapButtons"
+        android:src="@drawable/ic_building_white"
+        app:rippleColor="@color/colorRipple"/>
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/floating_action_menu"
@@ -140,15 +96,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         fab:menu_animationDelayPerItem="55"
         fab:menu_backgroundColor="@android:color/transparent"
         fab:menu_buttonSpacing="0dp"
-        fab:menu_colorNormal="#da3c2f"
-        fab:menu_colorPressed="#dc4b3f"
-        fab:menu_colorRipple="#99d4d4d4"
+        fab:menu_colorNormal="@color/colorPrimary"
+        fab:menu_colorPressed="@color/colorPrimary"
+        fab:menu_colorRipple="@color/colorRipple"
         fab:menu_fab_size="normal"
         fab:menu_icon="@drawable/ic_settings_white"
         fab:menu_labels_colorNormal="#333"
@@ -159,7 +114,7 @@
         fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
         fab:menu_labels_margin="0dp"
         fab:menu_labels_maxLines="-1"
-        fab:menu_labels_padding="8dp"
+        fab:menu_labels_padding="4dp"
         fab:menu_labels_position="left"
         fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
         fab:menu_labels_showShadow="true"

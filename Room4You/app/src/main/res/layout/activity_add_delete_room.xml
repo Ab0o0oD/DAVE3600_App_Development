@@ -64,7 +64,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="30dp"
             android:layout_toEndOf="@+id/spinner_buildings_for_new_room"
-            android:background="@drawable/ic_floors" />
+            android:background="@drawable/ic_stairs_black" />
 
         <Spinner
             android:id="@+id/spinner_floors_in_new_room_building"
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/image_view_floor"
             android:layout_marginTop="30dp"
-            android:background="@drawable/ic_gps" />
+            android:background="@drawable/ic_gps_black" />
 
         <TextView
             android:id="@+id/text_view_room_coordinates"
@@ -180,7 +180,7 @@
             android:layout_below="@id/text_view_delete_room_header"
             android:layout_toEndOf="@id/spinner_rooms_building"
             android:layout_marginTop="30dp"
-            android:background="@drawable/ic_floors" />
+            android:background="@drawable/ic_stairs_black" />
 
         <Spinner
             android:id="@+id/spinner_floors_in_building"

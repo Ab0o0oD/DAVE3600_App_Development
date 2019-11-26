@@ -44,7 +44,7 @@
             android:id="@+id/image_view_floors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_floors"
+            android:background="@drawable/ic_stairs_black"
             android:layout_below="@id/image_view_building_name"
             android:layout_marginTop="35dp" />
 
@@ -63,7 +63,7 @@
             android:id="@+id/image_view_coordinates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_gps"
+            android:background="@drawable/ic_gps_black"
             android:layout_below="@id/image_view_floors"
             android:layout_marginTop="35dp" />
 
