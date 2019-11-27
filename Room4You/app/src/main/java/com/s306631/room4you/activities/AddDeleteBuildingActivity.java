@@ -35,7 +35,7 @@ public class AddDeleteBuildingActivity extends AppCompatActivity implements OnDi
     private ImageView imageViewCoordinates;
     private EditText editTextBuildingName, editTextFloors;
     private TextView textViewCoordinates;
-    private Button buttonAddBuilding, buttonDeleteBuilding, buttonConfirmCoordinates, buttonHideMap;
+    private Button buttonAddBuilding, buttonConfirmCoordinates, buttonHideMap;
     private Spinner spinnerAllBuildings;
 
     private BuildingViewModel buildingViewModel;
@@ -196,7 +196,7 @@ public class AddDeleteBuildingActivity extends AppCompatActivity implements OnDi
 
         buttonAddBuilding.setOnClickListener(v -> registerBuilding());
 
-        buttonDeleteBuilding = findViewById(R.id.button_delete_building);
+        Button buttonDeleteBuilding = findViewById(R.id.button_delete_building);
         buttonDeleteBuilding.setOnClickListener(v -> showWarning());
         spinnerAllBuildings = findViewById(R.id.spinner_deleteable_buildings);
 

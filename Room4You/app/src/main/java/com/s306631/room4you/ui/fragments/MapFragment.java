@@ -26,8 +26,6 @@ public class MapFragment extends Fragment implements GoogleMap.OnMapClickListene
     private MapView mapView;
     private GoogleMap googleMap;
 
-    private LatLng chosenCoordinates;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
@@ -60,11 +58,10 @@ public class MapFragment extends Fragment implements GoogleMap.OnMapClickListene
     public void onMapClick(LatLng latLng) {
         Log.d(TAG, "onMapClick: MAP IS CLICKED AT COORDINATES: " + latLng.toString());
         googleMap.addMarker(new MarkerOptions().position(latLng));
-        chosenCoordinates = latLng;
 
         getActivity().getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
                 .edit()
-                .putString("Chosen Coordinates", CoordinatesParser.stringFromCoordinates(chosenCoordinates))
+                .putString("Chosen Coordinates", CoordinatesParser.stringFromCoordinates(latLng))
                 .apply();
     }
 

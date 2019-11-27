@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -45,9 +44,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private static final String TAG = "MapActivity";
 
     private Spinner spinnerBuilding, spinnerFloor;
-    private ImageView iconGps, iconBuilding;
-    private FloatingActionMenu floatingActionMenu;
-    private FloatingActionButton floatingActionButtonRoom, floatingActionButtonBuilding;
 
     private RoomViewModel roomViewModel;
     private BuildingViewModel buildingViewModel;
@@ -189,17 +185,15 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         spinnerFloor = findViewById(R.id.spinner_floors);
         spinnerFloor.setOnItemSelectedListener(this);
 
-        iconGps = findViewById(R.id.fab_center_position);
+        ImageView iconGps = findViewById(R.id.fab_center_position);
         iconGps.setOnClickListener(v -> getUserLocation());
 
-        iconBuilding = findViewById(R.id.fab_center_building);
+        ImageView iconBuilding = findViewById(R.id.fab_center_building);
         iconBuilding.setOnClickListener(v -> moveToCurrentBuilding());
 
-        floatingActionMenu = findViewById(R.id.floating_action_menu);
-        
-        floatingActionButtonRoom = findViewById(R.id.floating_action_menu_item_1);
+        FloatingActionButton floatingActionButtonRoom = findViewById(R.id.floating_action_menu_item_1);
         floatingActionButtonRoom.setOnClickListener(v -> goToAddDeleteBuilding());
-        floatingActionButtonBuilding = findViewById(R.id.floating_action_menu_item_2);
+        FloatingActionButton floatingActionButtonBuilding = findViewById(R.id.floating_action_menu_item_2);
         floatingActionButtonBuilding.setOnClickListener(v -> goToAddDeleteRoom());
     }
 

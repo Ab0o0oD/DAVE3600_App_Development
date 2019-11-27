@@ -4,9 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.s306631.room4you.activities.AddDeleteBuildingActivity;
 import com.s306631.room4you.activities.AddDeleteRoomActivity;
-import com.s306631.room4you.models.Building;
 import com.s306631.room4you.models.Room;
 import com.s306631.room4you.util.CoordinatesParser;
 import com.s306631.room4you.util.JsonParser;

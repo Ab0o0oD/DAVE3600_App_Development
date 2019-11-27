@@ -12,7 +12,7 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
     private static final String TAG = "CustomDialog";
 
     private TextView content;
-    private Button confirm, cancel;
+    private Button confirm;
     private OnDialogOptionSelectedListener callback;
 
     public void setOnDialogOptionSelectedListener(OnDialogOptionSelectedListener callback) {
@@ -32,7 +32,7 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
 
         confirm = findViewById(R.id.button_dialog_confirm);
         confirm.setOnClickListener(this);
-        cancel = findViewById(R.id.button_dialog_dissmiss);
+        Button cancel = findViewById(R.id.button_dialog_dissmiss);
         cancel.setOnClickListener(this);
     }
 

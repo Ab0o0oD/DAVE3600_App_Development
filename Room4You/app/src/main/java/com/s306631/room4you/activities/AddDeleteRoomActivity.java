@@ -41,10 +41,9 @@ public class AddDeleteRoomActivity extends AppCompatActivity implements Spinner.
     private EditText editTextRoomName;
     private ImageView imageViewCoordinates;
     private TextView textViewCoordinates;
-    private Button buttonAddRoom, buttonConfirmCoordinates, buttonHideMap, buttonDeleteRoom;
+    private Button buttonAddRoom, buttonConfirmCoordinates, buttonHideMap;
     private Spinner spinnerBuildingsForNewRoom, spinnerFloorsInNewRoomBuilding, spinnerBuilding, spinnerFloor, spinnerRoom;
 
-    private BuildingViewModel buildingViewModel;
     private RoomViewModel roomViewModel;
 
     private List<Building> buildingList;
@@ -55,7 +54,7 @@ public class AddDeleteRoomActivity extends AppCompatActivity implements Spinner.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_delete_room);
 
-        buildingViewModel = ViewModelProviders.of(this).get(BuildingViewModel.class);
+        BuildingViewModel buildingViewModel = ViewModelProviders.of(this).get(BuildingViewModel.class);
         buildingList = buildingViewModel.getAllBuildingsAsList();
 
         roomViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
@@ -263,7 +262,7 @@ public class AddDeleteRoomActivity extends AppCompatActivity implements Spinner.
         buttonHideMap.setVisibility(View.INVISIBLE);
         buttonHideMap.setOnClickListener(v -> removeMap());
 
-        buttonDeleteRoom = findViewById(R.id.button_delete_room);
+        Button buttonDeleteRoom = findViewById(R.id.button_delete_room);
         buttonDeleteRoom.setOnClickListener(v -> showWarning());
 
         spinnerBuildingsForNewRoom = findViewById(R.id.spinner_buildings_for_new_room);

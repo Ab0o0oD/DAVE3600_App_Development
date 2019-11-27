@@ -44,7 +44,7 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
 
     private List<Booking> bookingsFromWebService, takenBookingTimes;
     private List<String> availableBookingTimes;
-    private String selectedTime, currentDate, selectedDate;
+    private String selectedTime, selectedDate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
 
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat formater = new SimpleDateFormat("dd. MMM yyyy");
-        selectedDate = currentDate = formater.format(date);
+        selectedDate = formater.format(date);
 
 
         fillTakenBookingTimes();
