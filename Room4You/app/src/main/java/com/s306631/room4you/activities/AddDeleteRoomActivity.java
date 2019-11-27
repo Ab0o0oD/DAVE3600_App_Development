@@ -75,7 +75,6 @@ public class AddDeleteRoomActivity extends AppCompatActivity implements Spinner.
         String coordinates = getCoordinatesFromView();
 
         if (name == null || coordinates == null) {
-            Log.d(TAG, "registerBuilding: Something went wrong!");
             return;
         }
 

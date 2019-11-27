@@ -61,7 +61,6 @@ public class AddDeleteBuildingActivity extends AppCompatActivity implements OnDi
         String coordinates = getCoordinatesFromView();
 
         if (name == null || floors == 0 || coordinates == null) {
-            Log.d(TAG, "registerBuilding: Something went wrong!");
             return;
         }
 
