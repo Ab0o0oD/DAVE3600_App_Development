@@ -72,18 +72,31 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
     /* ---------- Register Bookings ---------- */
 
     private void registerBooking() {
-        if (editTextBookerName.getText().length() == 0) {
-            editTextBookerName.setError("Name is required");
+        String bookerName = getNameFromView();
+
+        if (bookerName == null) {
             return;
         }
-
-        String bookerName = editTextBookerName.getText().toString();
 
         String[] timeSplit = selectedTime.split(" - ");
         String fromTime = timeSplit[0];
         String toTime = timeSplit[1];
         Booking booking = new Booking(selectedRoom.getRoomId(), selectedRoom.getBuildingId(), bookerName, fromTime, toTime, selectedDate);
         bookingViewModel.postBooking(this, booking);
+    }
+
+    private String getNameFromView() {
+        String nameFromView = editTextBookerName.getText().toString();
+
+        if (nameFromView.length() == 0) {
+            editTextBookerName.setError("Name is required");
+            return null;
+        } else if (nameFromView.length() > 16) {
+            editTextBookerName.setError("Name can't be more than 16 characters!");
+            return null;
+        }
+
+        return nameFromView;
     }
 
     /* ---------- Pickers ---------- */
