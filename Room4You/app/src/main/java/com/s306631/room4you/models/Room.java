@@ -15,7 +15,7 @@ public class Room {
     private int floor;
     private LatLng coordinates;
 
-    public Room(@NonNull int roomId, @NonNull int buildingId, @NonNull String roomName, @NonNull int floor, @NonNull String coordinates) {
+    public Room(int roomId, int buildingId, @NonNull String roomName, int floor, @NonNull String coordinates) {
         this.roomId = roomId;
         this.buildingId = buildingId;
         this.roomName = roomName;
@@ -23,7 +23,7 @@ public class Room {
         this.coordinates = CoordinatesParser.coordinatesFromString(coordinates);
     }
 
-    public Room(@NonNull int buildingId, @NonNull String roomName, @NonNull int floor, @NonNull String coordinates) {
+    public Room(int buildingId, @NonNull String roomName, int floor, @NonNull String coordinates) {
         this.buildingId = buildingId;
         this.roomName = roomName;
         this.floor = floor;
@@ -38,42 +38,23 @@ public class Room {
         return roomId;
     }
 
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
-    }
-
     public int getBuildingId() {
         return buildingId;
-    }
-
-    public void setBuildingId(int buildingId) {
-        this.buildingId = buildingId;
     }
 
     public String getRoomName() {
         return roomName;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
     public int getFloor() {
         return floor;
-    }
-
-    public void setFloor(int floor) {
-        this.floor = floor;
     }
 
     public LatLng getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(LatLng coordinates) {
-        this.coordinates = coordinates;
-    }
-
+    @NonNull
     public String toString() {
         return roomName;
     }

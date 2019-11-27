@@ -1,5 +1,7 @@
 package com.s306631.room4you.models;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.s306631.room4you.util.CoordinatesParser;
 
@@ -10,14 +12,14 @@ public class Building {
     private int floors;
     private LatLng coordinates;
 
-    public Building(int buildingId, String buildingName, int floors, String coordinates) {
+    public Building(int buildingId, @NonNull String buildingName, int floors, @NonNull String coordinates) {
         this.buildingId = buildingId;
         this.buildingName = buildingName;
         this.floors = floors;
         this.coordinates = CoordinatesParser.coordinatesFromString(coordinates);
     }
 
-    public Building(String buildingName, int floors, String coordinates) {
+    public Building(@NonNull String buildingName, int floors, @NonNull String coordinates) {
         this.buildingName = buildingName;
         this.floors = floors;
         this.coordinates = CoordinatesParser.coordinatesFromString(coordinates);
@@ -27,24 +29,12 @@ public class Building {
         return buildingId;
     }
 
-    public void setBuildingId(int buildingId) {
-        this.buildingId = buildingId;
-    }
-
     public String getBuildingName() {
         return buildingName;
     }
 
-    public void setBuildingName(String buildingName) {
-        this.buildingName = buildingName;
-    }
-
     public int getFloors() {
         return floors;
-    }
-
-    public void setFloors(int floors) {
-        this.floors = floors;
     }
 
     public LatLng getCoordinates() {
@@ -55,10 +45,7 @@ public class Building {
         return coordinates.latitude + ", " + coordinates.longitude;
     }
 
-    public void setCoordinates(LatLng coordinates) {
-        this.coordinates = coordinates;
-    }
-
+    @NonNull
     public String toString() {
         return buildingName;
     }

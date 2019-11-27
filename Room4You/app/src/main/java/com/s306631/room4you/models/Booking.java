@@ -1,5 +1,7 @@
 package com.s306631.room4you.models;
 
+import androidx.annotation.NonNull;
+
 public class Booking {
 
     private int bookingId;
@@ -10,7 +12,7 @@ public class Booking {
     private String toTime;
     private String date;
 
-    public Booking(int bookingId, int roomId, int buildingId, String bookerName, String fromTime, String toTime, String date) {
+    public Booking(int bookingId, int roomId, int buildingId, @NonNull String bookerName, @NonNull String fromTime,  @NonNull String toTime, @NonNull String date) {
         this.bookingId = bookingId;
         this.roomId = roomId;
         this.buildingId = buildingId;
@@ -20,71 +22,41 @@ public class Booking {
         this.date = date;
     }
 
-    public Booking(int roomId, int buildingId, String bookerName, String fromTime, String toTime, String date) {
+    public Booking(int roomId, int buildingId, @NonNull String bookerName, @NonNull String fromTime, @NonNull String toTime, @NonNull String date) {
         this.roomId = roomId;
         this.buildingId = buildingId;
         this.bookerName = bookerName;
         this.fromTime = fromTime;
         this.toTime = toTime;
         this.date = date;
-    }
-
-    public int getBookingId() {
-        return bookingId;
-    }
-
-    public void setBookingId(int bookingId) {
-        this.bookingId = bookingId;
     }
 
     public int getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
-    }
-
     public int getBuildingId() {
         return buildingId;
-    }
-
-    public void setBuildingId(int buildingId) {
-        this.buildingId = buildingId;
     }
 
     public String getBookerName() {
         return bookerName;
     }
 
-    public void setBookerName(String bookerName) {
-        this.bookerName = bookerName;
-    }
-
     public String getFromTime() {
         return fromTime;
-    }
-
-    public void setFromTime(String fromTime) {
-        this.fromTime = fromTime;
     }
 
     public String getToTime() {
         return toTime;
     }
 
-    public void setToTime(String toTime) {
-        this.toTime = toTime;
-    }
-
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 
+    @NonNull
     public String toString() {
         return bookingId + " " + roomId + " " + bookerName + " " + fromTime + " " + toTime + " " + date;
     }
