@@ -42,7 +42,7 @@ public class Building {
     }
 
     public String getCoordinatesAsString() {
-        return coordinates.latitude + ", " + coordinates.longitude;
+        return CoordinatesParser.stringFromCoordinates(coordinates);
     }
 
     @NonNull
