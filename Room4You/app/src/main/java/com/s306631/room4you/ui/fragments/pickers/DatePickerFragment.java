@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
@@ -29,7 +30,9 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(Objects.requireNonNull(getActivity()), this, year, month, day);
+        DatePickerDialog datePicker =  new DatePickerDialog(Objects.requireNonNull(getActivity()), this, year, month, day);
+        datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        return datePicker;
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
