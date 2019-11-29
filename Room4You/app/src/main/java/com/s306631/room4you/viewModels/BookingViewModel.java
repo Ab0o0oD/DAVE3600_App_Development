@@ -14,8 +14,6 @@ import java.util.List;
 
 public class BookingViewModel extends AndroidViewModel {
 
-    private static final String TAG = "BookingViewModel";
-
     private BookingRepository bookingRepository;
 
     public BookingViewModel(@NonNull Application application) {
