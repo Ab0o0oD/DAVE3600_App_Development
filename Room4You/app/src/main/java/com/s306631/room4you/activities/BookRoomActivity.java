@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -75,6 +76,11 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
         String bookerName = getNameFromView();
 
         if (bookerName == null) {
+            return;
+        }
+
+        if (availableBookingTimes.size() == 0) {
+            Toast.makeText(this, "No available booking times!", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -152,7 +158,7 @@ public class BookRoomActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        selectedTime = availableBookingTimes.get(position);
+            selectedTime = availableBookingTimes.get(position);
     }
 
     @Override
