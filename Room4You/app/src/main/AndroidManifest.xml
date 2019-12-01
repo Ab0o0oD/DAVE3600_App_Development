@@ -27,7 +27,7 @@
 
         <activity
             android:name=".activities.StartupActivity"
-            android:label="@string/title_activity_startup">
+            android:label="Room4You - OsloMet">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
