@@ -27,7 +27,7 @@
             android:background="@drawable/ic_date"
             android:layout_below="@id/text_view_bookings_headline"
             android:layout_marginTop="20dp"
-            android:contentDescription="Date Icon" />
+            android:contentDescription="@string/date_icon" />
 
         <TextView
             android:id="@+id/text_view_date"
@@ -38,7 +38,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:textSize="20sp"
-            android:hint="Select Date" />
+            android:hint="@string/select_date" />
 
         <ImageView
             android:id="@+id/image_view_select_time"
@@ -54,8 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_date"
             android:layout_toEndOf="@+id/image_view_select_time"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp" />
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp" />
 
         <EditText
             android:id="@+id/edit_text_booker_name"
@@ -107,6 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_registered_bookings_headline"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:text="@string/placeholder"
             android:textColor="#E53935"
             android:textSize="20sp" />
@@ -118,6 +119,7 @@
             android:layout_below="@id/text_view_registered_bookings_headline"
             android:layout_marginStart="25dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_toEndOf="@id/text_view_taken_times"
             android:text="@string/placeholder"
             android:textSize="20sp" />

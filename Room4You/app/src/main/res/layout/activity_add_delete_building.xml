@@ -131,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_delete_building_header"
             android:layout_toEndOf="@id/image_view_building_delete"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="25dp" />
 
         <Button
             android:id="@+id/button_delete_building"

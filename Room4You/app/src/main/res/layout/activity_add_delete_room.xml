@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/image_view_room_name"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:layout_toEndOf="@+id/image_view_new_room_building" />
 
 
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/image_view_room_name"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:layout_toEndOf="@+id/image_view_floor" />
 
         <ImageView
@@ -145,7 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_delete_room_header"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:layout_toEndOf="@id/image_view_room_delete" />
 
         <ImageView
@@ -162,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_delete_room_header"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:layout_toEndOf="@id/image_view_room_floor" />
 
         <ImageView
@@ -178,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/image_view_room_floor"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:layout_toEndOf="@id/image_view_room_delete" />
 
         <Button

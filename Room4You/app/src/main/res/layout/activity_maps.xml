@@ -27,7 +27,7 @@
             android:id="@+id/image_view_building"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="5dp"
             android:layout_alignParentStart="true"
             android:text="@string/building"
@@ -40,7 +40,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
-            android:layout_marginTop="2dp"
             android:layout_toEndOf="@id/image_view_building"/>
 
         <ImageView
@@ -60,7 +59,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="2dp"
             android:layout_toEndOf="@id/image_view_floors" />
 
     </RelativeLayout>
